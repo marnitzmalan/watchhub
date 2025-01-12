@@ -4,7 +4,7 @@ export const getPopularMovies = (page = 1) =>
     api.get('/movie/popular', { params: { page } });
 
 export const searchMovies = (query: string, page = 1) =>
-    api.get('/search/movie', { params: { query, page } });
+    api.get('/search/movie', { params: { query, page, sort_by: 'popularity.desc' } });
 
 export const getMovieDetails = (movieId: number) =>
     api.get(`/movie/${movieId}`);

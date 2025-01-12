@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import SearchBar from './SearchBar';
 
 const Navbar = () => {
     return (
@@ -15,6 +16,9 @@ const Navbar = () => {
                             </div>
                         </div>
                     </div>
+                    <div className="flex-1 flex justify-center px-2 lg:ml-6 lg:justify-end">
+                        <SearchBar />
+                    </div>
                     <div className="hidden md:block">
                         <div className="ml-4 flex items-center md:ml-6">
                             <Link to="/profile" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Profile</Link>
@@ -26,4 +30,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar
+export default Navbar;
