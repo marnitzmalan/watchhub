@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getPopularMovies } from '../api/movies';
 
 interface Movie {
@@ -36,7 +37,7 @@ const MoviesPage = () => {
             <h1 className="text-2xl font-bold mt-8 mb-4">Popular Movies</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {movies.map((movie) => (
-                    <div key={movie.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                    <Link to={`/movie/${movie.id}`} key={movie.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                         <img
                             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                             alt={movie.title}
@@ -48,7 +49,7 @@ const MoviesPage = () => {
                                 Release Date: {new Date(movie.release_date).toLocaleDateString()}
                             </p>
                         </div>
-                    </div>
+                    </Link>
                 ))}
             </div>
         </div>
