@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import SearchBar from '@/components/SearchBar';
 import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { supabase } from '@/supabase/supabaseClient';
+import { supabase } from '@/supabase/client';
 import { MdArrowDropDown } from "react-icons/md";
 import { MdAccountCircle } from "react-icons/md";
 

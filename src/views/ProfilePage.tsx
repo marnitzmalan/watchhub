@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { supabase } from '@/supabase/supabaseClient';
+import { supabase } from '@/supabase/client';
 
 const ProfilePage: React.FC = () => {
     const { user, userProfile, fetchUserProfile } = useAuth();
