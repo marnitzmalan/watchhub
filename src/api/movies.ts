@@ -1,10 +1,10 @@
-import api from './index';
+import { useApiQuery } from './index';
 
-export const getPopularMovies = (page = 1) =>
-    api.get('/movie/popular', { params: { page } });
+export const useSearchMovies = (query: string, page = 1) =>
+    useApiQuery('/search/movie', { query, page, sort_by: 'popularity.desc' });
 
-export const searchMovies = (query: string, page = 1) =>
-    api.get('/search/movie', { params: { query, page, sort_by: 'popularity.desc' } });
+export const useMovieDetails = (movieId: number) =>
+    useApiQuery(`/movie/${movieId}`);
 
-export const getMovieDetails = (movieId: number) =>
-    api.get(`/movie/${movieId}`);
+export const usePopularMovies = (page = 1) =>
+    useApiQuery('/movie/popular', { page });

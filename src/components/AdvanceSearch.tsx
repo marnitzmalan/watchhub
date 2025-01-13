@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
+import { ISearchCriteria } from '@/types/SearchCriteria';
 
 interface AdvanceSearchProps {
-    onSearch: (criteria: SearchCriteria) => void;
-}
-
-interface SearchCriteria {
-    genre?: string;
-    year?: number;
-    rating?: number;
+    onSearch: (criteria: ISearchCriteria) => void;
 }
 
 const AdvanceSearch: React.FC<AdvanceSearchProps> = ({ onSearch }) => {
@@ -17,7 +12,7 @@ const AdvanceSearch: React.FC<AdvanceSearchProps> = ({ onSearch }) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        const criteria: SearchCriteria = {};
+        const criteria: ISearchCriteria = {};
         if (genre) criteria.genre = genre;
         if (year) criteria.year = year;
         if (rating) criteria.rating = rating;

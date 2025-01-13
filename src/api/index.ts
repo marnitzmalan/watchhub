@@ -1,20 +1,36 @@
-import axios from 'axios';
+import { useQuery, UseQueryOptions } from 'react-query';
+import { ApiError, createApiError } from './apiErrors';
 
 const API_BASE_URL = 'https://api.themoviedb.org/3';
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
-if (!API_KEY) {
-    console.error('TMDB API key is not set. Please check your environment variables.');
-}
+export const fetchFromApi = async <T>(endpoint: string, params?: Record<string, unknown>): Promise<T> => {
+    const url = new URL(`${API_BASE_URL}${endpoint}`);
+    url.searchParams.append('api_key', API_KEY);
 
-const api = axios.create({
-    baseURL: API_BASE_URL,
-    params: {
-        api_key: API_KEY,
-    },
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
+    if (params) {
+        Object.entries(params).forEach(([key, value]) => {
+            url.searchParams.append(key, String(value));
+        });
+    }
 
-export default api;
+    const response = await fetch(url.toString());
+    if (!response.ok) {
+        throw createApiError(response.status, `API error: ${response.statusText}`);
+    }
+    return response.json();
+};
+
+export const useApiQuery = <T>(
+    endpoint: string,
+    params?: Record<string, unknown>,
+    options?: UseQueryOptions<T, ApiError>
+) => {
+    return useQuery<T, ApiError>(
+        [endpoint, params],
+        () => fetchFromApi<T>(endpoint, params),
+        options
+    );
+};
+
+export { ApiError, ApiErrorType } from './apiErrors';

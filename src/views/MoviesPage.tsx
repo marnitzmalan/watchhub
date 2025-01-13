@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { getPopularMovies } from '../api/movies';
-import AdvanceSearch from '../components/AdvanceSearch';
+import { usePopularMovies } from '@/api/movies';
+import AdvanceSearch from '@/components/AdvanceSearch';
 
 interface Movie {
     id: number;
@@ -10,43 +10,31 @@ interface Movie {
     release_date: string;
 }
 
-interface SearchCriteria {
-    genre?: string;
-    year?: number;
-    rating?: number;
-}
+const MoviesPage: React.FC = () => {
+    const { data: response, isLoading, error, refetch } = usePopularMovies();
 
-const MoviesPage = () => {
-    const [movies, setMovies] = useState<Movie[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-        fetchMovies().then(() => {
-            // You can add any post-fetch logic here if needed
-        });
-    }, []);
-
-    const fetchMovies = async () => {
-        setLoading(true);
-        try {
-            // In a real application, you would pass the criteria to your API call
-            const response = await getPopularMovies();
-            setMovies(response.data.results);
-            setLoading(false);
-        } catch (err) {
-            console.log(err);
-            setError('Failed to fetch movies');
-            setLoading(false);
-        }
-    };
+    const movies = response?.results || [];
 
     const handleAdvanceSearch = () => {
-        fetchMovies();
+        // Implement advanced search logic here
+        console.log('Advanced search triggered');
+        // For now, just refetch the popular movies
+        refetch();
     };
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error}</div>;
+    if (isLoading) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+                    <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return <div className="text-center text-red-500 mt-8">Error: {error instanceof Error ? error.message : 'An error occurred'}</div>;
+    }
 
     return (
         <div className="flex">
@@ -54,10 +42,9 @@ const MoviesPage = () => {
                 <AdvanceSearch onSearch={handleAdvanceSearch}/>
             </div>
             <div className="flex-1 px-4">
-            <h1 className="text-2xl font-bold mt-8 mb-4">Popular Movies</h1>
-                <div
-                    className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 justify-center">
-                    {movies.map((movie) => (
+                <h1 className="text-2xl font-bold mt-8 mb-4">Popular Movies</h1>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 justify-center">
+                    {movies.map((movie: Movie) => (
                         <Link to={`/movie/${movie.id}`} key={movie.id}
                               className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                             <div className="aspect-[2/3] relative">

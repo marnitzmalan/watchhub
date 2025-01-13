@@ -1,41 +1,14 @@
-import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { getMovieDetails } from '../api/movies';
-
-interface MovieDetail {
-    id: number;
-    title: string;
-    poster_path: string;
-    release_date: string;
-    overview: string;
-    vote_average: number;
-    genres: { id: number; name: string }[];
-}
+import { useMovieDetails } from '@/api/movies';
+import { IGenre } from '@/types/Genre';
+import { IMovie } from '@/types/Movie';
 
 const MovieDetailPage = () => {
     const { id } = useParams<{ id: string }>();
-    const [movie, setMovie] = useState<MovieDetail | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const { data: movie, isLoading, error } = useMovieDetails(Number(id)) as { data: IMovie | null, isLoading: boolean, error: Error | null };
 
-    useEffect(() => {
-        const fetchMovieDetails = async () => {
-            try {
-                const response = await getMovieDetails(Number(id));
-                setMovie(response.data);
-                setLoading(false);
-            } catch (err) {
-                console.error(err);
-                setError('Failed to fetch movie details');
-                setLoading(false);
-            }
-        };
-
-        fetchMovieDetails();
-    }, [id]);
-
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error}</div>;
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>Error: {(error as Error).message}</div>;
     if (!movie) return <div>Movie not found</div>;
 
     return (
@@ -49,13 +22,14 @@ const MovieDetailPage = () => {
                 />
                 <div className="flex-1">
                     <h1 className="text-3xl font-bold mb-2">{movie.title}</h1>
-                    <p className="text-gray-600 mb-4">Release Date: {new Date(movie.release_date).toLocaleDateString()}</p>
+                    <p className="text-gray-600 mb-4">Release
+                        Date: {new Date(movie.release_date).toLocaleDateString()}</p>
                     <p className="mb-4">{movie.overview}</p>
                     <p className="mb-2"><strong>Rating:</strong> {movie.vote_average.toFixed(1)} / 10</p>
                     <div className="mb-4">
                         <strong>Genres:</strong>
                         <ul className="list-disc list-inside">
-                            {movie.genres.map(genre => (
+                            {movie.genres.map((genre: IGenre) => (
                                 <li key={genre.id}>{genre.name}</li>
                             ))}
                         </ul>

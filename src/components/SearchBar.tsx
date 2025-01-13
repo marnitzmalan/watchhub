@@ -1,21 +1,19 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { searchMovies } from '../api/movies';
-
-interface Movie {
-    id: number;
-    title: string;
-    poster_path: string | null;
-    release_date: string;
-    popularity: number;
-}
+import { useSearchMovies } from '@/api/movies';
+import { useDebounce } from '@/hooks/useDebounce';
+import { IMovie } from '@/types/Movie';
 
 const SearchBar = () => {
     const [searchQuery, setSearchQuery] = useState('');
-    const [suggestions, setSuggestions] = useState<Movie[]>([]);
+    const [suggestions, setSuggestions] = useState<IMovie[]>([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
     const navigate = useNavigate();
     const searchRef = useRef<HTMLDivElement>(null);
+
+    const debouncedSearchQuery = useDebounce(searchQuery, 300);
+
+    const { data } = useSearchMovies(debouncedSearchQuery, 1);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -31,28 +29,17 @@ const SearchBar = () => {
     }, []);
 
     useEffect(() => {
-        const fetchSuggestions = async () => {
-            if (searchQuery.trim()) {
-                try {
-                    const response = await searchMovies(searchQuery.trim());
-                    const sortedResults = response.data.results
-                        .sort((a: Movie, b: Movie) => b.popularity - a.popularity)
-                        .slice(0, 5);
-                    setSuggestions(sortedResults);
-                    setShowSuggestions(true);
-                } catch (error) {
-                    console.error('Error fetching suggestions:', error);
-                }
-            } else {
-                setSuggestions([]);
-                setShowSuggestions(false);
-            }
-        };
-
-        const debounceTimer = setTimeout(fetchSuggestions, 300);
-
-        return () => clearTimeout(debounceTimer);
-    }, [searchQuery]);
+        if (data && typeof data === 'object' && 'results' in data) {
+            const sortedResults = (data.results as IMovie[])
+                .sort((a: IMovie, b: IMovie) => b.popularity - a.popularity)
+                .slice(0, 5);
+            setSuggestions(sortedResults);
+            setShowSuggestions(true);
+        } else {
+            setSuggestions([]);
+            setShowSuggestions(false);
+        }
+    }, [data]);
 
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
