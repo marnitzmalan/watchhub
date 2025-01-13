@@ -3,6 +3,7 @@ import App from '@/App'
 import HomePage from '@/views/HomePage'
 import MoviesPage from '@/views/MoviesPage'
 import MovieDetailPage from '@/views/MovieDetailPage'
+import FavoritesPage from '@/views/FavoritesPage'
 import NotFoundPage from '@/views/NotFoundPage'
 
 const router = createBrowserRouter([
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
             {
                 path: 'movie/:id',
                 element: <MovieDetailPage />,
+            },
+            {
+                path: 'favorites',
+                element: <FavoritesPage />,
             },
             {
                 path: '*',
