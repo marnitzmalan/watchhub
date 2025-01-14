@@ -20,7 +20,6 @@
     "@tanstack/react-query": "^5.64.1",
     "@tanstack/react-query-devtools": "^5.64.1",
     "@types/node": "^22.10.5",
-    "install": "^0.13.0",
     "npm": "^11.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
