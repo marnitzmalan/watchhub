@@ -1,7 +1,7 @@
-import React from 'react';
-import { Auth } from '@supabase/auth-ui-react';
-import { ThemeSupa } from '@supabase/auth-ui-shared';
-import { supabase } from '@/supabase/client';
+import React from "react";
+import { Auth } from "@supabase/auth-ui-react";
+import { ThemeSupa } from "@supabase/auth-ui-shared";
+import { supabase } from "@/supabase/client";
 
 const LoginPage: React.FC = () => {
     return (
@@ -15,13 +15,13 @@ const LoginPage: React.FC = () => {
                         variables: {
                             default: {
                                 colors: {
-                                    brand: '#3B82F6',
-                                    brandAccent: '#2563EB',
+                                    brand: "#3B82F6",
+                                    brandAccent: "#2563EB",
                                 },
                             },
                         },
                     }}
-                    providers={['google']}
+                    providers={["google"]}
                     socialLayout="horizontal"
                 />
             </div>

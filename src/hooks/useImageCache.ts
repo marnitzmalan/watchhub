@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 const cacheImage = async (src: string) => {
     const response = await fetch(src);

@@ -1,9 +1,9 @@
 // Define error types
 export enum ApiErrorType {
-    NOT_FOUND = 'NOT_FOUND',
-    UNAUTHORIZED = 'UNAUTHORIZED',
-    SERVER_ERROR = 'SERVER_ERROR',
-    BAD_REQUEST = 'BAD_REQUEST',
+    NOT_FOUND = "NOT_FOUND",
+    UNAUTHORIZED = "UNAUTHORIZED",
+    SERVER_ERROR = "SERVER_ERROR",
+    BAD_REQUEST = "BAD_REQUEST",
     // Add more as needed
 }
 
@@ -15,7 +15,7 @@ export class ApiError extends Error {
         public type: ApiErrorType
     ) {
         super(message);
-        this.name = 'ApiError';
+        this.name = "ApiError";
     }
 }
 

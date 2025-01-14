@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { IMovie } from '@/types/Movie';
-import { MdStar, MdStarBorder } from 'react-icons/md';
-import { useImageCache } from '@/hooks/useImageCache';
+import React from "react";
+import { Link } from "react-router-dom";
+import { IMovie } from "@/types/Movie";
+import { MdStar, MdStarBorder } from "react-icons/md";
+import { useImageCache } from "@/hooks/useImageCache";
 
 interface MovieCardProps {
     movie: IMovie;
@@ -15,7 +15,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, IsWatchlist, onToggleWatch
     const posterSrc = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
     const cachedImageSrc = useImageCache(posterSrc);
 
-    console.log('Movie data:', movie);
+    console.log("Movie data:", movie);
 
     return (
         <div

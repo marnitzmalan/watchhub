@@ -1,8 +1,8 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { supabase } from '@/supabase/client';
-import { IMovie } from '@/types/Movie';
-import { IWatchlist } from '@/types/Watchlist';
-import { useState, useCallback, useEffect } from 'react';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { supabase } from "@/supabase/client";
+import { IMovie } from "@/types/Movie";
+import { IWatchlist } from "@/types/Watchlist";
+import { useState, useCallback, useEffect } from "react";
 
 export const useWatchlist = () => {
     const queryClient = useQueryClient();
@@ -13,9 +13,9 @@ export const useWatchlist = () => {
         if (!user) return [];
 
         const { data, error } = await supabase
-            .from('watchlist')
-            .select('*')
-            .eq('user_id', user.id);
+            .from("watchlist")
+            .select("*")
+            .eq("user_id", user.id);
 
         if (error) {
             throw error;
@@ -24,7 +24,7 @@ export const useWatchlist = () => {
     };
 
     const { data: watchlist, isLoading } = useQuery({
-        queryKey: ['watchlist'],
+        queryKey: ["watchlist"],
         queryFn: fetchWatchlist
     });
 
@@ -37,20 +37,20 @@ export const useWatchlist = () => {
     const toggleWatchlistMutation = useMutation({
         mutationFn: async (movie: IMovie) => {
             const { data: { user } } = await supabase.auth.getUser();
-            if (!user) throw new Error('User not authenticated');
+            if (!user) throw new Error("User not authenticated");
 
             const existingWatchlist = watchlist?.find(fav => fav.movie_id === movie.id);
 
             if (existingWatchlist) {
                 await supabase
-                    .from('watchlist')
+                    .from("watchlist")
                     .delete()
-                    .eq('id', existingWatchlist.id)
-                    .eq('user_id', user.id);
-                return { type: 'remove', movieId: movie.id };
+                    .eq("id", existingWatchlist.id)
+                    .eq("user_id", user.id);
+                return { type: "remove", movieId: movie.id };
             } else {
                 const { data, error } = await supabase
-                    .from('watchlist')
+                    .from("watchlist")
                     .insert({
                         movie_id: movie.id,
                         title: movie.title,
@@ -61,7 +61,7 @@ export const useWatchlist = () => {
                     })
                     .select();
                 if (error) throw error;
-                return { type: 'add', movie: data[0] };
+                return { type: "add", movie: data[0] };
             }
         },
         onMutate: (movie) => {
@@ -72,11 +72,11 @@ export const useWatchlist = () => {
             );
         },
         onError: (err) => {
-            console.error('Error in toggleWatchlist:', err);
-            queryClient.invalidateQueries({ queryKey: ['watchlist'] });
+            console.error("Error in toggleWatchlist:", err);
+            queryClient.invalidateQueries({ queryKey: ["watchlist"] });
         },
         onSettled: () => {
-            queryClient.invalidateQueries({ queryKey: ['watchlist'] });
+            queryClient.invalidateQueries({ queryKey: ["watchlist"] });
         },
     });
 

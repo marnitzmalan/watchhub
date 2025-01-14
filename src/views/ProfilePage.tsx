@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useAuth } from '@/hooks/useAuth';
-import { supabase } from '@/supabase/client';
+import React, { useEffect, useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/supabase/client";
 
 const ProfilePage: React.FC = () => {
     const { user, userProfile, fetchUserProfile } = useAuth();
     const [isEditing, setIsEditing] = useState(false);
-    const [username, setUsername] = useState('');
-    const [fullName, setFullName] = useState('');
+    const [username, setUsername] = useState("");
+    const [fullName, setFullName] = useState("");
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -15,8 +15,8 @@ const ProfilePage: React.FC = () => {
                 try {
                     await fetchUserProfile();
                 } catch (error) {
-                    console.error('Error fetching profile:', error);
-                    setError('Failed to load profile. Please try again.');
+                    console.error("Error fetching profile:", error);
+                    setError("Failed to load profile. Please try again.");
                 }
             }
         };
@@ -26,8 +26,8 @@ const ProfilePage: React.FC = () => {
 
     useEffect(() => {
         if (userProfile) {
-            setUsername(userProfile.username || '');
-            setFullName(userProfile.full_name || '');
+            setUsername(userProfile.username || "");
+            setFullName(userProfile.full_name || "");
         }
     }, [userProfile]);
 
@@ -36,13 +36,13 @@ const ProfilePage: React.FC = () => {
 
         try {
             const { error } = await supabase
-                .from('profiles')
+                .from("profiles")
                 .upsert({
                     id: user.id,
                     user_id: user.id,
                     username,
                     full_name: fullName
-                }, { onConflict: 'user_id' });
+                }, { onConflict: "user_id" });
 
             if (error) throw error;
 
@@ -50,8 +50,8 @@ const ProfilePage: React.FC = () => {
             setIsEditing(false);
             setError(null);
         } catch (error) {
-            console.error('Error updating profile:', error);
-            setError('Failed to update profile. Please try again.');
+            console.error("Error updating profile:", error);
+            setError("Failed to update profile. Please try again.");
         }
     };
 
@@ -86,8 +86,8 @@ const ProfilePage: React.FC = () => {
                 </>
             ) : (
                 <>
-                    <p>Username: {userProfile.username || 'Not set'}</p>
-                    <p>Full Name: {userProfile.full_name || 'Not set'}</p>
+                    <p>Username: {userProfile.username || "Not set"}</p>
+                    <p>Full Name: {userProfile.full_name || "Not set"}</p>
                     <button onClick={() => setIsEditing(true)}>Edit</button>
                 </>
             )}

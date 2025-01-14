@@ -1,10 +1,10 @@
-import React from 'react';
-import { useWatchlist } from '@/hooks/useWatchlist';
-import { IMovie } from '@/types/Movie';
-import MovieCard from '@/components/MovieCard';
-import { usePopularMovies } from '@/api/movies';
-import { useAuth } from '@/hooks/useAuth';
-import SkeletonLoader from '@/components/SkeletonLoader';
+import React from "react";
+import { useWatchlist } from "@/hooks/useWatchlist";
+import { IMovie } from "@/types/Movie";
+import MovieCard from "@/components/MovieCard";
+import { usePopularMovies } from "@/api/movies";
+import { useAuth } from "@/hooks/useAuth";
+import SkeletonLoader from "@/components/SkeletonLoader";
 
 const MoviesPage: React.FC = () => {
     const { data: movies, isLoading, error } = usePopularMovies()

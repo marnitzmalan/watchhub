@@ -1,23 +1,23 @@
-import { useApiQuery } from './index';
-import { useQuery } from '@tanstack/react-query'
-import { supabase } from '../supabase/client.ts'
-import { IMovie } from '../types/Movie';
+import { useApiQuery } from "./index";
+import { useQuery } from "@tanstack/react-query"
+import { supabase } from "../supabase/client.ts"
+import { IMovie } from "../types/Movie";
 
 export const useSearchMovies = (query: string, page = 1) =>
-    useApiQuery('/search/movie', { query, page, sort_by: 'popularity.desc' });
+    useApiQuery("/search/movie", { query, page, sort_by: "popularity.desc" });
 
 export const useMovieDetails = (movieId: number) =>
     useApiQuery(`/movie/${movieId}`);
 
 export const usePopularMovies = (page = 1) => {
     return useQuery({
-        queryKey: ['popularMovies', page],
+        queryKey: ["popularMovies", page],
         queryFn: async () => {
             // First, try to fetch from Supabase
             const { data, error } = await supabase
-                .from('movies')
-                .select('*')
-                .order('popularity', { ascending: false })
+                .from("movies")
+                .select("*")
+                .order("popularity", { ascending: false })
                 .range((page - 1) * 20, page * 20 - 1)
 
             if (error || !data || data.length === 0) {
@@ -37,7 +37,7 @@ export const usePopularMovies = (page = 1) => {
 
                 // Insert the fetched data into Supabase
                 const { error: insertError } = await supabase
-                    .from('movies')
+                    .from("movies")
                     .upsert(moviesWithDetails.map((movie: IMovie) => ({
                         id: movie.id,
                         title: movie.title,

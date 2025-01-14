@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { ISearchCriteria } from '@/types/SearchCriteria';
+import React, { useState } from "react";
+import { ISearchCriteria } from "@/types/SearchCriteria";
 
 interface AdvanceSearchProps {
     onSearch: (criteria: ISearchCriteria) => void;
 }
 
 const AdvanceSearch: React.FC<AdvanceSearchProps> = ({ onSearch }) => {
-    const [genre, setGenre] = useState('');
-    const [year, setYear] = useState<number | ''>('');
-    const [rating, setRating] = useState<number | ''>('');
+    const [genre, setGenre] = useState("");
+    const [year, setYear] = useState<number | "">("");
+    const [rating, setRating] = useState<number | "">("");
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -39,7 +39,7 @@ const AdvanceSearch: React.FC<AdvanceSearchProps> = ({ onSearch }) => {
                         type="number"
                         id="year"
                         value={year}
-                        onChange={(e) => setYear(e.target.value ? parseInt(e.target.value) : '')}
+                        onChange={(e) => setYear(e.target.value ? parseInt(e.target.value) : "")}
                         className="mt-1 block w-full bg-gray-600 border-gray-500 text-white placeholder-gray-400 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                     />
                 </div>
@@ -52,7 +52,7 @@ const AdvanceSearch: React.FC<AdvanceSearchProps> = ({ onSearch }) => {
                         max="10"
                         step="0.1"
                         value={rating}
-                        onChange={(e) => setRating(e.target.value ? parseFloat(e.target.value) : '')}
+                        onChange={(e) => setRating(e.target.value ? parseFloat(e.target.value) : "")}
                         className="mt-1 block w-full bg-gray-600 border-gray-500 text-white placeholder-gray-400 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                     />
                 </div>

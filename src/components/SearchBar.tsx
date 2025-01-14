@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSearchMovies } from '@/api/movies';
-import { useDebounce } from '@/hooks/useDebounce';
-import { IMovie } from '@/types/Movie';
+import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSearchMovies } from "@/api/movies";
+import { useDebounce } from "@/hooks/useDebounce";
+import { IMovie } from "@/types/Movie";
 
 const SearchBar = () => {
-    const [searchQuery, setSearchQuery] = useState('');
+    const [searchQuery, setSearchQuery] = useState("");
     const [suggestions, setSuggestions] = useState<IMovie[]>([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
     const navigate = useNavigate();
@@ -22,14 +22,14 @@ const SearchBar = () => {
             }
         };
 
-        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener("mousedown", handleClickOutside);
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
 
     useEffect(() => {
-        if (data && typeof data === 'object' && 'results' in data) {
+        if (data && typeof data === "object" && "results" in data) {
             const sortedResults = (data.results as IMovie[])
                 .sort((a: IMovie, b: IMovie) => b.popularity - a.popularity)
                 .slice(0, 5);
@@ -45,19 +45,19 @@ const SearchBar = () => {
         e.preventDefault();
         if (searchQuery.trim()) {
             navigate(`/movies?search=${encodeURIComponent(searchQuery.trim())}`);
-            setSearchQuery('');
+            setSearchQuery("");
             setShowSuggestions(false);
         }
     };
 
     const handleSuggestionClick = (movieId: number) => {
         navigate(`/movie/${movieId}`);
-        setSearchQuery('');
+        setSearchQuery("");
         setShowSuggestions(false);
     };
 
     const getYearFromDate = (dateString: string) => {
-        return dateString ? new Date(dateString).getFullYear() : '';
+        return dateString ? new Date(dateString).getFullYear() : "";
     };
 
     return (

@@ -1,5 +1,5 @@
-import { createContext } from 'react';
-import { User } from '@supabase/supabase-js';
+import { createContext } from "react";
+import { User } from "@supabase/supabase-js";
 
 export interface UserProfile {
     id: string;

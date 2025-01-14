@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const SkeletonLoader: React.FC = () => (
     <div className="flex flex-col h-full">

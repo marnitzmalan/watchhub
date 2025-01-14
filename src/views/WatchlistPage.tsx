@@ -1,10 +1,10 @@
-import React from 'react';
-import { useAuth } from '@/hooks/useAuth';
-import { Link } from 'react-router-dom';
-import { useWatchlist } from '@/hooks/useWatchlist.ts';
-import MovieCard from '@/components/MovieCard';
-import { IMovie } from '@/types/Movie';
-import SkeletonLoader from '@/components/SkeletonLoader';
+import React from "react";
+import { useAuth } from "@/hooks/useAuth";
+import { Link } from "react-router-dom";
+import { useWatchlist } from "@/hooks/useWatchlist.ts";
+import MovieCard from "@/components/MovieCard";
+import { IMovie } from "@/types/Movie";
+import SkeletonLoader from "@/components/SkeletonLoader";
 
 const WatchlistPage: React.FC = () => {
     const { user } = useAuth();
@@ -38,9 +38,9 @@ const WatchlistPage: React.FC = () => {
                             id: watchlist.movie_id,
                             title: watchlist.title,
                             poster_path: watchlist.poster_path,
-                            release_date: watchlist.release_date || '',
+                            release_date: watchlist.release_date || "",
                             popularity: watchlist.popularity || 0,
-                            overview: watchlist.overview || '',
+                            overview: watchlist.overview || "",
                             vote_average: watchlist.vote_average !== undefined ? watchlist.vote_average : 0,
                             genres: watchlist.genres || []
                         };
