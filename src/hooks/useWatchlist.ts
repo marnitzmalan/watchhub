@@ -1,44 +1,44 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { supabase } from '@/supabase/client';
 import { IMovie } from '@/types/Movie';
-import { IFavorite } from '@/types/Favorite';
+import { IWatchlist } from '@/types/Watchlist';
 
-export const useFavorites = () => {
+export const useWatchlist = () => {
     const queryClient = useQueryClient();
 
-    const fetchFavorites = async () => {
+    const fetchWatchlist = async () => {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return [];
 
         const { data, error } = await supabase
-            .from('favorites')
+            .from('watchlist')
             .select('*')
             .eq('user_id', user.id);
 
         if (error) {
             throw error;
         }
-        return data as IFavorite[];
+        return data as IWatchlist[];
     };
 
-    const { data: favorites, isLoading } = useQuery('favorites', fetchFavorites);
+    const { data: watchlist, isLoading } = useQuery('watchlist', fetchWatchlist);
 
-    const toggleFavoriteMutation = useMutation(
+    const toggleWatchlistMutation = useMutation(
         async (movie: IMovie) => {
             const { data: { user } } = await supabase.auth.getUser();
             if (!user) throw new Error('User not authenticated');
 
-            const existingFavorite = favorites?.find(fav => fav.movie_id === movie.id);
+            const existingWatchlist = watchlist?.find(fav => fav.movie_id === movie.id);
 
-            if (existingFavorite) {
+            if (existingWatchlist) {
                 await supabase
-                    .from('favorites')
+                    .from('watchlist')
                     .delete()
-                    .eq('id', existingFavorite.id)
+                    .eq('id', existingWatchlist.id)
                     .eq('user_id', user.id);
             } else {
                 await supabase
-                    .from('favorites')
+                    .from('watchlist')
                     .insert({
                         movie_id: movie.id,
                         title: movie.title,
@@ -51,18 +51,18 @@ export const useFavorites = () => {
         },
         {
             onSuccess: () => {
-                queryClient.invalidateQueries('favorites');
+                queryClient.invalidateQueries('watchlist');
             },
         }
     );
 
-    const toggleFavorite = (movie: IMovie) => {
-        toggleFavoriteMutation.mutate(movie);
+    const toggleWatchlist = (movie: IMovie) => {
+        toggleWatchlistMutation.mutate(movie);
     };
 
-    const isFavorite = (movieId: number) => {
-        return favorites?.some(fav => fav.movie_id === movieId) ?? false;
+    const isWatchlist = (movieId: number) => {
+        return watchlist?.some(fav => fav.movie_id === movieId) ?? false;
     };
 
-    return { favorites, isLoading, toggleFavorite, isFavorite };
+    return { watchlist, isLoading, toggleWatchlist, isWatchlist };
 };

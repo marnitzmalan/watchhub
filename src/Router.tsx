@@ -3,7 +3,7 @@ import App from './App';
 import HomePage from './views/HomePage';
 import MoviesPage from './views/MoviesPage';
 import MovieDetailPage from './views/MovieDetailPage';
-import FavoritesPage from './views/FavoritesPage';
+import WatchlistPage from './views/WatchlistPage.tsx';
 import ProfilePage from './views/ProfilePage';
 import NotFoundPage from './views/NotFoundPage';
 import LoginPage from './views/LoginPage';
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
             { index: true, element: <HomePage /> },
             { path: 'movies', element: <MoviesPage /> },
             { path: 'movie/:id', element: <MovieDetailPage /> },
-            { path: 'favorites', element: <FavoritesPage /> },
+            { path: 'watchlist', element: <WatchlistPage /> },
             {
                 path: 'profile',
                 element: (

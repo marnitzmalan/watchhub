@@ -33,13 +33,13 @@ const Navbar = () => {
                         </Link>
                         <div className="hidden md:block">
                             <Link to="/movies" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Movies</Link>
-                            <Link to="/favorites" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Favorites</Link>
                         </div>
                     </div>
                     <div className="hidden md:flex flex-1 justify-center px-2 ml-4">
                         <SearchBar />
                     </div>
                     <div className="hidden md:flex items-center">
+                        <Link to="/watchlist" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Watchlist</Link>
                         {user ? (
                             <div className="relative">
                                 <button
@@ -108,7 +108,7 @@ const Navbar = () => {
             <div className={`${isMobileMenuOpen ? 'block' : 'hidden'} md:hidden`}>
                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                     <Link to="/movies" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Movies</Link>
-                    <Link to="/favorites" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">favorites</Link>
+                    <Link to="/watchlist" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">watchlist</Link>
                     {user ? (
                         <>
                             <Link to="/profile" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Profile</Link>

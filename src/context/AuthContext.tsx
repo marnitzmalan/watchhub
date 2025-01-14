@@ -15,6 +15,7 @@ interface AuthContextType {
     loading: boolean;
     userProfile: UserProfile | null;
     fetchUserProfile: () => Promise<void>;
+    isAuthenticated: boolean;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -22,6 +23,7 @@ const AuthContext = createContext<AuthContextType>({
     loading: true,
     userProfile: null,
     fetchUserProfile: async () => {},
+    isAuthenticated: false,
 });
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -73,8 +75,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     };
 
+    const isAuthenticated = !!user;
+
+
     return (
-        <AuthContext.Provider value={{ user, loading, userProfile, fetchUserProfile }}>
+        <AuthContext.Provider value={{ user, loading, userProfile, fetchUserProfile, isAuthenticated }}>
             {children}
         </AuthContext.Provider>
     );

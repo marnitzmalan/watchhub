@@ -1,22 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { IMovie } from '@/types/Movie';
 import { MdStar, MdStarBorder } from 'react-icons/md';
 
 interface MovieCardProps {
     movie: IMovie;
-    isFavorite: boolean;
-    onToggleFavorite: () => void;
+    IsWatchlist: boolean;
+    onToggleWatchlist: () => void;
+    isAuthenticated: boolean;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie, isFavorite, onToggleFavorite }) => {
-    const [isHovered, setIsHovered] = useState(false);
-
+const MovieCard: React.FC<MovieCardProps> = ({ movie, IsWatchlist, onToggleWatchlist, isAuthenticated }) => {
     return (
         <div
             className="flex flex-col h-full"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
         >
             <div
                 className="bg-white rounded-lg overflow-hidden transition-all duration-300 ease-in-out hover:shadow-xl flex-grow">
@@ -27,8 +24,10 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isFavorite, onToggleFavori
                             alt={movie.title}
                             className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-300 ease-in-out transform group-hover:scale-110"
                         />
-                        <div className="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-60"></div>
-                        <div className="absolute inset-0 flex items-center justify-center p-4 opacity-0 transition-all duration-300 ease-in-out transform translate-y-4 group-hover:translate-y-0 group-hover:opacity-100">
+                        <div
+                            className="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-60"></div>
+                        <div
+                            className="absolute inset-0 flex items-center justify-center p-4 opacity-0 transition-all duration-300 ease-in-out transform translate-y-4 group-hover:translate-y-0 group-hover:opacity-100">
                             <div className="flex flex-col items-center">
                                 {movie.vote_average !== null && (
                                     <div className="bg-yellow-400 text-black font-bold rounded-full px-3 py-1 mb-3">
@@ -49,21 +48,24 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isFavorite, onToggleFavori
                     <h2 className="text-sm font-semibold truncate text-gray-900" title={movie.title}>{movie.title}</h2>
                     <p className="text-sm text-gray-600">{new Date(movie.release_date).getFullYear()}</p>
                 </div>
-                <button
-                    onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        onToggleFavorite();
-                    }}
-                    className="text-yellow-400 hover:text-yellow-500 transition-colors duration-300 ml-2 flex-shrink-0"
-                    title={isFavorite ? "Remove from Favorites" : "Add to Favorites"}
-                >
-                    {isFavorite ? (
-                        <MdStar size={24}/>
-                    ) : (
-                        <MdStarBorder size={24}/>
-                    )}
-                </button>
+                {/* Watchlist Toggle Button */}
+                {isAuthenticated && (
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            onToggleWatchlist();
+                        }}
+                        className="text-yellow-400 hover:text-yellow-500 transition-colors duration-300 ml-2 flex-shrink-0"
+                        title={IsWatchlist ? "Remove from Watchlist" : "Add to Watchlist"}
+                    >
+                        {IsWatchlist ? (
+                            <MdStar size={24}/>
+                        ) : (
+                            <MdStarBorder size={24}/>
+                        )}
+                    </button>
+                )}
             </div>
         </div>
     );
