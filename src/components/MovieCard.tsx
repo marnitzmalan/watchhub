@@ -15,6 +15,8 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, IsWatchlist, onToggleWatch
     const posterSrc = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
     const cachedImageSrc = useImageCache(posterSrc);
 
+    console.log('Movie data:', movie);
+
     return (
         <div
             className="flex flex-col h-full"
