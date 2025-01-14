@@ -1,29 +1,7 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { User } from '@supabase/supabase-js';
 import { supabase } from '@/supabase/client';
-
-interface UserProfile {
-    id: string;
-    username: string;
-    full_name: string;
-    avatar_url: string;
-}
-
-export interface AuthContextType {
-    user: User | null;
-    loading: boolean;
-    userProfile: UserProfile | null;
-    fetchUserProfile: () => Promise<void>;
-    isAuthenticated: boolean;
-}
-
-export const AuthContext = createContext<AuthContextType>({
-    user: null,
-    loading: true,
-    userProfile: null,
-    fetchUserProfile: async () => {},
-    isAuthenticated: false,
-});
+import { AuthContext, AuthContextType, UserProfile } from './AuthContext';
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
