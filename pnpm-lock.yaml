@@ -29,15 +29,6 @@ importers:
       '@tanstack/react-query-devtools':
         specifier: ^5.64.1
         version: 5.64.1(@tanstack/react-query@5.64.1(react@18.3.1))(react@18.3.1)
-      '@types/node':
-        specifier: ^22.10.5
-        version: 22.10.5
-      install:
-        specifier: ^0.13.0
-        version: 0.13.0
-      npm:
-        specifier: ^11.0.0
-        version: 11.0.0
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -50,9 +41,6 @@ importers:
       react-router-dom:
         specifier: ^7.1.1
         version: 7.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      sass:
-        specifier: ^1.83.1
-        version: 1.83.1
     devDependencies:
       '@eslint/js':
         specifier: ^9.17.0
@@ -1455,10 +1443,6 @@ packages:
     resolution: {integrity: sha512-EdDDZu4A2OyIK7Lr/2zG+w5jmbuk1DVBnEwREQvBzspBJkCEbRa8GxU1lghYcaGJCnRWibjDXlq779X1/y5xwg==}
     engines: {node: '>=8'}
 
-  install@0.13.0:
-    resolution: {integrity: sha512-zDml/jzr2PKU9I8J/xyZBQn8rPCAY//UOYNmR01XwNwyfhEWObo2SWfSl1+0tm1u6PhxLwDnfsT/6jB7OUxqFA==}
-    engines: {node: '>= 0.10'}
-
   is-binary-path@2.1.0:
     resolution: {integrity: sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==}
     engines: {node: '>=8'}
@@ -1613,78 +1597,6 @@ packages:
   normalize-range@0.1.2:
     resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
-
-  npm@11.0.0:
-    resolution: {integrity: sha512-Ed/ylWXSKXx058WUqXYlgb3pafCqXL5vWzZEvwCKFsBl7OYQlNn/u4ESW+ON+OG6Q+uCRLPTDGHreX6aJEDj7A==}
-    engines: {node: ^20.17.0 || >=22.9.0}
-    hasBin: true
-    bundledDependencies:
-      - '@isaacs/string-locale-compare'
-      - '@npmcli/arborist'
-      - '@npmcli/config'
-      - '@npmcli/fs'
-      - '@npmcli/map-workspaces'
-      - '@npmcli/package-json'
-      - '@npmcli/promise-spawn'
-      - '@npmcli/redact'
-      - '@npmcli/run-script'
-      - '@sigstore/tuf'
-      - abbrev
-      - archy
-      - cacache
-      - chalk
-      - ci-info
-      - cli-columns
-      - fastest-levenshtein
-      - fs-minipass
-      - glob
-      - graceful-fs
-      - hosted-git-info
-      - ini
-      - init-package-json
-      - is-cidr
-      - json-parse-even-better-errors
-      - libnpmaccess
-      - libnpmdiff
-      - libnpmexec
-      - libnpmfund
-      - libnpmorg
-      - libnpmpack
-      - libnpmpublish
-      - libnpmsearch
-      - libnpmteam
-      - libnpmversion
-      - make-fetch-happen
-      - minimatch
-      - minipass
-      - minipass-pipeline
-      - ms
-      - node-gyp
-      - nopt
-      - normalize-package-data
-      - npm-audit-report
-      - npm-install-checks
-      - npm-package-arg
-      - npm-pick-manifest
-      - npm-profile
-      - npm-registry-fetch
-      - npm-user-validate
-      - p-map
-      - pacote
-      - parse-conflict-json
-      - proc-log
-      - qrcode-terminal
-      - read
-      - semver
-      - spdx-expression-parse
-      - ssri
-      - supports-color
-      - tar
-      - text-table
-      - tiny-relative-date
-      - treeverse
-      - validate-npm-package-name
-      - which
 
   object-assign@4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
@@ -3197,6 +3109,7 @@ snapshots:
   chokidar@4.0.3:
     dependencies:
       readdirp: 4.1.1
+    optional: true
 
   clsx@2.1.1: {}
 
@@ -3482,7 +3395,8 @@ snapshots:
 
   ignore@5.3.2: {}
 
-  immutable@5.0.3: {}
+  immutable@5.0.3:
+    optional: true
 
   import-fresh@3.3.0:
     dependencies:
@@ -3492,8 +3406,6 @@ snapshots:
   imurmurhash@0.1.4: {}
 
   indent-string@4.0.0: {}
-
-  install@0.13.0: {}
 
   is-binary-path@2.1.0:
     dependencies:
@@ -3617,8 +3529,6 @@ snapshots:
   normalize-path@3.0.0: {}
 
   normalize-range@0.1.2: {}
-
-  npm@11.0.0: {}
 
   object-assign@4.1.1: {}
 
@@ -3774,7 +3684,8 @@ snapshots:
     dependencies:
       picomatch: 2.3.1
 
-  readdirp@4.1.1: {}
+  readdirp@4.1.1:
+    optional: true
 
   redent@3.0.0:
     dependencies:
@@ -3829,6 +3740,7 @@ snapshots:
       source-map-js: 1.2.1
     optionalDependencies:
       '@parcel/watcher': 2.5.0
+    optional: true
 
   scheduler@0.23.2:
     dependencies:
