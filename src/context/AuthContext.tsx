@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import { User } from '@supabase/supabase-js';
 import { supabase } from '@/supabase/client';
 
@@ -7,10 +7,9 @@ interface UserProfile {
     username: string;
     full_name: string;
     avatar_url: string;
-    // Add any other fields you have in your profiles table
 }
 
-interface AuthContextType {
+export interface AuthContextType {
     user: User | null;
     loading: boolean;
     userProfile: UserProfile | null;
@@ -18,7 +17,7 @@ interface AuthContextType {
     isAuthenticated: boolean;
 }
 
-const AuthContext = createContext<AuthContextType>({
+export const AuthContext = createContext<AuthContextType>({
     user: null,
     loading: true,
     userProfile: null,
@@ -30,6 +29,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+
     useEffect(() => {
         const fetchSession = async () => {
             try {
@@ -57,7 +57,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         };
     }, []);
 
-
     const fetchUserProfile = async () => {
         if (!user) return;
 
@@ -68,7 +67,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 .eq('id', user.id)
                 .single();
 
-            if (error) throw error;
+            if (error) {
+                console.error('Error fetching user profile:', error);
+                return;
+            }
 
             setUserProfile(data);
         } catch (error) {
@@ -78,12 +80,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const isAuthenticated = !!user;
 
+    const contextValue: AuthContextType = {
+        user,
+        loading,
+        userProfile,
+        fetchUserProfile,
+        isAuthenticated
+    };
 
     return (
-        <AuthContext.Provider value={{ user, loading, userProfile, fetchUserProfile, isAuthenticated }}>
+        <AuthContext.Provider value={contextValue}>
             {children}
         </AuthContext.Provider>
     );
 };
-
-export const useAuth = () => useContext(AuthContext);

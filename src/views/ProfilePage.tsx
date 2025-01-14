@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/supabase/client';
 
 const ProfilePage: React.FC = () => {
@@ -35,7 +35,7 @@ const ProfilePage: React.FC = () => {
         if (!user) return;
 
         try {
-            const { data, error } = await supabase
+            const { error } = await supabase
                 .from('profiles')
                 .upsert({
                     id: user.id,
