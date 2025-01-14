@@ -1,7 +1,7 @@
 import { useApiQuery } from './index';
 import { useQuery } from '@tanstack/react-query'
-import { supabase } from '@/supabase/client'
-import { IMovie } from '@/types/Movie';
+import { supabase } from '../supabase/client.ts'
+import { IMovie } from '../types/Movie';
 
 export const useSearchMovies = (query: string, page = 1) =>
     useApiQuery('/search/movie', { query, page, sort_by: 'popularity.desc' });
