@@ -8,7 +8,7 @@ import SkeletonLoader from '@/components/SkeletonLoader';
 
 const MoviesPage: React.FC = () => {
     const { data: response, isLoading, error } = usePopularMovies();
-    const { watchlist, toggleWatchlist, isWatchlist } = useWatchlist();
+    const { toggleWatchlist, isWatchlist } = useWatchlist();
     const { isAuthenticated } = useAuth();
 
     const handleToggleWatchlist = (movie: IMovie) => {

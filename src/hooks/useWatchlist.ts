@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from 'react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/supabase/client';
 import { IMovie } from '@/types/Movie';
 import { IWatchlist } from '@/types/Watchlist';
@@ -21,10 +21,13 @@ export const useWatchlist = () => {
         return data as IWatchlist[];
     };
 
-    const { data: watchlist, isLoading } = useQuery('watchlist', fetchWatchlist);
+    const { data: watchlist, isLoading } = useQuery({
+        queryKey: ['watchlist'],
+        queryFn: fetchWatchlist
+    });
 
-    const toggleWatchlistMutation = useMutation(
-        async (movie: IMovie) => {
+    const toggleWatchlistMutation = useMutation({
+        mutationFn: async (movie: IMovie) => {
             const { data: { user } } = await supabase.auth.getUser();
             if (!user) throw new Error('User not authenticated');
 
@@ -49,12 +52,10 @@ export const useWatchlist = () => {
                     });
             }
         },
-        {
-            onSuccess: () => {
-                queryClient.invalidateQueries('watchlist');
-            },
-        }
-    );
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['watchlist'] });
+        },
+    });
 
     const toggleWatchlist = (movie: IMovie) => {
         toggleWatchlistMutation.mutate(movie);

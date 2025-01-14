@@ -1,4 +1,4 @@
-import { useQuery, UseQueryOptions } from 'react-query';
+import { useQuery, UseQueryOptions } from '@tanstack/react-query'
 import { ApiError, createApiError } from './apiErrors';
 
 const API_BASE_URL = 'https://api.themoviedb.org/3';
@@ -24,13 +24,13 @@ export const fetchFromApi = async <T>(endpoint: string, params?: Record<string, 
 export const useApiQuery = <T>(
     endpoint: string,
     params?: Record<string, unknown>,
-    options?: UseQueryOptions<T, ApiError>
+    options?: Omit<UseQueryOptions<T, ApiError>, 'queryKey' | 'queryFn'>
 ) => {
-    return useQuery<T, ApiError>(
-        [endpoint, params],
-        () => fetchFromApi<T>(endpoint, params),
-        options
-    );
+    return useQuery<T, ApiError>({
+        queryKey: [endpoint, params],
+        queryFn: () => fetchFromApi<T>(endpoint, params),
+        ...options
+    });
 };
 
 export { ApiError, ApiErrorType } from './apiErrors';

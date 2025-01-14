@@ -30,23 +30,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-
     useEffect(() => {
-        // Test Supabase connection
-        // supabase.from('auth').select('*').limit(1)
-        //     .then(response => {
-        //         if (response.error) {
-        //             console.error('Error connecting to Supabase:', response.error)
-        //         } else {
-        //             console.log('Successfully connected to Supabase')
-        //         }
-        //     })
-        const session = supabase.auth.getSession();
-        setUser(session?.user ?? null);
-        setLoading(false);
+        const fetchSession = async () => {
+            try {
+                const { data: { session } } = await supabase.auth.getSession();
+                setUser(session?.user ?? null);
+            } catch (error) {
+                console.error('Error fetching auth session:', error);
+                setUser(null);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchSession();
 
         const { data: authListener } = supabase.auth.onAuthStateChange(
-            async (event, session) => {
+            async (_, session) => {
                 setUser(session?.user ?? null);
                 setLoading(false);
             }
@@ -56,6 +56,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             authListener.subscription.unsubscribe();
         };
     }, []);
+
 
     const fetchUserProfile = async () => {
         if (!user) return;
