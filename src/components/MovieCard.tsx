@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { IMovie } from '@/types/Movie';
 import { MdStar, MdStarBorder } from 'react-icons/md';
+import { useImageCache } from '@/hooks/useImageCache';
 
 interface MovieCardProps {
     movie: IMovie;
@@ -11,6 +12,9 @@ interface MovieCardProps {
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie, IsWatchlist, onToggleWatchlist, isAuthenticated }) => {
+    const posterSrc = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+    const cachedImageSrc = useImageCache(posterSrc);
+
     return (
         <div
             className="flex flex-col h-full"
@@ -19,11 +23,15 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, IsWatchlist, onToggleWatch
                 className="bg-white rounded-lg overflow-hidden transition-all duration-300 ease-in-out hover:shadow-xl flex-grow">
                 <Link to={`/movie/${movie.id}`} className="block relative group h-full">
                     <div className="overflow-hidden h-full pb-[150%] relative">
-                        <img
-                            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                            alt={movie.title}
-                            className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-300 ease-in-out transform group-hover:scale-110"
-                        />
+                        {cachedImageSrc ? (
+                            <img
+                                src={cachedImageSrc}
+                                alt={movie.title}
+                                className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-300 ease-in-out transform group-hover:scale-110"
+                            />
+                        ) : (
+                            <div className="absolute top-0 left-0 w-full h-full bg-gray-200 animate-pulse"></div>
+                        )}
                         <div
                             className="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-60"></div>
                         <div

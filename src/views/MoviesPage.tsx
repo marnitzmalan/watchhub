@@ -7,7 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import SkeletonLoader from '@/components/SkeletonLoader';
 
 const MoviesPage: React.FC = () => {
-    const { data: response, isLoading, error } = usePopularMovies();
+    const { data: movies, isLoading, error } = usePopularMovies()
     const { toggleWatchlist, isWatchlist } = useWatchlist();
     const { isAuthenticated } = useAuth();
 
@@ -29,10 +29,8 @@ const MoviesPage: React.FC = () => {
     }
 
     if (error) {
-        return <div className="text-center text-red-500 mt-8">Error: {error.message || 'An error occurred'}</div>;
+        return <div>Error: {error.message}</div>
     }
-
-    const movies = (response as { results: IMovie[] })?.results || [];
 
     return (
         <div className="container mx-auto px-4 py-8">
