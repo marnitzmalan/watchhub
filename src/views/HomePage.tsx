@@ -1,6 +1,7 @@
 import { usePopularMovies } from "@/api/movies";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import FeaturedToday from "@/components/home/FeaturedToday";
 
 const HomePage = () => {
     const { isLoading, error } = usePopularMovies();
@@ -54,9 +55,7 @@ const HomePage = () => {
                         <span
                             className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
                     </h2>
-                    <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-                        <p>Placeholder for Featured Today content</p>
-                    </div>
+                    <FeaturedToday />
                 </section>
 
                 {/* Top 10 on IMDb This Week Section */}

@@ -5,7 +5,7 @@ import { IMovie } from "@/types/Movie";
 import CachedImage from "@/components/CachedImage";
 import { useAuth } from "@/hooks/useAuth";
 import { useWatchlist } from "@/hooks/useWatchlist";
-import { MdStar, MdStarBorder } from "react-icons/md";
+import WatchlistRibbon from "@/components/WatchlistRibbon";
 
 const MovieDetailPage = () => {
     const { id } = useParams<{ id: string }>();
@@ -33,25 +33,21 @@ const MovieDetailPage = () => {
             <div className="flex flex-col md:flex-row gap-8">
                 <div className="md:w-1/3 relative">
                     {posterSrc ? (
-                        <>
+                        <div className="relative">
                             <CachedImage
                                 src={posterSrc}
                                 alt={movie.title}
                                 className="w-full rounded-lg shadow-lg"
                             />
                             {user && (
-                                <button
-                                    onClick={() => toggleWatchlist(movie)}
-                                    className="absolute top-2 right-2 bg-purple-600 hover:bg-purple-700 text-white font-bold p-2 rounded-full transition duration-300 flex items-center justify-center w-10 h-10"
-                                >
-                                    {isWatchlist(movie.id) ? (
-                                        <MdStar className="text-xl" title="Remove from Watchlist"/>
-                                    ) : (
-                                        <MdStarBorder className="text-xl" title="Add to Watchlist"/>
-                                    )}
-                                </button>
+                                <div className="absolute top-0 right-0 w-[15%] max-w-[64px] min-w-[48px]">
+                                    <WatchlistRibbon
+                                        isInWatchlist={isWatchlist(movie.id)}
+                                        onClick={() => toggleWatchlist(movie)}
+                                    />
+                                </div>
                             )}
-                        </>
+                        </div>
                     ) : (
                         <div className="w-full h-[450px] bg-gray-200 rounded-lg shadow-lg animate-pulse"></div>
                     )}
