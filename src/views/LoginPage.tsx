@@ -4,6 +4,14 @@ import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { supabase } from "@/supabase/client";
 
 const LoginPage: React.FC = () => {
+    const getRedirectUrl = () => {
+        if (import.meta.env.DEV) {
+            return import.meta.env.VITE_AUTH_REDIRECT_DEV;
+        } else {
+            return import.meta.env.VITE_AUTH_REDIRECT_PROD;
+        }
+    };
+
     return (
         <div className="min-h-screen min-w-full bg-gray-100 flex justify-center items-center">
             <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
@@ -23,6 +31,7 @@ const LoginPage: React.FC = () => {
                     }}
                     providers={["google"]}
                     socialLayout="horizontal"
+                    redirectTo={getRedirectUrl()}
                 />
             </div>
         </div>
