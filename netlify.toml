@@ -1,9 +1,10 @@
 [build]
-  command = "pnpm install && pnpm run build"
+  command = "pnpm install --no-frozen-lockfile && pnpm run build"
   publish = "dist"
 
 [build.environment]
   NODE_ENV = "production"
+  NPM_FLAGS = "--no-frozen-lockfile"
 
 [[redirects]]
   from = "/*"
