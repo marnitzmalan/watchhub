@@ -1,10 +1,15 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { MdAccountCircle, MdArrowDropDown } from "react-icons/md";
-import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth.ts";
 import { supabase } from "@/supabase/client.ts";
 
-const UserMenu = ({ isMobile = false }) => {
+interface UserMenuProps {
+    isMobile?: boolean;
+    closeMenu?: () => void;
+}
+
+const UserMenu: React.FC<UserMenuProps> = ({ isMobile = false, closeMenu }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const { user, userProfile } = useAuth();
 
@@ -12,13 +17,22 @@ const UserMenu = ({ isMobile = false }) => {
 
     const handleSignOut = async () => {
         await supabase.auth.signOut();
+        if (closeMenu) closeMenu();
+    };
+
+    const handleLinkClick = () => {
+        if (closeMenu) closeMenu();
     };
 
     if (!user) {
         return (
-            <Link to="/login" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+            <Link
+                to="/login"
+                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                onClick={handleLinkClick}
+            >
                 <span className="flex items-center">
-                    <MdAccountCircle className="mr-2 h-5 w-5"/>
+                    <MdAccountCircle className="mr-3" size={20} />
                     Sign In
                 </span>
             </Link>
@@ -28,9 +42,24 @@ const UserMenu = ({ isMobile = false }) => {
     if (isMobile) {
         return (
             <>
-                <Link to="/profile" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Profile</Link>
-                <button onClick={handleSignOut} className="text-gray-300 hover:bg-gray-700 hover:text-white block w-full text-left px-3 py-2 rounded-md text-base font-medium">
-                    Sign Out
+                <Link
+                    to="/profile"
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                    onClick={handleLinkClick}
+                >
+                    <span className="flex items-center">
+                        <MdAccountCircle className="mr-3" size={20} />
+                        Profile
+                    </span>
+                </Link>
+                <button
+                    onClick={handleSignOut}
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white block w-full text-left px-3 py-2 rounded-md text-base font-medium"
+                >
+                    <span className="flex items-center">
+                        <MdAccountCircle className="mr-3" size={20} />
+                        Sign Out
+                    </span>
                 </button>
             </>
         );

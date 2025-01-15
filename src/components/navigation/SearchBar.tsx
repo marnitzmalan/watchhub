@@ -1,11 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSearchMovies } from "@/api/movies";
-import { useDebounce } from "@/hooks/useDebounce";
-import { IMovie } from "@/types/Movie";
+import { useSearchMovies } from "@/api/movies.ts";
+import { useDebounce } from "@/hooks/useDebounce.ts";
+import { IMovie } from "@/types/Movie.ts";
 import { MdSearch } from "react-icons/md";
 
-const SearchBar = () => {
+interface SearchBarProps {
+    onMovieSelect?: () => void;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ onMovieSelect }) => {
     const [searchQuery, setSearchQuery] = useState("");
     const [suggestions, setSuggestions] = useState<IMovie[]>([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
@@ -48,6 +52,7 @@ const SearchBar = () => {
             navigate(`/movies?search=${encodeURIComponent(searchQuery.trim())}`);
             setSearchQuery("");
             setShowSuggestions(false);
+            onMovieSelect?.()
         }
     };
 
@@ -55,6 +60,7 @@ const SearchBar = () => {
         navigate(`/movie/${movieId}`);
         setSearchQuery("");
         setShowSuggestions(false);
+        onMovieSelect?.();
     };
 
     const getYearFromDate = (dateString: string) => {
