@@ -3,10 +3,15 @@ import { useMovieDetails } from "@/api/movies";
 import { IGenre } from "@/types/Genre";
 import { IMovie } from "@/types/Movie";
 import CachedImage from "@/components/CachedImage";
+import { useAuth } from "@/hooks/useAuth";
+import { useWatchlist } from "@/hooks/useWatchlist";
+import { MdStar, MdStarBorder } from "react-icons/md";
 
 const MovieDetailPage = () => {
     const { id } = useParams<{ id: string }>();
     const { data: movie, isLoading, error } = useMovieDetails(Number(id)) as { data: IMovie | null, isLoading: boolean, error: Error | null };
+    const { user } = useAuth();
+    const { isWatchlist, toggleWatchlist } = useWatchlist();
     const posterSrc = movie ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : "";
 
     if (isLoading) return <div>Loading...</div>;
@@ -26,13 +31,27 @@ const MovieDetailPage = () => {
             <Link to="/movies" className="text-blue-500 hover:underline mb-4 block">&larr; Back to Movies</Link>
 
             <div className="flex flex-col md:flex-row gap-8">
-                <div className="md:w-1/3">
+                <div className="md:w-1/3 relative">
                     {posterSrc ? (
-                        <CachedImage
-                            src={posterSrc}
-                            alt={movie.title}
-                            className="w-full rounded-lg shadow-lg"
-                        />
+                        <>
+                            <CachedImage
+                                src={posterSrc}
+                                alt={movie.title}
+                                className="w-full rounded-lg shadow-lg"
+                            />
+                            {user && (
+                                <button
+                                    onClick={() => toggleWatchlist(movie)}
+                                    className="absolute top-2 right-2 bg-purple-600 hover:bg-purple-700 text-white font-bold p-2 rounded-full transition duration-300 flex items-center justify-center w-10 h-10"
+                                >
+                                    {isWatchlist(movie.id) ? (
+                                        <MdStar className="text-xl" title="Remove from Watchlist"/>
+                                    ) : (
+                                        <MdStarBorder className="text-xl" title="Add to Watchlist"/>
+                                    )}
+                                </button>
+                            )}
+                        </>
                     ) : (
                         <div className="w-full h-[450px] bg-gray-200 rounded-lg shadow-lg animate-pulse"></div>
                     )}

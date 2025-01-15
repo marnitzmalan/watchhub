@@ -1,11 +1,9 @@
 import { usePopularMovies } from "@/api/movies";
-import MovieCard from "@/components/MovieCard";
-import { IMovie } from "@/types/Movie";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 
 const HomePage = () => {
-    const { data: movies, isLoading, error } = usePopularMovies();
+    const { isLoading, error } = usePopularMovies();
     const { user } = useAuth();
 
     if (isLoading) return <div>Loading...</div>;
