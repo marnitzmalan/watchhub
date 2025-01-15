@@ -14,8 +14,6 @@ interface MovieCardProps {
 const MovieCard: React.FC<MovieCardProps> = ({ movie, IsWatchlist, onToggleWatchlist, isAuthenticated }) => {
     const posterSrc = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
-    console.log("Movie data:", movie);
-
     return (
         <div className="flex flex-col h-full">
             <div className="bg-white rounded-lg overflow-hidden transition-all duration-300 ease-in-out hover:shadow-xl flex-grow relative">

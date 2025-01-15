@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useMovieDetails } from "@/api/movies";
 import { IGenre } from "@/types/Genre";
 import { IMovie } from "@/types/Movie";
@@ -6,6 +6,7 @@ import CachedImage from "@/components/CachedImage";
 import { useAuth } from "@/hooks/useAuth";
 import { useWatchlist } from "@/hooks/useWatchlist";
 import WatchlistRibbon from "@/components/WatchlistRibbon";
+import { MdArrowBack } from "react-icons/md";
 
 const MovieDetailPage = () => {
     const { id } = useParams<{ id: string }>();
@@ -28,7 +29,12 @@ const MovieDetailPage = () => {
 
     return (
         <div className="max-w-6xl mx-auto p-4">
-            <Link to="/movies" className="text-blue-500 hover:underline mb-4 block">&larr; Back to Movies</Link>
+            <button
+                onClick={() => window.history.back()}
+                className="text-gray-700 hover:text-gray-900 mb-4 block transition duration-300 ease-in-out hover:bg-gray-100 rounded-md px-3 py-2 flex items-center"
+            >
+                <MdArrowBack className="mr-2"/> Back
+            </button>
 
             <div className="flex flex-col md:flex-row gap-8">
                 <div className="md:w-1/3 relative">
