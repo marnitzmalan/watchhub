@@ -37,7 +37,7 @@ const MoviesPage: React.FC = () => {
             <div className="flex-1 px-4">
                 <h1 className="text-2xl font-bold mt-8 mb-4">Popular Movies</h1>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                    {movies.map((movie: IMovie) => (
+                    {movies?.map((movie: IMovie) => (
                         <MovieCard
                             key={movie.id}
                             movie={movie}
