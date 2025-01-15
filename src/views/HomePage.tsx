@@ -3,6 +3,7 @@ import { useAuth } from "@/hooks/useAuth";
 import HeroBanner from "@/components/home/HeroBanner";
 import FeaturedToday from "@/components/home/FeaturedToday";
 import TopTenMovies from "@/components/home/TopTenMovies";
+import PopularCelebrities from "@/components/home/PopularCelebrities";
 
 const HomePage = () => {
     const { isLoading, error } = usePopularMovies();
@@ -32,6 +33,15 @@ const HomePage = () => {
                             className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
                     </h2>
                     <TopTenMovies/>
+                </section>
+
+                <section className="mb-12">
+                    <h2 className="text-2xl font-bold mb-6 relative inline-block">
+                        Most Popular Celebrities
+                        <span
+                            className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
+                    </h2>
+                    <PopularCelebrities/>
                 </section>
 
                 {/* What to Watch Section */}
