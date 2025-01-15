@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.121](https://github.com/your-username/watchhub/compare/v0.0.120...v0.0.121) (2025-01-15)
+
+
+### Bug Fixes
+
+* local and prod signin redirects with google provider ([98fe989](https://github.com/your-username/watchhub/commit/98fe98970ebc34279677b9cfba76ef1f4c66ac45))
+
 ### [0.0.120](https://github.com/your-username/watchhub/compare/v0.0.119...v0.0.120) (2025-01-15)
 
 ### [0.0.119](https://github.com/your-username/watchhub/compare/v0.0.118...v0.0.119) (2025-01-15)
