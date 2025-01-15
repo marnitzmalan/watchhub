@@ -61,3 +61,18 @@ export const usePopularMovies = (page = 1) => {
         staleTime: 5 * 60 * 1000, // 5 minutes
     })
 }
+
+// Add this new function to the existing file
+export const useTrendingMovies = (timeWindow: "day" | "week" = "week") => {
+    return useQuery({
+        queryKey: ["trendingMovies", timeWindow],
+        queryFn: async () => {
+            const response = await fetch(`https://api.themoviedb.org/3/trending/movie/${timeWindow}?api_key=${import.meta.env.VITE_TMDB_API_KEY}`);
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        },
+        staleTime: 60 * 60 * 1000, // 1 hour
+    });
+};

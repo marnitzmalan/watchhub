@@ -1,5 +1,5 @@
-import React from 'react';
-import { MdAdd, MdCheck } from 'react-icons/md';
+import React from "react";
+import { MdAdd, MdCheck } from "react-icons/md";
 
 interface WatchlistRibbonProps {
     isInWatchlist: boolean;
