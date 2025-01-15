@@ -1,5 +1,5 @@
-import React from 'react';
-import { useImageCache } from '../hooks/useImageCache';
+import React from "react";
+import { useImageCache } from "../hooks/useImageCache";
 
 interface CachedImageProps {
     src: string;
@@ -17,7 +17,7 @@ const CachedImage: React.FC<CachedImageProps> = ({ src, alt, className }) => {
             className={className}
             onError={(e) => {
                 console.error(`Failed to load image: ${src}`);
-                e.currentTarget.src = '/path/to/fallback-image.jpg'; // Replace with your fallback image path
+                e.currentTarget.src = "/path/to/fallback-image.jpg"; // Replace with your fallback image path
             }}
         />
     );
