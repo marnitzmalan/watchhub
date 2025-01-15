@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.125](https://github.com/your-username/watchhub/compare/v0.0.124...v0.0.125) (2025-01-15)
+
+
+### Features
+
+* added watchlist toggle on moveDetails ([3c8701a](https://github.com/your-username/watchhub/commit/3c8701a59ad8243e74c482a38082ac87bec9d95e))
+
 ### [0.0.124](https://github.com/your-username/watchhub/compare/v0.0.123...v0.0.124) (2025-01-15)
 
 
