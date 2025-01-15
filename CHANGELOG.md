@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.124](https://github.com/your-username/watchhub/compare/v0.0.123...v0.0.124) (2025-01-15)
+
+
+### Bug Fixes
+
+* trying to fix netlify deploy ([e08ba2e](https://github.com/your-username/watchhub/commit/e08ba2e194d8c4c4a12eb3c8a3279e0b101dabd1))
+* trying to fix netlify deploy ([3b2141f](https://github.com/your-username/watchhub/commit/3b2141ffb66292d7da17c373e590970ef6b68721))
+* trying to fix netlify deploy ([9c53d60](https://github.com/your-username/watchhub/commit/9c53d60534f70d2464dbf9067798dc7417bb21ea))
+* trying to fix netlify deploy ([1885a51](https://github.com/your-username/watchhub/commit/1885a51a11d1387fe0927c6da55fcd0ce8f072b0))
+* trying to fix netlify deploy ([4fb709f](https://github.com/your-username/watchhub/commit/4fb709f42ba06e4ddd97819245bf1a4e1dc948b0))
+* trying to fix netlify deploy ([ebfb0f7](https://github.com/your-username/watchhub/commit/ebfb0f73395732210679be21c56d728e32c86615))
+* trying to fix netlify deploy ([8a1af76](https://github.com/your-username/watchhub/commit/8a1af76920fec028ceee7093cd69208c39f56995))
+
 ### [0.0.123](https://github.com/your-username/watchhub/compare/v0.0.122...v0.0.123) (2025-01-15)
 
 
