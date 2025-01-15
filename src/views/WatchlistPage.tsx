@@ -12,11 +12,20 @@ const WatchlistPage: React.FC = () => {
 
     if (!user) {
         return (
-            <div className="container mx-auto px-4 py-8 text-center">
-                <h1 className="text-3xl font-bold mb-6">Watchlist Movies</h1>
-                <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6" role="alert">
-                    <p className="font-bold">You need to be logged in to see your watchlist.</p>
-                    <p>Please <Link to="/login" className="text-blue-500 hover:text-blue-700 underline">log in</Link> to view and manage your watchlist movies.</p>
+            <div className="flex items-center justify-center min-h-screen bg-white">
+                <div className="text-center max-w-md px-4">
+                    <h2 className="text-3xl font-bold mb-4 text-gray-800">Your Watchlist Awaits!</h2>
+                    <p className="text-lg text-gray-600 mb-8">
+                        Sign up or log in to start building your personalized movie watchlist.
+                    </p>
+                    <div className="space-y-4 sm:space-y-0 sm:space-x-4">
+                        <Link
+                            to="/login"
+                            className="inline-block bg-purple-600 text-white px-8 py-3 rounded-md font-semibold hover:bg-purple-700 transition duration-300 text-lg"
+                        >
+                            Login / Sign Up
+                        </Link>
+                    </div>
                 </div>
             </div>
         );
@@ -24,11 +33,15 @@ const WatchlistPage: React.FC = () => {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold mb-6">Watchlist Movies</h1>
+            <h2 className="text-2xl font-bold mb-6 relative inline-block">
+                My Watchlist
+                <span
+                    className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
+            </h2>
             {isLoading ? (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
                     {[...Array(16)].map((_, index) => (
-                        <SkeletonLoader key={index} />
+                        <SkeletonLoader key={index}/>
                     ))}
                 </div>
             ) : watchlist && watchlist.length > 0 ? (

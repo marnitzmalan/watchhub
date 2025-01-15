@@ -17,9 +17,22 @@ const LoginPage: React.FC = () => {
                         variables: {
                             default: {
                                 colors: {
-                                    brand: "#3B82F6",
-                                    brandAccent: "#2563EB",
+                                    brand: "#9333EA",
+                                    brandAccent: "#7E22CE",
+                                    brandButtonText: "white",
                                 },
+                            },
+                        },
+                        style: {
+                            button: {
+                                borderRadius: "0.375rem",
+                                fontSize: "18px",
+                                fontWeight: "600",
+                                padding: "12px 32px",
+                                transition: "background-color 0.3s",
+                            },
+                            input: {
+                                borderRadius: "0.375rem",
                             },
                         },
                     }}
