@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.129](https://github.com/your-username/watchhub/compare/v0.0.128...v0.0.129) (2025-01-15)
+
+
+### Features
+
+* added Most Popular Celebrities ([8b11edb](https://github.com/your-username/watchhub/commit/8b11edb368752a7737efc656f58fedf812d8d51a))
+
 ### [0.0.128](https://github.com/your-username/watchhub/compare/v0.0.127...v0.0.128) (2025-01-15)
 
 
