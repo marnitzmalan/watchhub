@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.120](https://github.com/your-username/watchhub/compare/v0.0.119...v0.0.120) (2025-01-15)
+
 ### [0.0.119](https://github.com/your-username/watchhub/compare/v0.0.118...v0.0.119) (2025-01-15)
 
 
