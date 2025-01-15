@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.123](https://github.com/your-username/watchhub/compare/v0.0.122...v0.0.123) (2025-01-15)
+
+
+### Bug Fixes
+
+* trying to fix netlify deploy ([f2494fe](https://github.com/your-username/watchhub/commit/f2494fe12a2e2f021d3190e4b0bb88d34b3dd9f1))
+
 ### [0.0.122](https://github.com/your-username/watchhub/compare/v0.0.121...v0.0.122) (2025-01-15)
 
 
