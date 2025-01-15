@@ -23,7 +23,8 @@ export default tseslint.config(
                 'warn',
                 { allowConstantExport: true },
             ],
-            quotes: ['error', 'double'],
+            'quotes': ['error', 'double'],
+            'space-before-function-paren': ['error', 'always'],
         },
     },
 )

@@ -2,7 +2,7 @@ import * as React from "react"
 import { Outlet } from "react-router-dom"
 import Navbar from "@/components/navigation/Navbar.tsx"
 
-function App() {
+function App () {
     return (
         <React.Fragment>
             <Navbar />
