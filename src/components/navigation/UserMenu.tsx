@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { MdAccountCircle, MdArrowDropDown } from "react-icons/md";
+import { MdAccountCircle, MdArrowDropDown, MdLogout } from "react-icons/md";
 import { useAuth } from "@/hooks/useAuth.ts";
 import { supabase } from "@/supabase/client.ts";
 
@@ -16,8 +16,12 @@ const UserMenu: React.FC<UserMenuProps> = ({ isMobile = false, closeMenu }) => {
     const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
     const handleSignOut = async () => {
-        await supabase.auth.signOut();
-        if (closeMenu) closeMenu();
+        try {
+            await supabase.auth.signOut();
+            if (closeMenu) closeMenu();
+        } catch (error) {
+            console.error("Error signing out:", error);
+        }
     };
 
     const handleLinkClick = () => {
@@ -48,7 +52,6 @@ const UserMenu: React.FC<UserMenuProps> = ({ isMobile = false, closeMenu }) => {
                     onClick={handleLinkClick}
                 >
                     <span className="flex items-center">
-                        <MdAccountCircle className="mr-3" size={20} />
                         Profile
                     </span>
                 </Link>
@@ -57,7 +60,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ isMobile = false, closeMenu }) => {
                     className="text-gray-300 hover:bg-gray-700 hover:text-white block w-full text-left px-3 py-2 rounded-md text-base font-medium"
                 >
                     <span className="flex items-center">
-                        <MdAccountCircle className="mr-3" size={20} />
+                        <MdLogout className="mr-3" size={20} />
                         Sign Out
                     </span>
                 </button>

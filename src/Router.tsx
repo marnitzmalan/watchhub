@@ -8,6 +8,7 @@ import ProfilePage from "./views/ProfilePage";
 import NotFoundPage from "./views/NotFoundPage";
 import LoginPage from "./views/LoginPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AuthCallback from "./components/AuthCallback";
 
 const router = createBrowserRouter([
     {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
                 )
             },
             { path: "login", element: <LoginPage /> },
+            { path: "auth/callback", element: <AuthCallback /> },
             { path: "*", element: <NotFoundPage /> },
         ],
     },
