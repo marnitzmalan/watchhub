@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.130](https://github.com/your-username/watchhub/compare/v0.0.129...v0.0.130) (2025-01-15)
+
+
+### Features
+
+* changed back button ([ce3f767](https://github.com/your-username/watchhub/commit/ce3f767ad0479e289c3635e16cddaf4320a1c4e6))
+
 ### [0.0.129](https://github.com/your-username/watchhub/compare/v0.0.128...v0.0.129) (2025-01-15)
 
 
