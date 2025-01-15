@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.119](https://github.com/your-username/watchhub/compare/v0.0.118...v0.0.119) (2025-01-15)
+
+
+### Features
+
+* MobileMenu and MobileSearchBar UX improvements ([3bc7799](https://github.com/your-username/watchhub/commit/3bc77993b5a5a9d4aae03e44a9b8b52fea45d3ff))
+
 ### [0.0.118](https://github.com/your-username/watchhub/compare/v0.0.117...v0.0.118) (2025-01-15)
 
 
