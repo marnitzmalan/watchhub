@@ -9,7 +9,7 @@ export enum ApiErrorType {
 
 // ApiError class
 export class ApiError extends Error {
-    constructor (
+    constructor(
         public status: number,
         message: string,
         public type: ApiErrorType
@@ -20,7 +20,7 @@ export class ApiError extends Error {
 }
 
 // Error factory function
-export function createApiError (status: number, message: string): ApiError {
+export function createApiError(status: number, message: string): ApiError {
     let type: ApiErrorType;
     switch (status) {
         case 400:

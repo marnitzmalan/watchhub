@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/supabase/client";
 import { IMovie } from "@/types/Movie";
 import { IWatchlist } from "@/types/Watchlist";
@@ -9,13 +9,12 @@ export const useWatchlist = () => {
     const [localWatchlist, setLocalWatchlist] = useState<number[]>([]);
 
     const fetchWatchlist = async () => {
-        const { data: { user } } = await supabase.auth.getUser();
+        const {
+            data: { user },
+        } = await supabase.auth.getUser();
         if (!user) return [];
 
-        const { data, error } = await supabase
-            .from("watchlist")
-            .select("*")
-            .eq("user_id", user.id);
+        const { data, error } = await supabase.from("watchlist").select("*").eq("user_id", user.id);
 
         if (error) {
             throw error;
@@ -25,21 +24,23 @@ export const useWatchlist = () => {
 
     const { data: watchlist, isLoading } = useQuery({
         queryKey: ["watchlist"],
-        queryFn: fetchWatchlist
+        queryFn: fetchWatchlist,
     });
 
     useEffect(() => {
         if (watchlist) {
-            setLocalWatchlist(watchlist.map(item => item.movie_id));
+            setLocalWatchlist(watchlist.map((item) => item.movie_id));
         }
     }, [watchlist]);
 
     const toggleWatchlistMutation = useMutation({
         mutationFn: async (movie: IMovie) => {
-            const { data: { user } } = await supabase.auth.getUser();
+            const {
+                data: { user },
+            } = await supabase.auth.getUser();
             if (!user) throw new Error("User not authenticated");
 
-            const existingWatchlist = watchlist?.find(fav => fav.movie_id === movie.id);
+            const existingWatchlist = watchlist?.find((fav) => fav.movie_id === movie.id);
 
             if (existingWatchlist) {
                 await supabase
@@ -65,10 +66,8 @@ export const useWatchlist = () => {
             }
         },
         onMutate: (movie) => {
-            setLocalWatchlist(prev =>
-                prev.includes(movie.id)
-                    ? prev.filter(id => id !== movie.id)
-                    : [...prev, movie.id]
+            setLocalWatchlist((prev) =>
+                prev.includes(movie.id) ? prev.filter((id) => id !== movie.id) : [...prev, movie.id]
             );
         },
         onError: (err) => {
@@ -80,13 +79,19 @@ export const useWatchlist = () => {
         },
     });
 
-    const toggleWatchlist = useCallback((movie: IMovie) => {
-        toggleWatchlistMutation.mutate(movie);
-    }, [toggleWatchlistMutation]);
+    const toggleWatchlist = useCallback(
+        (movie: IMovie) => {
+            toggleWatchlistMutation.mutate(movie);
+        },
+        [toggleWatchlistMutation]
+    );
 
-    const isWatchlist = useCallback((movieId: number) => {
-        return localWatchlist.includes(movieId);
-    }, [localWatchlist]);
+    const isWatchlist = useCallback(
+        (movieId: number) => {
+            return localWatchlist.includes(movieId);
+        },
+        [localWatchlist]
+    );
 
     return { watchlist, isLoading, toggleWatchlist, isWatchlist };
 };

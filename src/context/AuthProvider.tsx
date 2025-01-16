@@ -11,7 +11,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     useEffect(() => {
         const fetchSession = async () => {
             try {
-                const { data: { session } } = await supabase.auth.getSession();
+                const {
+                    data: { session },
+                } = await supabase.auth.getSession();
                 setUser(session?.user ?? null);
             } catch (error) {
                 console.error("Error fetching auth session:", error);
@@ -23,12 +25,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         fetchSession();
 
-        const { data: authListener } = supabase.auth.onAuthStateChange(
-            async (_, session) => {
-                setUser(session?.user ?? null);
-                setLoading(false);
-            }
-        );
+        const { data: authListener } = supabase.auth.onAuthStateChange(async (_, session) => {
+            setUser(session?.user ?? null);
+            setLoading(false);
+        });
 
         return () => {
             authListener.subscription.unsubscribe();
@@ -63,12 +63,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         loading,
         userProfile,
         fetchUserProfile,
-        isAuthenticated
+        isAuthenticated,
     };
 
-    return (
-        <AuthContext.Provider value={contextValue}>
-            {children}
-        </AuthContext.Provider>
-    );
+    return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };

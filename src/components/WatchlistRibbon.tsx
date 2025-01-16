@@ -15,7 +15,12 @@ const WatchlistRibbon: React.FC<WatchlistRibbonProps> = ({ isInWatchlist, onClic
             tabIndex={0}
             aria-label={isInWatchlist ? "Remove from watchlist" : "Add to watchlist"}
         >
-            <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 32 48" xmlns="http://www.w3.org/2000/svg" role="presentation">
+            <svg
+                className="absolute top-0 left-0 w-full h-full"
+                viewBox="0 0 32 48"
+                xmlns="http://www.w3.org/2000/svg"
+                role="presentation"
+            >
                 <polygon
                     className="watchlist-ribbon__bg-ribbon"
                     fill={isInWatchlist ? "#8B5CF6" : "rgba(128, 128, 128, 0.7)"}
@@ -23,7 +28,11 @@ const WatchlistRibbon: React.FC<WatchlistRibbonProps> = ({ isInWatchlist, onClic
                 ></polygon>
             </svg>
             <div className="watchlist-ribbon__icon absolute top-[20%] left-0 w-full flex justify-center items-center">
-                {isInWatchlist ? <MdCheck className="w-1/2 h-1/2" color="#ffffff" /> : <MdAdd className="w-1/2 h-1/2" color="#ffffff" />}
+                {isInWatchlist ? (
+                    <MdCheck className="w-1/2 h-1/2" color="#ffffff" />
+                ) : (
+                    <MdAdd className="w-1/2 h-1/2" color="#ffffff" />
+                )}
             </div>
         </div>
     );

@@ -6,9 +6,9 @@ import { useAuth } from "@/hooks/useAuth";
 import { IMovie } from "@/types/Movie";
 
 const TopTenMovies: React.FC = () => {
-    const {data, isLoading, error} = useTrendingMovies("week");
-    const {isWatchlist, toggleWatchlist} = useWatchlist();
-    const {user} = useAuth();
+    const { data, isLoading, error } = useTrendingMovies("week");
+    const { isWatchlist, toggleWatchlist } = useWatchlist();
+    const { user } = useAuth();
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {(error as Error).message}</div>;

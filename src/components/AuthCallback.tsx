@@ -8,7 +8,7 @@ const AuthCallback = () => {
     useEffect(() => {
         const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
             if (event === "SIGNED_IN" && session) {
-                navigate("/"); 
+                navigate("/");
             }
         });
 

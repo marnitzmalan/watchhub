@@ -1,10 +1,13 @@
-import { useQuery, UseQueryOptions } from "@tanstack/react-query"
+import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 import { ApiError, createApiError } from "./apiErrors";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
-export const fetchFromApi = async <T>(endpoint: string, params?: Record<string, unknown>): Promise<T> => {
+export const fetchFromApi = async <T>(
+    endpoint: string,
+    params?: Record<string, unknown>
+): Promise<T> => {
     const url = new URL(`${API_BASE_URL}${endpoint}`);
     url.searchParams.append("api_key", API_KEY);
 
@@ -29,7 +32,7 @@ export const useApiQuery = <T>(
     return useQuery<T, ApiError>({
         queryKey: [endpoint, params],
         queryFn: () => fetchFromApi<T>(endpoint, params),
-        ...options
+        ...options,
     });
 };
 

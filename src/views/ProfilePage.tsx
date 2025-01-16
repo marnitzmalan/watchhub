@@ -35,14 +35,15 @@ const ProfilePage: React.FC = () => {
         if (!user) return;
 
         try {
-            const { error } = await supabase
-                .from("profiles")
-                .upsert({
+            const { error } = await supabase.from("profiles").upsert(
+                {
                     id: user.id,
                     user_id: user.id,
                     username,
-                    full_name: fullName
-                }, { onConflict: "user_id" });
+                    full_name: fullName,
+                },
+                { onConflict: "user_id" }
+            );
 
             if (error) throw error;
 

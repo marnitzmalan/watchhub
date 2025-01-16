@@ -30,7 +30,10 @@ const CustomPrevArrow: React.FC<ArrowProps> = ({ onClick, currentSlide }) => {
 };
 
 const CustomNextArrow: React.FC<ArrowProps> = ({ onClick, currentSlide, slideCount }) => {
-    const isLastSlide = typeof slideCount === "number" && typeof currentSlide === "number" && currentSlide + 8 >= slideCount;    ;
+    const isLastSlide =
+        typeof slideCount === "number" &&
+        typeof currentSlide === "number" &&
+        currentSlide + 8 >= slideCount;
     return (
         <button
             onClick={onClick}
@@ -63,23 +66,23 @@ const FeaturedToday: React.FC = () => {
                 settings: {
                     slidesToShow: 6,
                     slidesToScroll: 6,
-                }
+                },
             },
             {
                 breakpoint: 768,
                 settings: {
                     slidesToShow: 4,
                     slidesToScroll: 4,
-                }
+                },
             },
             {
                 breakpoint: 480,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 2,
-                }
-            }
-        ]
+                },
+            },
+        ],
     };
 
     if (isLoading) {

@@ -25,7 +25,7 @@ const router = createBrowserRouter([
                     <ProtectedRoute>
                         <ProfilePage />
                     </ProtectedRoute>
-                )
+                ),
             },
             { path: "login", element: <LoginPage /> },
             { path: "auth/callback", element: <AuthCallback /> },

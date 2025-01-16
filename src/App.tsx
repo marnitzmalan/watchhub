@@ -1,8 +1,8 @@
-import * as React from "react"
-import { Outlet } from "react-router-dom"
-import Navbar from "@/components/navigation/Navbar.tsx"
+import * as React from "react";
+import { Outlet } from "react-router-dom";
+import Navbar from "@/components/navigation/Navbar.tsx";
 
-function App () {
+function App() {
     return (
         <React.Fragment>
             <Navbar />
@@ -10,7 +10,7 @@ function App () {
                 <Outlet />
             </main>
         </React.Fragment>
-    )
+    );
 }
 
-export default App
+export default App;

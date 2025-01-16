@@ -20,36 +20,32 @@ const HomePage = () => {
                 <section className="mb-12">
                     <h2 className="text-2xl font-bold mb-6 relative inline-block">
                         Featured Today
-                        <span
-                            className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
+                        <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
                     </h2>
-                    <FeaturedToday/>
+                    <FeaturedToday />
                 </section>
 
                 <section className="mb-12">
                     <h2 className="text-2xl font-bold mb-6 relative inline-block">
                         Top 10 on IMDb This Week
-                        <span
-                            className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
+                        <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
                     </h2>
-                    <TopTenMovies/>
+                    <TopTenMovies />
                 </section>
 
                 <section className="mb-12">
                     <h2 className="text-2xl font-bold mb-6 relative inline-block">
                         Most Popular Celebrities
-                        <span
-                            className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
+                        <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
                     </h2>
-                    <PopularCelebrities/>
+                    <PopularCelebrities />
                 </section>
 
                 {/* What to Watch Section */}
                 <section className="mb-12">
                     <h2 className="text-2xl font-bold mb-6 relative inline-block">
                         What to Watch
-                        <span
-                            className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
+                        <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
                     </h2>
                     <div className="bg-gray-100 p-6 rounded-lg shadow-md">
                         <p>Placeholder for What to Watch recommendations</p>
@@ -60,8 +56,7 @@ const HomePage = () => {
                 <section className="mb-12">
                     <h2 className="text-2xl font-bold mb-6 relative inline-block">
                         From Your Watchlist
-                        <span
-                            className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
+                        <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
                     </h2>
                     <div className="bg-gray-100 p-6 rounded-lg shadow-md">
                         <p>Placeholder for Watchlist items</p>
@@ -72,8 +67,7 @@ const HomePage = () => {
                 <section className="mb-12">
                     <h2 className="text-2xl font-bold mb-6 relative inline-block">
                         Explore Movies & TV Shows
-                        <span
-                            className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
+                        <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
                     </h2>
                     <div className="bg-gray-100 p-6 rounded-lg shadow-md">
                         <p>Placeholder for Movie and TV Show exploration</p>
@@ -84,8 +78,7 @@ const HomePage = () => {
                 <section className="mb-12">
                     <h2 className="text-2xl font-bold mb-6 relative inline-block">
                         Top Box Office
-                        <span
-                            className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
+                        <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
                     </h2>
                     <div className="bg-gray-100 p-6 rounded-lg shadow-md">
                         <p>Placeholder for Top Box Office data</p>

@@ -24,7 +24,9 @@ const AdvanceSearch: React.FC<AdvanceSearchProps> = ({ onSearch }) => {
             <form onSubmit={handleSubmit} className="p-4">
                 <h2 className="text-lg font-bold mb-4">Advanced Search</h2>
                 <div className="mb-4">
-                    <label htmlFor="genre" className="block text-sm font-medium">Genre</label>
+                    <label htmlFor="genre" className="block text-sm font-medium">
+                        Genre
+                    </label>
                     <input
                         type="text"
                         id="genre"
@@ -34,7 +36,9 @@ const AdvanceSearch: React.FC<AdvanceSearchProps> = ({ onSearch }) => {
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="year" className="block text-sm font-medium">Year</label>
+                    <label htmlFor="year" className="block text-sm font-medium">
+                        Year
+                    </label>
                     <input
                         type="number"
                         id="year"
@@ -44,7 +48,9 @@ const AdvanceSearch: React.FC<AdvanceSearchProps> = ({ onSearch }) => {
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="rating" className="block text-sm font-medium">Minimum Rating</label>
+                    <label htmlFor="rating" className="block text-sm font-medium">
+                        Minimum Rating
+                    </label>
                     <input
                         type="number"
                         id="rating"
@@ -52,11 +58,16 @@ const AdvanceSearch: React.FC<AdvanceSearchProps> = ({ onSearch }) => {
                         max="10"
                         step="0.1"
                         value={rating}
-                        onChange={(e) => setRating(e.target.value ? parseFloat(e.target.value) : "")}
+                        onChange={(e) =>
+                            setRating(e.target.value ? parseFloat(e.target.value) : "")
+                        }
                         className="mt-1 block w-full bg-gray-600 border-gray-500 text-white placeholder-gray-400 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                     />
                 </div>
-                <button type="submit" className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 transition duration-300">
+                <button
+                    type="submit"
+                    className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 transition duration-300"
+                >
                     Search
                 </button>
             </form>

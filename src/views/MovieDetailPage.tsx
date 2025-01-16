@@ -10,7 +10,15 @@ import { MdArrowBack } from "react-icons/md";
 
 const MovieDetailPage = () => {
     const { id } = useParams<{ id: string }>();
-    const { data: movie, isLoading, error } = useMovieDetails(Number(id)) as { data: IMovie | null, isLoading: boolean, error: Error | null };
+    const {
+        data: movie,
+        isLoading,
+        error,
+    } = useMovieDetails(Number(id)) as {
+        data: IMovie | null;
+        isLoading: boolean;
+        error: Error | null;
+    };
     const { user } = useAuth();
     const { isWatchlist, toggleWatchlist } = useWatchlist();
     const posterSrc = movie ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : "";
@@ -22,9 +30,21 @@ const MovieDetailPage = () => {
     // Placeholder cast data
     const topCast = [
         { name: "Keanu Reeves", character: "Neo", image: "https://via.placeholder.com/150" },
-        { name: "Laurence Fishburne", character: "Morpheus", image: "https://via.placeholder.com/150" },
-        { name: "Carrie-Anne Moss", character: "Trinity", image: "https://via.placeholder.com/150" },
-        { name: "Hugo Weaving", character: "Agent Smith", image: "https://via.placeholder.com/150" },
+        {
+            name: "Laurence Fishburne",
+            character: "Morpheus",
+            image: "https://via.placeholder.com/150",
+        },
+        {
+            name: "Carrie-Anne Moss",
+            character: "Trinity",
+            image: "https://via.placeholder.com/150",
+        },
+        {
+            name: "Hugo Weaving",
+            character: "Agent Smith",
+            image: "https://via.placeholder.com/150",
+        },
     ];
 
     return (
@@ -33,7 +53,7 @@ const MovieDetailPage = () => {
                 onClick={() => window.history.back()}
                 className="text-gray-700 hover:text-gray-900 mb-4 block transition duration-300 ease-in-out hover:bg-gray-100 rounded-md px-3 py-2 flex items-center"
             >
-                <MdArrowBack className="mr-2"/> Back
+                <MdArrowBack className="mr-2" /> Back
             </button>
 
             <div className="flex flex-col md:flex-row gap-8">
@@ -62,12 +82,16 @@ const MovieDetailPage = () => {
                 <div className="flex-1">
                     <h1 className="text-4xl font-bold mb-2">{movie.title}</h1>
                     <p className="text-gray-600 mb-4">
-                        {new Date(movie.release_date).getFullYear()} • 2h 16m {/* Placeholder duration */}
+                        {new Date(movie.release_date).getFullYear()} • 2h 16m{" "}
+                        {/* Placeholder duration */}
                     </p>
 
                     <div className="mb-4 flex flex-wrap gap-2">
                         {movie.genres.map((genre: IGenre) => (
-                            <span key={genre.id} className="bg-gray-200 text-gray-800 px-2 py-1 rounded-full text-sm">
+                            <span
+                                key={genre.id}
+                                className="bg-gray-200 text-gray-800 px-2 py-1 rounded-full text-sm"
+                            >
                                 {genre.name}
                             </span>
                         ))}

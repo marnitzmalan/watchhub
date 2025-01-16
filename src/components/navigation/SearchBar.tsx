@@ -52,7 +52,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onMovieSelect }) => {
             navigate(`/movies?search=${encodeURIComponent(searchQuery.trim())}`);
             setSearchQuery("");
             setShowSuggestions(false);
-            onMovieSelect?.()
+            onMovieSelect?.();
         }
     };
 
@@ -77,7 +77,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onMovieSelect }) => {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
-                <MdSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                <MdSearch
+                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                    size={20}
+                />
             </form>
             {showSuggestions && suggestions.length > 0 && (
                 <div className="absolute left-0 right-0 mt-1 bg-white rounded-md shadow-lg">

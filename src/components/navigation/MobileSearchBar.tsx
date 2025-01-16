@@ -26,7 +26,10 @@ const MobileSearchBar: React.FC = () => {
     return (
         <div className="md:hidden">
             {!isSearchOpen ? (
-                <button onClick={toggleSearch} className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                <button
+                    onClick={toggleSearch}
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >
                     <MdSearch size={24} />
                 </button>
             ) : (
@@ -36,7 +39,10 @@ const MobileSearchBar: React.FC = () => {
                             <div className="flex-grow">
                                 <SearchBar onMovieSelect={closeSearch} />
                             </div>
-                            <button onClick={toggleSearch} className="ml-2 text-gray-300 hover:text-white">
+                            <button
+                                onClick={toggleSearch}
+                                className="ml-2 text-gray-300 hover:text-white"
+                            >
                                 <MdClose size={24} />
                             </button>
                         </div>

@@ -5,10 +5,10 @@ export const usePopularPeople = (page = 1, language = "en") =>
     useQuery({
         queryKey: ["popularPeople", page, language],
         queryFn: async () => {
-            const data = await fetchFromApi("/person/popular", { page }) as {
+            const data = (await fetchFromApi("/person/popular", { page })) as {
                 results: Array<{
-                    known_for: Array<{ original_language: string }>
-                }>
+                    known_for: Array<{ original_language: string }>;
+                }>;
             };
 
             const filteredResults = data.results.filter((person) => {
@@ -17,7 +17,7 @@ export const usePopularPeople = (page = 1, language = "en") =>
 
             return {
                 ...data,
-                results: filteredResults
+                results: filteredResults,
             };
         },
         staleTime: 5 * 60 * 1000, // 5 minutes

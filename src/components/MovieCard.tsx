@@ -11,7 +11,12 @@ interface MovieCardProps {
     isAuthenticated: boolean;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie, IsWatchlist, onToggleWatchlist, isAuthenticated }) => {
+const MovieCard: React.FC<MovieCardProps> = ({
+    movie,
+    IsWatchlist,
+    onToggleWatchlist,
+    isAuthenticated,
+}) => {
     const posterSrc = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
     return (
@@ -53,8 +58,12 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, IsWatchlist, onToggleWatch
                 )}
             </div>
             <div className="mt-2">
-                <h2 className="text-sm font-semibold truncate text-gray-900" title={movie.title}>{movie.title}</h2>
-                <p className="text-sm text-gray-600">{new Date(movie.release_date).getFullYear()}</p>
+                <h2 className="text-sm font-semibold truncate text-gray-900" title={movie.title}>
+                    {movie.title}
+                </h2>
+                <p className="text-sm text-gray-600">
+                    {new Date(movie.release_date).getFullYear()}
+                </p>
             </div>
         </div>
     );
