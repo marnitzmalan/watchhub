@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.134](https://github.com/your-username/watchhub/compare/v0.0.133...v0.0.134) (2025-01-16)
+
+
+### Bug Fixes
+
+* fix on advancedMovieResults movie link and watchlist button conflicting ([f55b099](https://github.com/your-username/watchhub/commit/f55b0990840e2bb05c6b0b53d2969e23c7e369b1))
+
 ### [0.0.133](https://github.com/your-username/watchhub/compare/v0.0.132...v0.0.133) (2025-01-16)
 
 ### [0.0.132](https://github.com/your-username/watchhub/compare/v0.0.131...v0.0.132) (2025-01-16)
