@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.132](https://github.com/your-username/watchhub/compare/v0.0.131...v0.0.132) (2025-01-16)
+
+
+### Features
+
+* advanced search ([34a32a1](https://github.com/your-username/watchhub/commit/34a32a1e4c1139ff584f08ab115dd2419a61c0ce))
+
 ### [0.0.131](https://github.com/your-username/watchhub/compare/v0.0.130...v0.0.131) (2025-01-16)
 
 ### [0.0.130](https://github.com/your-username/watchhub/compare/v0.0.129...v0.0.130) (2025-01-15)
