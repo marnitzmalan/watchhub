@@ -12,12 +12,15 @@ const Navbar = ({ isFilterOpen = false }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isMoviesDropdownOpen, setIsMoviesDropdownOpen] = useState(false);
     const [isSeriesDropdownOpen, setIsSeriesDropdownOpen] = useState(false);
+    const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
     const moviesDropdownRef = useRef<HTMLDivElement>(null);
     const seriesDropdownRef = useRef<HTMLDivElement>(null);
+    const userDropdownRef = useRef<HTMLDivElement>(null);
 
     const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
     const toggleMoviesDropdown = useCallback(() => setIsMoviesDropdownOpen((prev) => !prev), []);
     const toggleSeriesDropdown = useCallback(() => setIsSeriesDropdownOpen((prev) => !prev), []);
+    const toggleUserDropdown = useCallback(() => setIsUserDropdownOpen((prev) => !prev), []);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -32,6 +35,12 @@ const Navbar = ({ isFilterOpen = false }) => {
                 !seriesDropdownRef.current.contains(event.target as Node)
             ) {
                 setIsSeriesDropdownOpen(false);
+            }
+            if (
+                userDropdownRef.current &&
+                !userDropdownRef.current.contains(event.target as Node)
+            ) {
+                setIsUserDropdownOpen(false);
             }
         };
 
@@ -56,10 +65,10 @@ const Navbar = ({ isFilterOpen = false }) => {
                                 <div className="relative" ref={moviesDropdownRef}>
                                     <button
                                         onClick={toggleMoviesDropdown}
-                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-2 py-1 rounded-md text-sm font-medium flex items-center"
+                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center"
                                     >
                                         Movies
-                                        <MdArrowDropDown className="ml-1" />
+                                        <MdArrowDropDown className="ml-1 h-5 w-5" />
                                     </button>
                                     {isMoviesDropdownOpen && (
                                         <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
@@ -80,10 +89,10 @@ const Navbar = ({ isFilterOpen = false }) => {
                                 <div className="relative" ref={seriesDropdownRef}>
                                     <button
                                         onClick={toggleSeriesDropdown}
-                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-2 py-1 rounded-md text-sm font-medium flex items-center"
+                                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center"
                                     >
                                         Series
-                                        <MdArrowDropDown className="ml-1" />
+                                        <MdArrowDropDown className="ml-1 h-5 w-5" />
                                     </button>
                                     {isSeriesDropdownOpen && (
                                         <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
@@ -103,7 +112,7 @@ const Navbar = ({ isFilterOpen = false }) => {
                                 </div>
                                 <Link
                                     to="/search"
-                                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-2 py-1 rounded-md text-sm font-medium"
+                                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                 >
                                     Advanced Search
                                 </Link>
@@ -115,12 +124,15 @@ const Navbar = ({ isFilterOpen = false }) => {
                     </div>
                     <Link
                         to="/watchlist"
-                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-2 py-1 rounded-md text-sm font-medium hidden md:block"
+                        className="text-gray-300 hover:bg-gray-700 hover:text-white ml-2 px-3 py-2 rounded-md text-sm font-medium hidden md:block"
                     >
                         Watchlist
                     </Link>
-                    <div className="hidden md:block">
-                        <UserMenu />
+                    <div className="hidden md:block" ref={userDropdownRef}>
+                        <UserMenu
+                            isDropdownOpen={isUserDropdownOpen}
+                            toggleDropdown={toggleUserDropdown}
+                        />
                     </div>
                     <div className={`md:hidden flex items-center ${isFilterOpen ? "hidden" : ""}`}>
                         <MobileSearchBar />

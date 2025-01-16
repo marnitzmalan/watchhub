@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { IMovie } from "@/types/Movie";
 import WatchlistRibbon from "@/components/WatchlistRibbon";
-import CachedImage from "@/components/CachedImage";
 
 interface MovieCardProps {
     movie: IMovie;
@@ -24,7 +23,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
             <div className="bg-white rounded-lg overflow-hidden transition-all duration-300 ease-in-out hover:shadow-xl flex-grow relative">
                 <Link to={`/movie/${movie.id}`} className="block relative group h-full">
                     <div className="overflow-hidden h-full pb-[150%] relative">
-                        <CachedImage
+                        <img
                             src={posterSrc}
                             alt={movie.title}
                             className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-300 ease-in-out transform group-hover:scale-110"

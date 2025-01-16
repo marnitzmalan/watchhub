@@ -1,7 +1,7 @@
-import {useQuery} from "@tanstack/react-query";
-import {useApiQuery} from "@/api/index.ts";
-import {IMovie} from "@/types/Movie";
-import {ISearchCriteria} from "@/types/SearchCriteria";
+import { useQuery } from "@tanstack/react-query";
+import { useApiQuery } from "@/api/index.ts";
+import { IMovie } from "@/types/Movie";
+import { ISearchCriteria } from "@/types/SearchCriteria";
 
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 

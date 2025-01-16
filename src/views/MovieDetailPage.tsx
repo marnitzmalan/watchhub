@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { useMovieDetails } from "@/api/movies";
 import { IGenre } from "@/types/Genre";
 import { IMovie } from "@/types/Movie";
-import CachedImage from "@/components/CachedImage";
 import { useAuth } from "@/hooks/useAuth";
 import { useWatchlist } from "@/hooks/useWatchlist";
 import WatchlistRibbon from "@/components/WatchlistRibbon";
@@ -60,7 +59,7 @@ const MovieDetailPage = () => {
                 <div className="md:w-1/3 relative">
                     {posterSrc ? (
                         <div className="relative">
-                            <CachedImage
+                            <img
                                 src={posterSrc}
                                 alt={movie.title}
                                 className="w-full rounded-lg shadow-lg"

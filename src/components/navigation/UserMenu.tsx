@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { MdAccountCircle, MdArrowDropDown, MdLogout } from "react-icons/md";
 import { useAuth } from "@/hooks/useAuth.ts";
@@ -7,13 +7,17 @@ import { supabase } from "@/supabase/client.ts";
 interface UserMenuProps {
     isMobile?: boolean;
     closeMenu?: () => void;
+    isDropdownOpen: boolean;
+    toggleDropdown: () => void;
 }
 
-const UserMenu: React.FC<UserMenuProps> = ({ isMobile = false, closeMenu }) => {
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const { user, userProfile } = useAuth();
-
-    const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+const UserMenu: React.FC<UserMenuProps> = ({
+    isMobile = false,
+    closeMenu,
+    isDropdownOpen,
+    toggleDropdown,
+}) => {
+    const { user } = useAuth();
 
     const handleSignOut = async () => {
         try {
@@ -74,25 +78,24 @@ const UserMenu: React.FC<UserMenuProps> = ({ isMobile = false, closeMenu }) => {
             >
                 <span className="flex items-center">
                     <MdAccountCircle className="mr-2 h-5 w-5" />
-                    {userProfile?.username || user.email}
+                    {user?.email || "User"}
                 </span>
-                <MdArrowDropDown
-                    className={`ml-1 h-5 w-5 transition-transform duration-200 ${isDropdownOpen ? "transform rotate-180" : ""}`}
-                />
+                <MdArrowDropDown className="ml-1 h-5 w-5" />
             </button>
             {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
+                <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <Link
                         to="/profile"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        onClick={handleLinkClick}
                     >
-                        Profile
+                        Your Profile
                     </Link>
                     <button
                         onClick={handleSignOut}
                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
-                        Sign Out
+                        Sign out
                     </button>
                 </div>
             )}

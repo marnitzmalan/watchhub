@@ -1,7 +1,6 @@
 import React from "react";
 import { IMovie } from "@/types/Movie";
 import { Link } from "react-router-dom";
-import CachedImage from "./CachedImage";
 
 interface MovieSearchResultsProps {
     movies: IMovie[];
@@ -22,7 +21,7 @@ const AdvanceSearchResults: React.FC<MovieSearchResultsProps> = ({
                 <Link to={`/movie/${movie.id}`}>
                     <div key={movie.id} className="flex border-b border-gray-200 py-4">
                         <div className="flex-shrink-0 w-24 h-36">
-                            <CachedImage
+                            <img
                                 src={`https://image.tmdb.org/t/p/w185${movie.poster_path}`}
                                 alt={movie.title}
                                 className="w-full h-full object-cover rounded"

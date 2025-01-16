@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { supabase } from "@/supabase/client";
 import { Auth } from "@supabase/auth-ui-react";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage: React.FC = () => {
     const redirectTo = import.meta.env.VITE_AUTH_REDIRECT;
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+            if (event === "SIGNED_IN" && session) {
+                navigate("/");
+            }
+        });
+
+        return () => {
+            authListener.subscription.unsubscribe();
+        };
+    }, [navigate]);
 
     return (
         <div className="min-h-screen min-w-full bg-gray-100 flex justify-center items-center">
