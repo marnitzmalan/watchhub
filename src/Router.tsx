@@ -1,8 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import HomePage from "./views/HomePage";
-import MoviesPage from "./views/MoviesPage";
+import PopularMoviesPage from "./views/movies/PopularMoviesPage.tsx";
 import MovieDetailPage from "./views/MovieDetailPage";
+import AdvanceSearchPage from "./views/AdvanceSearchPage.tsx"; // Add this import
 import WatchlistPage from "./views/WatchlistPage";
 import ProfilePage from "./views/ProfilePage";
 import NotFoundPage from "./views/NotFoundPage";
@@ -16,8 +17,9 @@ const router = createBrowserRouter([
         element: <App />,
         children: [
             { index: true, element: <HomePage /> },
-            { path: "movies", element: <MoviesPage /> },
+            { path: "movies/popular", element: <PopularMoviesPage /> },
             { path: "movie/:id", element: <MovieDetailPage /> },
+            { path: "search", element: <AdvanceSearchPage /> }, // Add this line
             { path: "watchlist", element: <WatchlistPage /> },
             {
                 path: "profile",

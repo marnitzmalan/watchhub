@@ -4,6 +4,7 @@ import HeroBanner from "@/components/home/HeroBanner";
 import FeaturedToday from "@/components/home/FeaturedToday";
 import TopTenMovies from "@/components/home/TopTenMovies";
 import PopularCelebrities from "@/components/home/PopularCelebrities";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 const HomePage = () => {
     const { isLoading, error } = usePopularMovies();
@@ -18,35 +19,23 @@ const HomePage = () => {
 
             <div className="container mx-auto px-4 py-8">
                 <section className="mb-12">
-                    <h2 className="text-2xl font-bold mb-6 relative inline-block">
-                        Featured Today
-                        <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
-                    </h2>
+                    <SectionHeader title="Featured Today" />
                     <FeaturedToday />
                 </section>
 
                 <section className="mb-12">
-                    <h2 className="text-2xl font-bold mb-6 relative inline-block">
-                        Top 10 on IMDb This Week
-                        <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
-                    </h2>
+                    <SectionHeader title="Top 10 on IMDb This Week" />
                     <TopTenMovies />
                 </section>
 
                 <section className="mb-12">
-                    <h2 className="text-2xl font-bold mb-6 relative inline-block">
-                        Most Popular Celebrities
-                        <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
-                    </h2>
+                    <SectionHeader title="Most Popular Celebrities" />
                     <PopularCelebrities />
                 </section>
 
                 {/* What to Watch Section */}
                 <section className="mb-12">
-                    <h2 className="text-2xl font-bold mb-6 relative inline-block">
-                        What to Watch
-                        <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
-                    </h2>
+                    <SectionHeader title="What to Watch" />
                     <div className="bg-gray-100 p-6 rounded-lg shadow-md">
                         <p>Placeholder for What to Watch recommendations</p>
                     </div>
@@ -54,10 +43,7 @@ const HomePage = () => {
 
                 {/* From Your Watchlist Section */}
                 <section className="mb-12">
-                    <h2 className="text-2xl font-bold mb-6 relative inline-block">
-                        From Your Watchlist
-                        <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
-                    </h2>
+                    <SectionHeader title="From Your Watchlist" />
                     <div className="bg-gray-100 p-6 rounded-lg shadow-md">
                         <p>Placeholder for Watchlist items</p>
                     </div>
@@ -65,10 +51,7 @@ const HomePage = () => {
 
                 {/* Explore Movies & TV Shows Section */}
                 <section className="mb-12">
-                    <h2 className="text-2xl font-bold mb-6 relative inline-block">
-                        Explore Movies & TV Shows
-                        <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
-                    </h2>
+                    <SectionHeader title="Explore Movies & TV Shows" />
                     <div className="bg-gray-100 p-6 rounded-lg shadow-md">
                         <p>Placeholder for Movie and TV Show exploration</p>
                     </div>
@@ -76,10 +59,7 @@ const HomePage = () => {
 
                 {/* Top Box Office Section */}
                 <section className="mb-12">
-                    <h2 className="text-2xl font-bold mb-6 relative inline-block">
-                        Top Box Office
-                        <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-600"></span>
-                    </h2>
+                    <SectionHeader title="Top Box Office" />
                     <div className="bg-gray-100 p-6 rounded-lg shadow-md">
                         <p>Placeholder for Top Box Office data</p>
                     </div>
