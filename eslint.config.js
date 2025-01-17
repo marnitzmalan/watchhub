@@ -28,6 +28,7 @@ export default [
             "react-hooks/rules-of-hooks": "error",
             "react-hooks/exhaustive-deps": "warn",
             "prettier/prettier": "error",
+            "@typescript-eslint/no-explicit-any": "warn",
         },
         settings: {
             react: {

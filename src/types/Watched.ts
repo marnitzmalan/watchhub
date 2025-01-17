@@ -1,4 +1,4 @@
-export interface IFavourite {
+export interface IWatched {
     id: number;
     movie_id: number;
     user_id: string;

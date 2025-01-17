@@ -3,7 +3,7 @@ import { useRecommendedMovies } from "@/api/movies";
 import { useMovieDetails } from "@/api/movies";
 import MovieCard from "@/components/MovieCard";
 import { useAuth } from "@/hooks/useAuth";
-import { useWatchlist } from "@/hooks/useWatchlist";
+import { useFavourite } from "@/hooks/useFavourite";
 
 interface RecommendedMoviesProps {
     movieId: number;
@@ -21,7 +21,7 @@ const RecommendedMovies: React.FC<RecommendedMoviesProps> = ({ movieId }) => {
         error: detailsError,
     } = useMovieDetails(movieId);
     const { user } = useAuth();
-    const { isWatchlist, toggleWatchlist } = useWatchlist();
+    const { isFavourite, toggleFavourite } = useFavourite();
 
     if (isLoadingRecommendations || isLoadingDetails) {
         return (
@@ -51,8 +51,8 @@ const RecommendedMovies: React.FC<RecommendedMoviesProps> = ({ movieId }) => {
                     <MovieCard
                         key={movie.id}
                         movie={movie}
-                        IsWatchlist={user ? isWatchlist(movie.id) : false}
-                        onToggleWatchlist={() => toggleWatchlist(movie)}
+                        IsFavourite={user ? isFavourite(movie.id) : false}
+                        onToggleFavourite={() => toggleFavourite(movie)}
                         isAuthenticated={!!user}
                     />
                 ))}

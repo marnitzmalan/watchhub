@@ -124,10 +124,10 @@ const Navbar = ({ isFilterOpen = false }) => {
                         <SearchBar />
                     </div>
                     <Link
-                        to="/watchlist"
+                        to="/favourite"
                         className="text-gray-300 hover:bg-gray-700 hover:text-white ml-2 px-3 py-2 rounded-md text-sm font-medium hidden md:block"
                     >
-                        Watchlist
+                        Favourite
                     </Link>
                     <div className="hidden md:block ml-2" ref={userDropdownRef}>
                         <UserMenu

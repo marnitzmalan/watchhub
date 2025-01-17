@@ -5,15 +5,15 @@ import { Link } from "react-router-dom";
 interface MovieSearchResultsProps {
     movies: IMovie[];
     isAuthenticated: boolean;
-    isWatchlist: (id: number) => boolean;
-    onToggleWatchlist: (movie: IMovie) => void;
+    isFavourite: (id: number) => boolean;
+    onToggleFavourite: (movie: IMovie) => void;
 }
 
 const AdvanceSearchResults: React.FC<MovieSearchResultsProps> = ({
     movies,
     isAuthenticated,
-    isWatchlist,
-    onToggleWatchlist,
+    isFavourite,
+    onToggleFavourite,
 }) => {
     return (
         <div className="space-y-8">
@@ -49,16 +49,16 @@ const AdvanceSearchResults: React.FC<MovieSearchResultsProps> = ({
                         </div>
                         {isAuthenticated && (
                             <button
-                                onClick={() => onToggleWatchlist(movie)}
+                                onClick={() => onToggleFavourite(movie)}
                                 className={`mt-2 px-3 py-1 text-sm font-medium rounded transition-colors duration-200 ${
-                                    isWatchlist(movie.id)
+                                    isFavourite(movie.id)
                                         ? "bg-purple-600 text-white hover:bg-purple-700"
                                         : "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
                                 }`}
                             >
-                                {isWatchlist(movie.id)
-                                    ? "Remove from Watchlist"
-                                    : "Add to Watchlist"}
+                                {isFavourite(movie.id)
+                                    ? "Remove from Favourite"
+                                    : "Add to Favourite"}
                             </button>
                         )}
                     </div>

@@ -4,7 +4,7 @@ import HomePage from "./views/HomePage";
 import PopularMoviesPage from "./views/movies/PopularMoviesPage.tsx";
 import MovieDetailPage from "./views/MovieDetailPage";
 import AdvanceSearchPage from "./views/AdvanceSearchPage.tsx";
-import WatchlistPage from "./views/WatchlistPage";
+import FavouritePage from "./views/FavouritePage";
 import ProfilePage from "./views/ProfilePage";
 import NotFoundPage from "./views/NotFoundPage";
 import LoginPage from "./views/LoginPage";
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
             { path: "movies/popular", element: <PopularMoviesPage /> },
             { path: "movie/:id", element: <MovieDetailPage /> },
             { path: "search", element: <AdvanceSearchPage /> },
-            { path: "watchlist", element: <WatchlistPage /> },
+            { path: "favourite", element: <FavouritePage /> },
             {
                 path: "profile",
                 element: (

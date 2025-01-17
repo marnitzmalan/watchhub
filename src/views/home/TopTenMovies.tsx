@@ -1,13 +1,13 @@
 import React from "react";
 import { useTrendingMovies } from "@/api/movies.ts";
 import MovieCard from "@/components/MovieCard.tsx";
-import { useWatchlist } from "@/hooks/useWatchlist.ts";
+import { useFavourite } from "@/hooks/useFavourite.ts";
 import { useAuth } from "@/hooks/useAuth.ts";
 import { IMovie } from "@/types/Movie.ts";
 
 const TopTenMovies: React.FC = () => {
     const { data, isLoading, error } = useTrendingMovies("week");
-    const { isWatchlist, toggleWatchlist } = useWatchlist();
+    const { isFavourite, toggleFavourite } = useFavourite();
     const { user } = useAuth();
 
     if (isLoading) return <div>Loading...</div>;
@@ -21,8 +21,8 @@ const TopTenMovies: React.FC = () => {
                 <div key={movie.id} className="relative">
                     <MovieCard
                         movie={movie}
-                        IsWatchlist={isWatchlist(movie.id)}
-                        onToggleWatchlist={() => toggleWatchlist(movie)}
+                        IsFavourite={isFavourite(movie.id)}
+                        onToggleFavourite={() => toggleFavourite(movie)}
                         isAuthenticated={!!user}
                     />
                 </div>

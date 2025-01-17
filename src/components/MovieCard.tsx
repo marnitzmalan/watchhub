@@ -1,28 +1,38 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { IMovie } from "@/types/Movie";
-import WatchlistRibbon from "@/components/WatchlistRibbon";
+import { MdRemoveRedEye, MdOutlineBookmark } from "react-icons/md";
 import ProgressiveImage from "./ProgressiveImage";
+import { useWatched } from "@/hooks/useWatched.ts";
+import { useFavourite } from "@/hooks/useFavourite.ts";
+import { IMovie } from "@/types/Movie"; // Make sure to import the IMovie type
 
 interface MovieCardProps {
     movie: IMovie;
-    IsWatchlist: boolean;
-    onToggleWatchlist: () => void;
     isAuthenticated: boolean;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({
-    movie,
-    IsWatchlist,
-    onToggleWatchlist,
-    isAuthenticated,
-}) => {
+const MovieCard: React.FC<MovieCardProps> = ({ movie, isAuthenticated }) => {
     const lowQualityPosterSrc = movie.poster_path
         ? `https://image.tmdb.org/t/p/w92${movie.poster_path}`
         : "";
     const highQualityPosterSrc = movie.poster_path
         ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
         : "";
+
+    const { isWatched, toggleWatched } = useWatched();
+    const { isFavourite, toggleFavourite } = useFavourite();
+
+    const handleToggleWatched = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleWatched(movie);
+    };
+
+    const handleToggleFavourite = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleFavourite(movie);
+    };
 
     return (
         <div className="flex flex-col h-full">
@@ -51,16 +61,38 @@ const MovieCard: React.FC<MovieCardProps> = ({
                     </div>
                 </Link>
                 {isAuthenticated && (
-                    <div className="absolute top-0 right-0 w-[15%] max-w-[48px] min-w-[32px]">
-                        <WatchlistRibbon
-                            isInWatchlist={IsWatchlist}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                onToggleWatchlist();
-                            }}
-                        />
-                    </div>
+                    <>
+                        <div className="absolute top-0 right-0 m-2">
+                            <button
+                                onClick={handleToggleFavourite}
+                                className={`p-2 rounded-full ${
+                                    isFavourite(movie.id)
+                                        ? "bg-red-400 bg-opacity-75 text-white"
+                                        : "bg-black bg-opacity-50 text-white"
+                                } hover:bg-opacity-100 transition-colors duration-200`}
+                                title={
+                                    isFavourite(movie.id)
+                                        ? "Remove from Favorites"
+                                        : "Add to Favorites"
+                                }
+                            >
+                                <MdOutlineBookmark size={24} />
+                            </button>
+                        </div>
+                        <div className="absolute top-0 left-0 m-2">
+                            <button
+                                onClick={handleToggleWatched}
+                                className={`p-2 rounded-full ${
+                                    isWatched(movie.id)
+                                        ? "bg-green-400 bg-opacity-75 text-white"
+                                        : "bg-black bg-opacity-50 text-white"
+                                } hover:bg-opacity-100 transition-colors duration-200`}
+                                title={isWatched(movie.id) ? "Watched" : "Mark as Watched"}
+                            >
+                                <MdRemoveRedEye size={24} />
+                            </button>
+                        </div>
+                    </>
                 )}
             </div>
             <div className="mt-2">

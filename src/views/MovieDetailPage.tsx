@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom";
 import { useMovieDetails } from "@/api/movies";
 import { IGenre } from "@/types/Genre";
 import { useAuth } from "@/hooks/useAuth";
-import { useWatchlist } from "@/hooks/useWatchlist";
-import WatchlistRibbon from "@/components/WatchlistRibbon";
+import { useFavourite } from "@/hooks/useFavourite";
+import { useWatched } from "@/hooks/useWatched";
 import ProgressiveImage from "@/components/ProgressiveImage";
 import RecommendedMovies from "@/components/RecommendedMovies";
-import { MdArrowBack } from "react-icons/md";
+import { MdArrowBack, MdOutlineBookmark, MdRemoveRedEye } from "react-icons/md";
 import AppButton from "@/components/ui/AppButton";
 import MovieReviews from "@/components/MovieReviews";
 
@@ -21,8 +21,9 @@ interface Actor {
 const MovieDetailPage = () => {
     const { id } = useParams<{ id: string }>();
     const { data: movieData, isLoading, error } = useMovieDetails(Number(id));
-    const { user } = useAuth();
-    const { isWatchlist, toggleWatchlist } = useWatchlist();
+    const { isFavourite, toggleFavourite } = useFavourite();
+    const { isWatched, toggleWatched } = useWatched();
+    const { isAuthenticated } = useAuth();
     const [showTooltip, setShowTooltip] = useState(false);
 
     useEffect(() => {
@@ -62,6 +63,18 @@ const MovieDetailPage = () => {
     const [ratingCode, ratingDescription] = fullRating ? fullRating.split(" (") : [ageRating, ""];
     const displayRating = ratingCode.replace(/^[A-Z]{2}-/, ""); // Remove country code prefix if present
 
+    const handleToggleFavourite = () => {
+        if (movie) {
+            toggleFavourite(movie);
+        }
+    };
+
+    const handleToggleWatched = () => {
+        if (movie) {
+            toggleWatched(movie);
+        }
+    };
+
     return (
         <div className="max-w-6xl mx-auto p-4">
             <AppButton
@@ -83,13 +96,43 @@ const MovieDetailPage = () => {
                                 alt={movie.title}
                                 className="w-full rounded-lg shadow-lg"
                             />
-                            {user && (
-                                <div className="absolute top-0 right-0 w-[15%] max-w-[64px] min-w-[48px]">
-                                    <WatchlistRibbon
-                                        isInWatchlist={isWatchlist(movie.id)}
-                                        onClick={() => toggleWatchlist(movie)}
-                                    />
-                                </div>
+                            {isAuthenticated && (
+                                <>
+                                    <div className="absolute top-0 right-0 m-2">
+                                        <button
+                                            onClick={handleToggleFavourite}
+                                            className={`p-2 rounded-full ${
+                                                isFavourite(movie.id)
+                                                    ? "bg-red-400 bg-opacity-75 text-white"
+                                                    : "bg-black bg-opacity-50 text-white"
+                                            } hover:bg-opacity-100 transition-colors duration-200`}
+                                            title={
+                                                isFavourite(movie.id)
+                                                    ? "Remove from Favorites"
+                                                    : "Add to Favorites"
+                                            }
+                                        >
+                                            <MdOutlineBookmark size={24} />
+                                        </button>
+                                    </div>
+                                    <div className="absolute top-0 left-0 m-2">
+                                        <button
+                                            onClick={handleToggleWatched}
+                                            className={`p-2 rounded-full ${
+                                                isWatched(movie.id)
+                                                    ? "bg-green-400 bg-opacity-75 text-white"
+                                                    : "bg-black bg-opacity-50 text-white"
+                                            } hover:bg-opacity-100 transition-colors duration-200`}
+                                            title={
+                                                isWatched(movie.id)
+                                                    ? "Mark as Unwatched"
+                                                    : "Mark as Watched"
+                                            }
+                                        >
+                                            <MdRemoveRedEye size={24} />
+                                        </button>
+                                    </div>
+                                </>
                             )}
                         </div>
                     ) : (

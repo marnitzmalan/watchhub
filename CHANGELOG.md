@@ -37,7 +37,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* fix on advancedMovieResults movie link and watchlist button conflicting ([f55b099](https://github.com/your-username/watchhub/commit/f55b0990840e2bb05c6b0b53d2969e23c7e369b1))
+* fix on advancedMovieResults movie link and favourite button conflicting ([f55b099](https://github.com/your-username/watchhub/commit/f55b0990840e2bb05c6b0b53d2969e23c7e369b1))
 
 ### [0.0.133](https://github.com/your-username/watchhub/compare/v0.0.132...v0.0.133) (2025-01-16)
 
@@ -85,7 +85,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* added watchlist toggle on moveDetails ([3c8701a](https://github.com/your-username/watchhub/commit/3c8701a59ad8243e74c482a38082ac87bec9d95e))
+* added favourite toggle on moveDetails ([3c8701a](https://github.com/your-username/watchhub/commit/3c8701a59ad8243e74c482a38082ac87bec9d95e))
 
 ### [0.0.124](https://github.com/your-username/watchhub/compare/v0.0.123...v0.0.124) (2025-01-15)
 

@@ -3,7 +3,7 @@ import { usePopularMovies } from "@/api/movies.ts";
 import MovieCard from "@/components/MovieCard.tsx";
 import SkeletonLoader from "@/components/SkeletonLoader.tsx";
 import { useAuth } from "@/hooks/useAuth.ts";
-import { useWatchlist } from "@/hooks/useWatchlist.ts";
+import { useFavourite } from "@/hooks/useFavourite.ts";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -33,7 +33,7 @@ const CustomNextArrow: React.FC<ArrowProps> = ({ onClick, currentSlide, slideCou
     const isLastSlide =
         typeof slideCount === "number" &&
         typeof currentSlide === "number" &&
-        currentSlide + 8 >= slideCount;
+        currentSlide + 5 >= slideCount;
     return (
         <button
             onClick={onClick}
@@ -50,14 +50,14 @@ const CustomNextArrow: React.FC<ArrowProps> = ({ onClick, currentSlide, slideCou
 const FeaturedToday: React.FC = () => {
     const { data: movies, isLoading, error } = usePopularMovies();
     const { user } = useAuth();
-    const { isWatchlist, toggleWatchlist } = useWatchlist();
+    const { isFavourite, toggleFavourite } = useFavourite();
 
     const settings = {
         dots: false,
         infinite: false,
         speed: 500,
-        slidesToShow: 8,
-        slidesToScroll: 8,
+        slidesToShow: 5,
+        slidesToScroll: 5,
         prevArrow: isLoading ? <></> : <CustomPrevArrow />,
         nextArrow: isLoading ? <></> : <CustomNextArrow />,
         responsive: [
@@ -88,7 +88,7 @@ const FeaturedToday: React.FC = () => {
     if (isLoading) {
         return (
             <Slider {...settings}>
-                {[...Array(8)].map((_, index) => (
+                {[...Array(5)].map((_, index) => (
                     <div key={index} className="px-2">
                         <SkeletonLoader />
                     </div>
@@ -109,8 +109,8 @@ const FeaturedToday: React.FC = () => {
                         <div key={movie.id} className="px-2">
                             <MovieCard
                                 movie={movie}
-                                IsWatchlist={isWatchlist(movie.id)}
-                                onToggleWatchlist={() => toggleWatchlist(movie)}
+                                IsFavourite={isFavourite(movie.id)}
+                                onToggleFavourite={() => toggleFavourite(movie)}
                                 isAuthenticated={!!user}
                             />
                         </div>

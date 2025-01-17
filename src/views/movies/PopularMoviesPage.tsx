@@ -1,5 +1,5 @@
 import React from "react";
-import { useWatchlist } from "@/hooks/useWatchlist.ts";
+import { useFavourite } from "@/hooks/useFavourite.ts";
 import { IMovie } from "@/types/Movie.ts";
 import MovieCard from "@/components/MovieCard.tsx";
 import { usePopularMovies } from "@/api/movies.ts";
@@ -8,11 +8,11 @@ import SkeletonLoader from "@/components/SkeletonLoader.tsx";
 
 const PopularMoviesPage: React.FC = () => {
     const { data: movies, isLoading, error } = usePopularMovies();
-    const { toggleWatchlist, isWatchlist } = useWatchlist();
+    const { toggleFavourite, isFavourite } = useFavourite();
     const { isAuthenticated } = useAuth();
 
-    const handleToggleWatchlist = (movie: IMovie) => {
-        toggleWatchlist(movie);
+    const handleToggleFavourite = (movie: IMovie) => {
+        toggleFavourite(movie);
     };
 
     if (isLoading) {
@@ -47,8 +47,8 @@ const PopularMoviesPage: React.FC = () => {
                         <MovieCard
                             key={movie.id}
                             movie={movie}
-                            IsWatchlist={isWatchlist(movie.id)}
-                            onToggleWatchlist={() => handleToggleWatchlist(movie)}
+                            IsFavourite={isFavourite(movie.id)}
+                            onToggleFavourite={() => handleToggleFavourite(movie)}
                             isAuthenticated={isAuthenticated}
                         />
                     ))}

@@ -61,11 +61,11 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, toggleMenu }) => {
                     Advanced Search
                 </Link>
                 <Link
-                    to="/watchlist"
+                    to="/favourite"
                     onClick={toggleMenu}
                     className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                 >
-                    Watchlist
+                    Favourite
                 </Link>
                 <UserMenu
                     isMobile={true}
