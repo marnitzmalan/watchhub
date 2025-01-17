@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.140](https://github.com/your-username/watchhub/compare/v0.0.139...v0.0.140) (2025-01-17)
+
+
+### Features
+
+* add watched ([348a5c9](https://github.com/your-username/watchhub/commit/348a5c9d4d5b32c61c3c94a2802adf6b072150fa))
+
 ### [0.0.139](https://github.com/your-username/watchhub/compare/v0.0.138...v0.0.139) (2025-01-17)
 
 
