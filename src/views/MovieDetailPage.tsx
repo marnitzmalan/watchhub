@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useMovieDetails } from "@/api/movies";
 import { IGenre } from "@/types/Genre";
@@ -19,6 +20,10 @@ const MovieDetailPage = () => {
     const { data: movieData, isLoading, error } = useMovieDetails(Number(id));
     const { user } = useAuth();
     const { isWatchlist, toggleWatchlist } = useWatchlist();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {(error as Error).message}</div>;
