@@ -23,7 +23,7 @@ const MovieDetailPage = () => {
     if (error) return <div>Error: {(error as Error).message}</div>;
     if (!movieData || !movieData.movie) return <div>Movie not found</div>;
 
-    const { movie, credits } = movieData;
+    const { movie, credits, videos } = movieData;
     const posterSrc = movie.poster_path
         ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
         : "";
@@ -41,6 +41,8 @@ const MovieDetailPage = () => {
 
     const director = credits?.crew?.find((person) => person.job === "Director");
     const writers = credits?.crew?.filter((person) => person.department === "Writing").slice(0, 2);
+
+    const trailer = videos?.find((video) => video.type === "Trailer" && video.site === "YouTube");
 
     return (
         <div className="max-w-6xl mx-auto p-4">
@@ -117,16 +119,6 @@ const MovieDetailPage = () => {
             </div>
 
             <div className="mt-8">
-                <h2 className="text-2xl font-bold mb-4">Trailer</h2>
-                <div className="aspect-w-16 aspect-h-9 bg-gray-200">
-                    {/* Placeholder for trailer */}
-                    <div className="flex items-center justify-center h-full">
-                        Trailer Placeholder
-                    </div>
-                </div>
-            </div>
-
-            <div className="mt-8">
                 <h2 className="text-2xl font-bold mb-4">Top Cast</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                     {topCast.map((actor) => (
@@ -145,6 +137,28 @@ const MovieDetailPage = () => {
                         </div>
                     ))}
                 </div>
+            </div>
+
+            <div className="mt-8">
+                <h2 className="text-2xl font-bold mb-4">Trailer</h2>
+                {trailer ? (
+                    <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
+                        <iframe
+                            src={`https://www.youtube.com/embed/${trailer.key}`}
+                            title={`${movie.title} Trailer`}
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            className="absolute top-0 left-0 w-full h-full"
+                        ></iframe>
+                    </div>
+                ) : (
+                    <div className="relative w-full bg-gray-200" style={{ paddingTop: "56.25%" }}>
+                        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                            No trailer available
+                        </div>
+                    </div>
+                )}
             </div>
 
             <div className="mt-8">

@@ -56,12 +56,15 @@ export const useMovieDetails = (movieId: number) => {
     return useQuery({
         queryKey: ["movieDetails", movieId],
         queryFn: async () => {
-            const [movieDetails, credits] = await Promise.all([
+            const [movieDetails, credits, videos] = await Promise.all([
                 fetch(
                     `${TMDB_BASE_URL}/movie/${movieId}?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
                 ).then((res) => res.json()),
                 fetch(
                     `${TMDB_BASE_URL}/movie/${movieId}/credits?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
+                ).then((res) => res.json()),
+                fetch(
+                    `${TMDB_BASE_URL}/movie/${movieId}/videos?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
                 ).then((res) => res.json()),
             ]);
 
@@ -71,6 +74,7 @@ export const useMovieDetails = (movieId: number) => {
                     cast: credits.cast.slice(0, 6),
                     crew: credits.crew,
                 },
+                videos: videos.results,
             };
         },
     });
