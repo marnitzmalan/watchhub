@@ -66,8 +66,11 @@ export const useMovieDetails = (movieId: number) => {
             ]);
 
             return {
-                ...movieDetails,
-                cast: credits.cast.slice(0, 6), // Get top 6 cast members
+                movie: movieDetails,
+                credits: {
+                    cast: credits.cast.slice(0, 6),
+                    crew: credits.crew,
+                },
             };
         },
     });
