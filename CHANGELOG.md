@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.138](https://github.com/your-username/watchhub/compare/v0.0.137...v0.0.138) (2025-01-17)
+
+
+### Features
+
+* darkmode ([f6475ff](https://github.com/your-username/watchhub/commit/f6475ff466b3f795f5447d826d740dfde3741161))
+
 ### [0.0.137](https://github.com/your-username/watchhub/compare/v0.0.136...v0.0.137) (2025-01-17)
 
 
