@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { IMovie } from "@/types/Movie";
 import WatchlistRibbon from "@/components/WatchlistRibbon";
+import ProgressiveImage from "./ProgressiveImage";
 
 interface MovieCardProps {
     movie: IMovie;
@@ -16,15 +17,21 @@ const MovieCard: React.FC<MovieCardProps> = ({
     onToggleWatchlist,
     isAuthenticated,
 }) => {
-    const posterSrc = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+    const lowQualityPosterSrc = movie.poster_path
+        ? `https://image.tmdb.org/t/p/w92${movie.poster_path}`
+        : "";
+    const highQualityPosterSrc = movie.poster_path
+        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+        : "";
 
     return (
         <div className="flex flex-col h-full">
             <div className="bg-white rounded-lg overflow-hidden transition-all duration-300 ease-in-out hover:shadow-xl flex-grow relative">
                 <Link to={`/movie/${movie.id}`} className="block relative group h-full">
                     <div className="overflow-hidden h-full pb-[150%] relative">
-                        <img
-                            src={posterSrc}
+                        <ProgressiveImage
+                            lowQualitySrc={lowQualityPosterSrc}
+                            highQualitySrc={highQualityPosterSrc}
                             alt={movie.title}
                             className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-300 ease-in-out transform group-hover:scale-110"
                         />

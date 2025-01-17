@@ -4,6 +4,7 @@ import { IGenre } from "@/types/Genre";
 import { useAuth } from "@/hooks/useAuth";
 import { useWatchlist } from "@/hooks/useWatchlist";
 import WatchlistRibbon from "@/components/WatchlistRibbon";
+import ProgressiveImage from "@/components/ProgressiveImage";
 import { MdArrowBack } from "react-icons/md";
 
 interface Actor {
@@ -26,6 +27,9 @@ const MovieDetailPage = () => {
     const { movie, credits, videos } = movieData;
     const posterSrc = movie.poster_path
         ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+        : "";
+    const lowQualityPosterSrc = movie.poster_path
+        ? `https://image.tmdb.org/t/p/w92${movie.poster_path}`
         : "";
 
     const topCast: Actor[] = credits?.cast
@@ -57,8 +61,9 @@ const MovieDetailPage = () => {
                 <div className="md:w-1/3 relative">
                     {posterSrc ? (
                         <div className="relative">
-                            <img
-                                src={posterSrc}
+                            <ProgressiveImage
+                                lowQualitySrc={lowQualityPosterSrc}
+                                highQualitySrc={posterSrc}
                                 alt={movie.title}
                                 className="w-full rounded-lg shadow-lg"
                             />
@@ -72,7 +77,7 @@ const MovieDetailPage = () => {
                             )}
                         </div>
                     ) : (
-                        <div className="w-full h-[450px] bg-gray-200 rounded-lg shadow-lg animate-pulse"></div>
+                        <div className="w-full h-0 pb-[150%] bg-gray-200 rounded-lg shadow-lg animate-pulse"></div>
                     )}
                 </div>
 

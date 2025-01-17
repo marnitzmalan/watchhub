@@ -1,6 +1,7 @@
 import React from "react";
 import { usePopularPeople } from "@/api/people";
 import { Link } from "react-router-dom";
+import ProgressiveImage from "@/components/ProgressiveImage";
 
 interface ICelebrity {
     id: number;
@@ -27,8 +28,9 @@ const PopularCelebrities: React.FC = () => {
                 >
                     <div className="aspect-square rounded-full overflow-hidden mx-auto mb-2 relative">
                         {celebrity.profile_path ? (
-                            <img
-                                src={`https://image.tmdb.org/t/p/w500${celebrity.profile_path}`}
+                            <ProgressiveImage
+                                lowQualitySrc={`https://image.tmdb.org/t/p/w45${celebrity.profile_path}`}
+                                highQualitySrc={`https://image.tmdb.org/t/p/w500${celebrity.profile_path}`}
                                 alt={celebrity.name}
                                 className="object-cover w-full h-full"
                             />
