@@ -3,7 +3,8 @@ import { ISearchCriteria } from "@/types/SearchCriteria";
 import { GENRES } from "@/constants/genres";
 import { CERTIFICATES } from "@/constants/certificates";
 import { MdClear, MdSearch } from "react-icons/md";
-import SelectDropdown from "@/components/ui/SelectDropdown";
+import AppButton from "@/components/ui/AppButton";
+import AppDropdown from "@/components/ui/AppDropdown.tsx";
 
 type AdvancedSearchFilterProps = {
     searchCriteria: ISearchCriteria;
@@ -43,35 +44,33 @@ const AdvancedSearchFilter: React.FC<AdvancedSearchFilterProps> = ({
     };
 
     return (
-        <form onSubmit={handleSubmit} className="bg-gray-100 shadow-md rounded-lg p-6">
+        <form
+            onSubmit={handleSubmit}
+            className="bg-gray-100 dark:bg-gray-800 shadow-md rounded-lg p-6"
+        >
             {/* Search and Clear buttons at the top */}
-            <div className="flex items-center gap-4 mb-6">
-                <button
+            <div className="mb-6">
+                <AppButton
                     type="submit"
-                    className={`flex-grow text-white py-2 px-4 rounded flex items-center justify-center ${
-                        isAnyFilterSet()
-                            ? "bg-purple-600 hover:bg-purple-700"
-                            : "bg-purple-400 cursor-not-allowed"
-                    }`}
+                    icon={<MdSearch size={20} />}
                     disabled={!isAnyFilterSet()}
+                    variant="gradient"
+                    className="w-full"
+                    title={!isAnyFilterSet() ? "Please set at least one filter to search" : ""}
                 >
-                    <MdSearch size={20} className="mr-2" />
                     Search
-                </button>
-                <button
-                    type="button"
-                    onClick={handleClearSearch}
-                    className={`flex-grow text-white py-2 px-4 rounded flex items-center justify-center ${
-                        isAnyFilterSet()
-                            ? "bg-gray-400 hover:bg-gray-500"
-                            : "bg-gray-300 cursor-not-allowed"
-                    }`}
-                    disabled={!isAnyFilterSet()}
-                    aria-label="Clear search"
-                >
-                    <MdClear size={20} className="mr-2" />
-                    Clear
-                </button>
+                </AppButton>
+                {isAnyFilterSet() && (
+                    <AppButton
+                        type="button"
+                        icon={<MdClear size={20} />}
+                        onClick={handleClearSearch}
+                        variant="secondary"
+                        className="w-full mt-2"
+                    >
+                        Clear Filters
+                    </AppButton>
+                )}
             </div>
 
             {/* Filter fields */}
@@ -87,7 +86,7 @@ const AdvancedSearchFilter: React.FC<AdvancedSearchFilterProps> = ({
                         name="query"
                         value={searchCriteria.query}
                         onChange={handleInputChange}
-                        className="w-full p-2 border border-gray-300 rounded focus:ring-gray-500 focus:border-gray-500"
+                        className="input-default"
                         placeholder="Enter movie title"
                     />
                 </div>
@@ -124,7 +123,7 @@ const AdvancedSearchFilter: React.FC<AdvancedSearchFilterProps> = ({
                         name="year"
                         value={searchCriteria.year || ""}
                         onChange={handleInputChange}
-                        className="w-full p-2 border border-gray-300 rounded focus:ring-gray-500 focus:border-gray-500"
+                        className="input-default"
                         placeholder="Enter release year"
                     />
                 </div>
@@ -143,7 +142,7 @@ const AdvancedSearchFilter: React.FC<AdvancedSearchFilterProps> = ({
                         name="keyword"
                         value={searchCriteria.keyword}
                         onChange={handleInputChange}
-                        className="w-full p-2 border border-gray-300 rounded focus:ring-gray-500 focus:border-gray-500"
+                        className="input-default"
                         placeholder="Enter keyword"
                     />
                 </div>
@@ -162,7 +161,7 @@ const AdvancedSearchFilter: React.FC<AdvancedSearchFilterProps> = ({
                         name="country"
                         value={searchCriteria.country}
                         onChange={handleInputChange}
-                        className="w-full p-2 border border-gray-300 rounded focus:ring-gray-500 focus:border-gray-500"
+                        className="input-default"
                         placeholder="Enter country"
                     />
                 </div>
@@ -181,7 +180,7 @@ const AdvancedSearchFilter: React.FC<AdvancedSearchFilterProps> = ({
                         name="runtime"
                         value={searchCriteria.runtime || ""}
                         onChange={handleInputChange}
-                        className="w-full p-2 border border-gray-300 rounded focus:ring-gray-500 focus:border-gray-500"
+                        className="input-default"
                         placeholder="Enter runtime in minutes"
                     />
                 </div>
@@ -200,7 +199,7 @@ const AdvancedSearchFilter: React.FC<AdvancedSearchFilterProps> = ({
                         name="imdbRating"
                         value={searchCriteria.imdbRating || ""}
                         onChange={handleInputChange}
-                        className="w-full p-2 border border-gray-300 rounded focus:ring-gray-500 focus:border-gray-500"
+                        className="input-default"
                         placeholder="Enter IMDb rating"
                         step="0.1"
                         min="0"
@@ -219,7 +218,7 @@ const AdvancedSearchFilter: React.FC<AdvancedSearchFilterProps> = ({
                         name="cast"
                         value={searchCriteria.cast}
                         onChange={handleInputChange}
-                        className="w-full p-2 border border-gray-300 rounded focus:ring-gray-500 focus:border-gray-500"
+                        className="input-default"
                         placeholder="Enter cast member name"
                     />
                 </div>
@@ -238,14 +237,14 @@ const AdvancedSearchFilter: React.FC<AdvancedSearchFilterProps> = ({
                         name="language"
                         value={searchCriteria.language}
                         onChange={handleInputChange}
-                        className="w-full p-2 border border-gray-300 rounded focus:ring-gray-500 focus:border-gray-500"
+                        className="input-default"
                         placeholder="Enter language"
                     />
                 </div>
 
                 {/* Certificate */}
                 <div>
-                    <SelectDropdown
+                    <AppDropdown
                         label="US Certificate (Age Rating)"
                         options={CERTIFICATES}
                         value={searchCriteria.certificate ?? ""}

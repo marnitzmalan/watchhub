@@ -21,9 +21,11 @@ const LoginPage: React.FC = () => {
     }, [navigate]);
 
     return (
-        <div className="min-h-screen min-w-full bg-gray-100 flex justify-center items-center">
-            <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
-                <h1 className="text-2xl font-bold mb-6 text-center">Login / Sign Up</h1>
+        <div className="min-h-screen min-w-full bg-gray-100 dark:bg-gray-900 flex justify-center items-center p-4">
+            <div className="w-full max-w-md bg-transparent md:bg-white md:dark:bg-gray-800 md:p-8 md:rounded-lg md:shadow-md">
+                <h1 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white">
+                    Login / Sign Up
+                </h1>
                 <Auth
                     supabaseClient={supabase}
                     appearance={{
@@ -34,6 +36,9 @@ const LoginPage: React.FC = () => {
                                     brand: "#9333EA",
                                     brandAccent: "#7E22CE",
                                     brandButtonText: "white",
+                                    inputBackground: "transparent",
+                                    inputText: "inherit",
+                                    inputPlaceholder: "darkgray",
                                 },
                             },
                         },
@@ -47,6 +52,14 @@ const LoginPage: React.FC = () => {
                             },
                             input: {
                                 borderRadius: "0.375rem",
+                                backgroundColor: "transparent",
+                                color: "inherit",
+                            },
+                            label: {
+                                color: "inherit",
+                            },
+                            container: {
+                                padding: "0",
                             },
                         },
                     }}

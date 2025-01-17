@@ -4,7 +4,7 @@ interface SectionHeaderProps {
     title: string;
 }
 
-const SectionHeader: React.FC<SectionHeaderProps> = ({ title }) => {
+const AppHeader: React.FC<SectionHeaderProps> = ({ title }) => {
     return (
         <div className="text-center md:text-left mb-6">
             <h2 className="text-2xl font-bold relative inline-block">
@@ -15,4 +15,4 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title }) => {
     );
 };
 
-export default SectionHeader;
+export default AppHeader;

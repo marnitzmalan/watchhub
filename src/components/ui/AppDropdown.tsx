@@ -15,7 +15,7 @@ interface SelectDropdownProps {
     placeholder?: string;
 }
 
-const SelectDropdown: React.FC<SelectDropdownProps> = ({
+const AppDropdown: React.FC<SelectDropdownProps> = ({
     label,
     options,
     value,
@@ -81,4 +81,4 @@ const SelectDropdown: React.FC<SelectDropdownProps> = ({
     );
 };
 
-export default SelectDropdown;
+export default AppDropdown;

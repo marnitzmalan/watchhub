@@ -1,0 +1,6 @@
+@layer components {
+    .input-default {
+        @apply w-full py-2 px-2 pl-4 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400;
+        @apply focus:outline-none focus:ring-1 focus:ring-gray-300 dark:focus:ring-gray-500 focus:border-gray-300 dark:focus:border-gray-500;
+    }
+}

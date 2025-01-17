@@ -4,7 +4,8 @@ import { useAuth } from "@/hooks/useAuth";
 import { useWatchlist } from "@/hooks/useWatchlist";
 import { ISearchCriteria } from "@/types/SearchCriteria";
 import AdvanceSearchResults from "@/components/AdvanceSearchResults.tsx";
-import SectionHeader from "@/components/ui/SectionHeader";
+import AppButton from "@/components/ui/AppButton";
+import AppHeader from "@/components/ui/AppHeader.tsx";
 import AdvancedSearchFilter from "@/components/AdvancedSearchFilter";
 import { MdFilterList, MdFilterListOff } from "react-icons/md";
 
@@ -67,11 +68,12 @@ const AdvanceSearchPage: React.FC = () => {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <SectionHeader title="Advanced Title Search" />
+            <AppHeader title="Advanced Title Search" />
             <div className="md:hidden mb-4">
-                <button
+                <AppButton
                     onClick={() => setIsFilterVisible(!isFilterVisible)}
-                    className="w-full bg-gray-200 text-gray-700 py-3 px-4 rounded-md shadow-sm transition duration-300 ease-in-out hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 flex items-center justify-center"
+                    className="w-full"
+                    variant="secondary"
                 >
                     {isFilterVisible ? (
                         <>
@@ -84,7 +86,7 @@ const AdvanceSearchPage: React.FC = () => {
                             Show Filters
                         </>
                     )}
-                </button>
+                </AppButton>
             </div>
             <div className="flex flex-col md:flex-row gap-8">
                 {/* Left column: Search form */}
@@ -114,11 +116,11 @@ const AdvanceSearchPage: React.FC = () => {
                         />
                     )}
                     {!isFilterVisible && !isSearchClicked && (
-                        <div className="flex flex-col pt-20 items-center h-full text-gray-500">
+                        <div className="flex flex-col mt-12 md:mt-40 items-center h-full text-gray-500">
                             <img
-                                src="/search_empty.jpg"
+                                src="/search_empty.png"
                                 alt="Empty search"
-                                className="w-40 h-40 md:w-60 md:h-60 mb-6"
+                                className="w-56 md:w-80 mb-6"
                             />
                             <h3 className="text-2xl text-center font-semibold mb-2">
                                 Ready for a Streaming Adventure?

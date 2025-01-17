@@ -67,7 +67,14 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, toggleMenu }) => {
                 >
                     Watchlist
                 </Link>
-                <UserMenu isMobile={true} closeMenu={toggleMenu} />
+                <UserMenu
+                    isMobile={true}
+                    closeMenu={toggleMenu}
+                    isDropdownOpen={false}
+                    toggleDropdown={function (): void {
+                        throw new Error("Function not implemented.");
+                    }}
+                />
             </div>
         </div>
     );

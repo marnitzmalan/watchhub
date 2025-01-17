@@ -1,3 +1,22 @@
+@import '@/assets/styles/components.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    @layer base {
+        body {
+            @apply dark:bg-gray-900 dark:text-white;
+        }
+
+        h1, h2, h3, h4, h5, h6, label, a {
+            @apply dark:text-white;
+        }
+
+        input {
+            @apply dark:bg-gray-700;
+        }
+    }
+
+}

@@ -36,11 +36,11 @@ const UserMenu: React.FC<UserMenuProps> = ({
         return (
             <Link
                 to="/login"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                className="text-gray-300 hover:bg-gray-700 hover:text-white block mr-2 px-3 py-2 rounded-md text-base font-medium"
                 onClick={handleLinkClick}
             >
                 <span className="flex items-center">
-                    <MdAccountCircle className="mr-3" size={20} />
+                    <MdAccountCircle className="mr-2" size={20} />
                     Sign In
                 </span>
             </Link>
@@ -76,10 +76,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                 onClick={toggleDropdown}
                 className="flex items-center text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium focus:outline-none"
             >
-                <span className="flex items-center">
-                    <MdAccountCircle className="mr-2 h-5 w-5" />
-                    {user?.email || "User"}
-                </span>
+                <span className="flex items-center">{user?.email || "User"}</span>
                 <MdArrowDropDown className="ml-1 h-5 w-5" />
             </button>
             {isDropdownOpen && (
