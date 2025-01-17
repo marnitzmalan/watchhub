@@ -1,7 +1,7 @@
 import React from "react";
-import { usePopularPeople } from "@/api/people";
+import { usePopularPeople } from "@/api/people.ts";
 import { Link } from "react-router-dom";
-import ProgressiveImage from "@/components/ProgressiveImage";
+import ProgressiveImage from "@/components/ProgressiveImage.tsx";
 
 interface ICelebrity {
     id: number;

@@ -26,7 +26,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                     <RouterProvider router={router} />
                 </AuthProvider>
             </ThemeProvider>
-            <ReactQueryDevtools initialIsOpen={false} />
+            {import.meta.env.VITE_REACT_QUERY_DEVTOOLS === "true" && (
+                <ReactQueryDevtools initialIsOpen={false} />
+            )}
         </QueryClientProvider>
     </React.StrictMode>
 );

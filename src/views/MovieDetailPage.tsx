@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMovieDetails } from "@/api/movies";
 import { IGenre } from "@/types/Genre";
@@ -6,8 +6,10 @@ import { useAuth } from "@/hooks/useAuth";
 import { useWatchlist } from "@/hooks/useWatchlist";
 import WatchlistRibbon from "@/components/WatchlistRibbon";
 import ProgressiveImage from "@/components/ProgressiveImage";
+import RecommendedMovies from "@/components/RecommendedMovies";
 import { MdArrowBack } from "react-icons/md";
 import AppButton from "@/components/ui/AppButton";
+import MovieReviews from "@/components/MovieReviews";
 
 interface Actor {
     id: number;
@@ -21,6 +23,7 @@ const MovieDetailPage = () => {
     const { data: movieData, isLoading, error } = useMovieDetails(Number(id));
     const { user } = useAuth();
     const { isWatchlist, toggleWatchlist } = useWatchlist();
+    const [showTooltip, setShowTooltip] = useState(false);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -39,7 +42,7 @@ const MovieDetailPage = () => {
         : "";
 
     const topCast: Actor[] = credits?.cast
-        ? credits.cast.slice(0, 6).map((actor) => ({
+        ? credits.cast.slice(0, 12).map((actor) => ({
               id: actor.id,
               name: actor.name,
               character: actor.character,
@@ -53,6 +56,11 @@ const MovieDetailPage = () => {
     const writers = credits?.crew?.filter((person) => person.department === "Writing").slice(0, 2);
 
     const trailer = videos?.find((video) => video.type === "Trailer" && video.site === "YouTube");
+
+    const ageRating = movie.age_rating || "Not Rated";
+    const [countryCode, fullRating] = ageRating.split(": ");
+    const [ratingCode, ratingDescription] = fullRating ? fullRating.split(" (") : [ageRating, ""];
+    const displayRating = ratingCode.replace(/^[A-Z]{2}-/, ""); // Remove country code prefix if present
 
     return (
         <div className="max-w-6xl mx-auto p-4">
@@ -93,13 +101,25 @@ const MovieDetailPage = () => {
                     <h1 className="text-4xl font-bold mb-2">{movie.title}</h1>
                     <p className="text-gray-600 mb-4">
                         {new Date(movie.release_date).getFullYear()} • {movie.runtime} min
+                        <span
+                            className="bg-gray-200 text-gray-800 ml-4 px-2 py-1 rounded text-sm relative cursor-help"
+                            onMouseEnter={() => setShowTooltip(true)}
+                            onMouseLeave={() => setShowTooltip(false)}
+                        >
+                            {displayRating}
+                            {showTooltip && ratingDescription && (
+                                <span className="absolute left-0 top-full mt-2 w-64 p-2 bg-gray-800 text-white text-xs rounded shadow-lg z-10">
+                                    {`${countryCode}: ${ratingDescription.replace(")", "")}`}
+                                </span>
+                            )}
+                        </span>
                     </p>
 
                     <div className="mb-4 flex flex-wrap gap-2">
                         {movie.genres.map((genre: IGenre) => (
                             <span
                                 key={genre.id}
-                                className="bg-gray-200 text-gray-800 px-2 py-1 rounded-full text-sm"
+                                className="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-2 py-1 rounded-full text-sm"
                             >
                                 {genre.name}
                             </span>
@@ -128,6 +148,22 @@ const MovieDetailPage = () => {
                                 : "N/A"}
                         </p>
                     </div>
+
+                    {movie.keywords && movie.keywords.length > 0 && (
+                        <div className="mb-6">
+                            <h2 className="text-xl font-semibold mb-2">Keywords</h2>
+                            <div className="flex flex-wrap gap-2">
+                                {movie.keywords.map((keyword: { id: number; name: string }) => (
+                                    <span
+                                        key={keyword.id}
+                                        className="bg-gray-200 text-gray-800 px-2 py-1 rounded-full text-sm"
+                                    >
+                                        {keyword.name}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -174,14 +210,14 @@ const MovieDetailPage = () => {
                 )}
             </div>
 
-            <div className="mt-8">
+            <div className="mt-12">
                 <h2 className="text-2xl font-bold mb-4">More Like This</h2>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {/* Placeholder for similar movies */}
-                    {[1, 2, 3, 4].map((i) => (
-                        <div key={i} className="bg-gray-200 h-48 rounded-lg"></div>
-                    ))}
-                </div>
+                <RecommendedMovies movieId={movie.id} />
+            </div>
+
+            <div className="mt-8">
+                <h2 className="text-2xl font-bold mb-4">User Reviews</h2>
+                <MovieReviews movieId={movie.id} />
             </div>
         </div>
     );

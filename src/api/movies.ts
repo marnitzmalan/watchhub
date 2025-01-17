@@ -56,28 +56,88 @@ export const useMovieDetails = (movieId: number) => {
     return useQuery({
         queryKey: ["movieDetails", movieId],
         queryFn: async () => {
-            const [movieDetails, credits, videos] = await Promise.all([
-                fetch(
-                    `${TMDB_BASE_URL}/movie/${movieId}?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
-                ).then((res) => res.json()),
-                fetch(
-                    `${TMDB_BASE_URL}/movie/${movieId}/credits?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
-                ).then((res) => res.json()),
-                fetch(
-                    `${TMDB_BASE_URL}/movie/${movieId}/videos?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
-                ).then((res) => res.json()),
-            ]);
+            const [movieDetails, credits, videos, keywords, releaseDates, certifications] =
+                await Promise.all([
+                    fetch(
+                        `${TMDB_BASE_URL}/movie/${movieId}?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
+                    ).then((res) => res.json()),
+                    fetch(
+                        `${TMDB_BASE_URL}/movie/${movieId}/credits?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
+                    ).then((res) => res.json()),
+                    fetch(
+                        `${TMDB_BASE_URL}/movie/${movieId}/videos?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
+                    ).then((res) => res.json()),
+                    fetch(
+                        `${TMDB_BASE_URL}/movie/${movieId}/keywords?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
+                    ).then((res) => res.json()),
+                    fetch(
+                        `${TMDB_BASE_URL}/movie/${movieId}/release_dates?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
+                    ).then((res) => res.json()),
+                    fetch(
+                        `${TMDB_BASE_URL}/certification/movie/list?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
+                    ).then((res) => res.json()),
+                ]);
+
+            const ageRating = getAgeRating(releaseDates.results, certifications.certifications);
 
             return {
-                movie: movieDetails,
+                movie: {
+                    ...movieDetails,
+                    keywords: keywords.keywords.slice(0, 10),
+                    release_dates: releaseDates.results,
+                    age_rating: ageRating,
+                },
                 credits: {
-                    cast: credits.cast.slice(0, 6),
+                    cast: credits.cast.slice(0, 18),
                     crew: credits.crew,
                 },
                 videos: videos.results,
             };
         },
     });
+};
+
+const getAgeRating = (releaseDates: any[], certifications: any) => {
+    const priorityCountries = ["US", "GB", "AU", "CA"];
+
+    for (const country of priorityCountries) {
+        const countryRelease = releaseDates.find((r: any) => r.iso_3166_1 === country);
+        if (countryRelease) {
+            const certification = countryRelease.release_dates
+                .map((rd: any) => rd.certification)
+                .find((c: string) => c !== "");
+
+            if (certification) {
+                const countryCertifications = certifications[country];
+                const certInfo = countryCertifications.find(
+                    (cert: any) => cert.certification === certification
+                );
+                return certInfo
+                    ? `${country}: ${certification} (${certInfo.meaning})`
+                    : `${country}: ${certification}`;
+            }
+        }
+    }
+
+    // If no priority country has a rating, check all countries
+    for (const release of releaseDates) {
+        const certification = release.release_dates
+            .map((rd: any) => rd.certification)
+            .find((c: string) => c !== "");
+
+        if (certification) {
+            const country = release.iso_3166_1;
+            const countryCertifications = certifications[country];
+            const certInfo = countryCertifications?.find(
+                (cert: any) => cert.certification === certification
+            );
+            return certInfo
+                ? `${country}: ${certification} (${certInfo.meaning})`
+                : `${country}: ${certification}`;
+        }
+    }
+
+    return "Not Rated";
 };
 
 export const usePopularMovies = (page = 1) => {
@@ -120,5 +180,31 @@ export const useTrendingMovies = (timeWindow: "day" | "week" = "week") => {
             return response.json();
         },
         staleTime: 60 * 60 * 1000, // 1 hour
+    });
+};
+
+export const useRecommendedMovies = (movieId: number) => {
+    return useQuery({
+        queryKey: ["recommendedMovies", movieId],
+        queryFn: async () => {
+            const response = await fetch(
+                `${TMDB_BASE_URL}/movie/${movieId}/recommendations?api_key=${import.meta.env.VITE_TMDB_API_KEY}&language=en-US&page=1`
+            );
+            const data = await response.json();
+            return data.results.slice(0, 10); // Return only the first 8 recommendations
+        },
+    });
+};
+
+export const useMovieReviews = (movieId: number) => {
+    return useQuery({
+        queryKey: ["movieReviews", movieId],
+        queryFn: async () => {
+            const response = await fetch(
+                `${TMDB_BASE_URL}/movie/${movieId}/reviews?api_key=${import.meta.env.VITE_TMDB_API_KEY}&language=en-US&page=1`
+            );
+            const data = await response.json();
+            return data.results.slice(0, 3); // Return only the first 3 reviews
+        },
     });
 };

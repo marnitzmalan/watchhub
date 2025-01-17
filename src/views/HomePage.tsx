@@ -1,9 +1,9 @@
 import { usePopularMovies } from "@/api/movies";
 import { useAuth } from "@/hooks/useAuth";
-import HeroBanner from "@/components/home/HeroBanner";
-import FeaturedToday from "@/components/home/FeaturedToday";
-import TopTenMovies from "@/components/home/TopTenMovies";
-import PopularCelebrities from "@/components/home/PopularCelebrities";
+import HeroBanner from "@/views/home/HeroBanner";
+import FeaturedToday from "@/views/home/FeaturedToday";
+import TopTenMovies from "@/views/home/TopTenMovies";
+import PopularCelebrities from "@/views/home/PopularCelebrities";
 import AppHeader from "@/components/ui/AppHeader.tsx";
 
 const HomePage = () => {
@@ -31,14 +31,6 @@ const HomePage = () => {
                 <section className="mb-12">
                     <AppHeader title="Most Popular Celebrities" />
                     <PopularCelebrities />
-                </section>
-
-                {/* What to Watch Section */}
-                <section className="mb-12">
-                    <AppHeader title="What to Watch" />
-                    <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-md">
-                        <p>Placeholder for What to Watch recommendations</p>
-                    </div>
                 </section>
 
                 {/* From Your Watchlist Section */}

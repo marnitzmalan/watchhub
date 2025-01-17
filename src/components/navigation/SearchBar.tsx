@@ -73,7 +73,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onMovieSelect }) => {
                 <input
                     type="text"
                     placeholder="Search movies..."
-                    className="block w-full bg-gray-700 border border-transparent rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-400 focus:outline-none focus:bg-white focus:border-white focus:ring-white focus:text-gray-900 sm:text-sm"
+                    className="block w-full bg-gray-700 border border-transparent rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-400 focus:outline-none focus:border-gray-600 focus:ring-1 focus:ring-gray-600 focus:text-white sm:text-sm"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -83,12 +83,12 @@ const SearchBar: React.FC<SearchBarProps> = ({ onMovieSelect }) => {
                 />
             </form>
             {showSuggestions && suggestions.length > 0 && (
-                <div className="absolute left-0 right-0 mt-1 bg-white rounded-md shadow-lg">
-                    <ul className="max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                <div className="absolute left-0 right-0 mt-1 bg-white dark:bg-gray-800 rounded-md shadow-lg">
+                    <ul className="max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 dark:ring-white dark:ring-opacity-10 overflow-auto focus:outline-none sm:text-sm">
                         {suggestions.map((movie) => (
                             <li
                                 key={movie.id}
-                                className="text-gray-900 cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-gray-100 flex items-center"
+                                className="text-gray-900 dark:text-gray-100 cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
                                 onClick={() => handleSuggestionClick(movie.id)}
                             >
                                 {movie.poster_path && (

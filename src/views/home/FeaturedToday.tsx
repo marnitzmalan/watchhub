@@ -1,9 +1,9 @@
 import React from "react";
-import { usePopularMovies } from "@/api/movies";
-import MovieCard from "@/components/MovieCard";
-import SkeletonLoader from "@/components/SkeletonLoader";
-import { useAuth } from "@/hooks/useAuth";
-import { useWatchlist } from "@/hooks/useWatchlist";
+import { usePopularMovies } from "@/api/movies.ts";
+import MovieCard from "@/components/MovieCard.tsx";
+import SkeletonLoader from "@/components/SkeletonLoader.tsx";
+import { useAuth } from "@/hooks/useAuth.ts";
+import { useWatchlist } from "@/hooks/useWatchlist.ts";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -58,8 +58,8 @@ const FeaturedToday: React.FC = () => {
         speed: 500,
         slidesToShow: 8,
         slidesToScroll: 8,
-        prevArrow: <CustomPrevArrow />,
-        nextArrow: <CustomNextArrow />,
+        prevArrow: isLoading ? <></> : <CustomPrevArrow />,
+        nextArrow: isLoading ? <></> : <CustomNextArrow />,
         responsive: [
             {
                 breakpoint: 1024,

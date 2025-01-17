@@ -1,9 +1,9 @@
 import React from "react";
-import { useTrendingMovies } from "@/api/movies";
-import MovieCard from "@/components/MovieCard";
-import { useWatchlist } from "@/hooks/useWatchlist";
-import { useAuth } from "@/hooks/useAuth";
-import { IMovie } from "@/types/Movie";
+import { useTrendingMovies } from "@/api/movies.ts";
+import MovieCard from "@/components/MovieCard.tsx";
+import { useWatchlist } from "@/hooks/useWatchlist.ts";
+import { useAuth } from "@/hooks/useAuth.ts";
+import { IMovie } from "@/types/Movie.ts";
 
 const TopTenMovies: React.FC = () => {
     const { data, isLoading, error } = useTrendingMovies("week");
