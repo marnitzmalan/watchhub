@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.139](https://github.com/your-username/watchhub/compare/v0.0.138...v0.0.139) (2025-01-17)
+
+
+### Features
+
+* Recommended movies, user ratings, keywords. ([5c32f85](https://github.com/your-username/watchhub/commit/5c32f85e391f091db33e06afcf15643fee6e03d7))
+
 ### [0.0.138](https://github.com/your-username/watchhub/compare/v0.0.137...v0.0.138) (2025-01-17)
 
 
