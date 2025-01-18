@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { MdRemoveRedEye, MdOutlineBookmark } from "react-icons/md";
+import { Menu } from "@headlessui/react";
+import { MdMoreVert, MdRemoveRedEye, MdOutlineBookmark } from "react-icons/md";
 import ProgressiveImage from "./ProgressiveImage";
 import { useWatched } from "@/hooks/useWatched.ts";
 import { useFavourite } from "@/hooks/useFavourite.ts";
-import { IMovie } from "@/types/Movie"; // Make sure to import the IMovie type
+import { IMovie } from "@/types/Movie";
 
 interface MovieCardProps {
     movie: IMovie;
@@ -61,38 +62,53 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isAuthenticated }) => {
                     </div>
                 </Link>
                 {isAuthenticated && (
-                    <>
-                        <div className="absolute top-0 right-0 m-2">
-                            <button
-                                onClick={handleToggleFavourite}
-                                className={`p-2 rounded-full ${
-                                    isFavourite(movie.id)
-                                        ? "bg-red-400 bg-opacity-75 text-white"
-                                        : "bg-black bg-opacity-50 text-white"
-                                } hover:bg-opacity-100 transition-colors duration-200`}
-                                title={
-                                    isFavourite(movie.id)
-                                        ? "Remove from Favorites"
-                                        : "Add to Favorites"
-                                }
-                            >
-                                <MdOutlineBookmark size={24} />
-                            </button>
-                        </div>
-                        <div className="absolute top-0 left-0 m-2">
-                            <button
-                                onClick={handleToggleWatched}
-                                className={`p-2 rounded-full ${
-                                    isWatched(movie.id)
-                                        ? "bg-green-400 bg-opacity-75 text-white"
-                                        : "bg-black bg-opacity-50 text-white"
-                                } hover:bg-opacity-100 transition-colors duration-200`}
-                                title={isWatched(movie.id) ? "Watched" : "Mark as Watched"}
-                            >
-                                <MdRemoveRedEye size={24} />
-                            </button>
-                        </div>
-                    </>
+                    <div className="absolute top-0 right-0 m-2">
+                        <Menu as="div" className="relative inline-block text-left">
+                            <Menu.Button className="p-2 rounded-full bg-black bg-opacity-50 text-white hover:bg-opacity-100 transition-colors duration-200">
+                                <MdMoreVert size={24} />
+                            </Menu.Button>
+                            <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <div className="px-1 py-1">
+                                    <Menu.Item>
+                                        {({ active }) => (
+                                            <button
+                                                className={`${
+                                                    active ? "bg-gray-100" : ""
+                                                } group flex rounded-md items-center w-full px-2 py-2 text-sm text-gray-700`}
+                                                onClick={handleToggleWatched}
+                                            >
+                                                <MdRemoveRedEye
+                                                    className={`mr-2 h-5 w-5 ${isWatched(movie.id) ? "text-green-600" : ""}`}
+                                                    aria-hidden="true"
+                                                />
+                                                {isWatched(movie.id)
+                                                    ? "Remove from Watched"
+                                                    : "Mark as Watched"}
+                                            </button>
+                                        )}
+                                    </Menu.Item>
+                                    <Menu.Item>
+                                        {({ active }) => (
+                                            <button
+                                                className={`${
+                                                    active ? "bg-gray-100" : ""
+                                                } group flex rounded-md items-center w-full px-2 py-2 text-sm text-gray-700`}
+                                                onClick={handleToggleFavourite}
+                                            >
+                                                <MdOutlineBookmark
+                                                    className={`mr-2 h-5 w-5 ${isFavourite(movie.id) ? "text-red-600" : ""}`}
+                                                    aria-hidden="true"
+                                                />
+                                                {isFavourite(movie.id)
+                                                    ? "Remove from Favorites"
+                                                    : "Add to Favorites"}
+                                            </button>
+                                        )}
+                                    </Menu.Item>
+                                </div>
+                            </Menu.Items>
+                        </Menu>
+                    </div>
                 )}
             </div>
             <div className="mt-2">
