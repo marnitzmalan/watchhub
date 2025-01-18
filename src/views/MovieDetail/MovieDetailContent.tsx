@@ -22,7 +22,9 @@ interface MovieDetailContentProps {
     director: { name: string } | undefined;
     writers: { name: string }[];
     isAuthenticated: boolean;
+    isFavourite: boolean;
     handleToggleFavourite: () => void;
+    isWatched: boolean;
     handleToggleWatched: () => void;
     handleToggleWatchlist: () => void;
 }
@@ -38,6 +40,8 @@ const MovieDetailContent: React.FC<MovieDetailContentProps> = ({
     isAuthenticated,
     handleToggleFavourite,
     handleToggleWatched,
+    isFavourite,
+    isWatched,
     handleToggleWatchlist,
     trailerKey,
 }) => {
@@ -52,7 +56,7 @@ const MovieDetailContent: React.FC<MovieDetailContentProps> = ({
                 className="w-full h-[350px] sm:h-[450px] md:h-[625px] bg-cover bg-top relative"
                 style={{ backgroundImage: `url(${backdropPath})` }}
             >
-                <div className="absolute inset-0 bg-black bg-opacity-80"></div>
+                <div className="absolute inset-0 bg-black bg-opacity-85"></div>
             </div>
 
             <div className="relative z-10 max-w-screen-xl mx-auto px-4 -mt-[350px] sm:-mt-[450px] md:-mt-[625px] pt-6 sm:pt-10 md:pt-12 pb-12">
@@ -91,33 +95,42 @@ const MovieDetailContent: React.FC<MovieDetailContentProps> = ({
                         </div>
 
                         {isAuthenticated && (
-                            <div className="mb-6 flex flex-wrap gap-2">
+                            <div className="mb-6 flex flex-col sm:flex-row gap-2">
                                 <AppButton
                                     onClick={handleToggleFavourite}
-                                    icon={<MdOutlineBookmark size={20} />}
-                                    title="Add to Favorites"
-                                    className="flex-grow sm:flex-grow-0 py-2 px-4 md:bg-transparent md:text-white
-                                    bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200"
+                                    icon={
+                                        <MdOutlineBookmark
+                                            size={20}
+                                            className={`${isFavourite ? "text-purple-500" : ""}`}
+                                        />
+                                    }
+                                    title={isFavourite ? "Mark as Unfavorite" : "Mark as Favorites"}
+                                    variant="ghostSecondary"
+                                    className="w-full sm:w-auto py-2 px-4"
                                 >
-                                    <span className="hidden sm:inline">Favorite</span>
-                                </AppButton>
-                                <AppButton
-                                    onClick={handleToggleWatchlist}
-                                    icon={<MdOutlineStar size={20} />}
-                                    title="Add to Watchlist"
-                                    className="flex-grow sm:flex-grow-0 py-2 px-4 md:bg-transparent md:text-white
-                                    bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200"
-                                >
-                                    <span className="hidden sm:inline">Watchlist</span>
+                                    <span
+                                        className={`items-center ${isFavourite ? "text-purple-500" : ""}`}
+                                    >
+                                        <span>{isFavourite ? "Favourite" : "Mark Favourite"}</span>
+                                    </span>
                                 </AppButton>
                                 <AppButton
                                     onClick={handleToggleWatched}
-                                    icon={<MdRemoveRedEye size={20} />}
-                                    title="Mark as Watched"
-                                    className="flex-grow sm:flex-grow-0 py-2 px-4 md:bg-transparent md:text-white
-                                    bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200"
+                                    icon={
+                                        <MdRemoveRedEye
+                                            size={20}
+                                            className={`${isWatched ? "text-green-500" : ""}`}
+                                        />
+                                    }
+                                    title={isWatched ? "Mark as Unwatched" : "Mark as Watched"}
+                                    variant="ghostSecondary"
+                                    className="w-full sm:w-auto py-2 px-4"
                                 >
-                                    <span className="hidden sm:inline">Watched</span>
+                                    <span
+                                        className={`items-center ${isWatched ? "text-green-500" : ""}`}
+                                    >
+                                        <span>{isWatched ? "Watched" : "Mark Watched"}</span>
+                                    </span>
                                 </AppButton>
                             </div>
                         )}

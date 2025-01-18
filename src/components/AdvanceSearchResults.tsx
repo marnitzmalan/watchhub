@@ -1,12 +1,15 @@
 import React from "react";
 import { IMovie } from "@/types/Movie";
 import { Link } from "react-router-dom";
+import { MdOutlineBookmark, MdOutlineStar, MdRemoveRedEye } from "react-icons/md";
 
 interface MovieSearchResultsProps {
     movies: IMovie[];
     isAuthenticated: boolean;
     isFavourite: (id: number) => boolean;
     onToggleFavourite: (movie: IMovie) => void;
+    isWatched: (id: number) => boolean;
+    onToggleWatched: (movie: IMovie) => void;
 }
 
 const AdvanceSearchResults: React.FC<MovieSearchResultsProps> = ({
@@ -14,6 +17,8 @@ const AdvanceSearchResults: React.FC<MovieSearchResultsProps> = ({
     isAuthenticated,
     isFavourite,
     onToggleFavourite,
+    isWatched,
+    onToggleWatched,
 }) => {
     return (
         <div className="space-y-8">
@@ -48,18 +53,41 @@ const AdvanceSearchResults: React.FC<MovieSearchResultsProps> = ({
                             </span>
                         </div>
                         {isAuthenticated && (
-                            <button
-                                onClick={() => onToggleFavourite(movie)}
-                                className={`mt-2 px-3 py-1 text-sm font-medium rounded transition-colors duration-200 ${
-                                    isFavourite(movie.id)
-                                        ? "bg-purple-600 text-white hover:bg-purple-700"
-                                        : "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
-                                }`}
-                            >
-                                {isFavourite(movie.id)
-                                    ? "Remove from Favourite"
-                                    : "Add to Favourite"}
-                            </button>
+                            <div className="mt-2 flex space-x-2">
+                                <button
+                                    onClick={() => onToggleFavourite(movie)}
+                                    className={`px-3 py-1 text-sm font-medium rounded transition-colors duration-200 flex items-center ${
+                                        isFavourite(movie.id)
+                                            ? "bg-purple-600 text-white hover:bg-purple-700"
+                                            : "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                                    }`}
+                                >
+                                    <MdOutlineBookmark className="mr-1" />
+                                    {isFavourite(movie.id) ? "Remove Favourite" : "Favourite"}
+                                </button>
+                                {/*<button*/}
+                                {/*    onClick={() => onToggleWatchlist(movie)}*/}
+                                {/*    className={`px-3 py-1 text-sm font-medium rounded transition-colors duration-200 flex items-center ${*/}
+                                {/*        isWatchlisted(movie.id)*/}
+                                {/*            ? "bg-blue-600 text-white hover:bg-blue-700"*/}
+                                {/*            : "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"*/}
+                                {/*    }`}*/}
+                                {/*>*/}
+                                {/*    <MdOutlineStar className="mr-1" />*/}
+                                {/*    {isWatchlisted(movie.id) ? "Remove Watchlist" : "Watchlist"}*/}
+                                {/*</button>*/}
+                                {/*<button*/}
+                                {/*    onClick={() => onToggleWatched(movie)}*/}
+                                {/*    className={`px-3 py-1 text-sm font-medium rounded transition-colors duration-200 flex items-center ${*/}
+                                {/*        isWatched(movie.id)*/}
+                                {/*            ? "bg-green-600 text-white hover:bg-green-700"*/}
+                                {/*            : "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"*/}
+                                {/*    }`}*/}
+                                {/*>*/}
+                                {/*    <MdRemoveRedEye className="mr-1" />*/}
+                                {/*    {isWatched(movie.id) ? "Watched" : "Mark Watched"}*/}
+                                {/*</button>*/}
+                            </div>
                         )}
                     </div>
                 </div>

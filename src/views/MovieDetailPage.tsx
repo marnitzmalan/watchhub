@@ -2,9 +2,9 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useMovieDetails } from "@/hooks/useMovieDetails"; // Updated import
 import { useAuth } from "@/hooks/useAuth";
-// import { useFavourite } from "@/hooks/useFavourite";
-// import { useWatched } from "@/hooks/useWatched";
-// import RecommendedMovies from "@/components/RecommendedMovies";
+import { useFavourite } from "@/hooks/useFavourite";
+import { useWatched } from "@/hooks/useWatched";
+import RecommendedMovies from "@/components/RecommendedMovies";
 import MovieReviews from "@/components/MovieReviews";
 import TopCast from "@/views/MovieDetail/TopCast.tsx";
 import MovieDetailContent from "@/views/MovieDetail/MovieDetailContent";
@@ -14,8 +14,8 @@ const MovieDetailPage: React.FC = () => {
     const movieId = parseInt(id as string, 10);
     const { data: movieData, isLoading, error } = useMovieDetails(movieId);
     const { isAuthenticated } = useAuth();
-    // const { isFavourite, toggleFavourite } = useFavourite();
-    // const { isWatched, toggleWatched } = useWatched();
+    const { isFavourite, toggleFavourite } = useFavourite();
+    const { isWatched, toggleWatched } = useWatched();
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {(error as Error).message}</div>;
@@ -64,8 +64,8 @@ const MovieDetailPage: React.FC = () => {
                 director={director}
                 writers={writers}
                 isAuthenticated={isAuthenticated}
-                // isFavourite={isFavourite(movie.id)}
-                // isWatched={isWatched(movie.id)}
+                isFavourite={isFavourite(movie.id)}
+                isWatched={isWatched(movie.id)}
                 handleToggleFavourite={handleToggleFavourite}
                 handleToggleWatched={handleToggleWatched}
                 trailerKey={trailer?.key}
@@ -82,7 +82,7 @@ const MovieDetailPage: React.FC = () => {
 
                         <div className="mt-12">
                             <h2 className="text-2xl font-bold mb-4">More Like This</h2>
-                            {/*<RecommendedMovies movieId={movie.id} />*/}
+                            <RecommendedMovies movieId={movie.id} />
                         </div>
 
                         <div className="mt-8">

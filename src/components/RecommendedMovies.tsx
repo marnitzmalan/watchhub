@@ -1,6 +1,6 @@
 import React from "react";
 import { useRecommendedMovies } from "@/api/movies";
-import { useMovieDetails } from "@/api/movies";
+import { useMovieDetails } from "@/hooks/useMovieDetails";
 import MovieCard from "@/components/MovieCard";
 import { useAuth } from "@/hooks/useAuth";
 import { useFavourite } from "@/hooks/useFavourite";
@@ -25,11 +25,11 @@ const RecommendedMovies: React.FC<RecommendedMoviesProps> = ({ movieId }) => {
 
     if (isLoadingRecommendations || isLoadingDetails) {
         return (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {[...Array(10)].map((_, i) => (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                {[...Array(8)].map((_, i) => (
                     <div
                         key={i}
-                        className="aspect-[2/3] bg-gray-200 rounded-lg animate-pulse"
+                        className="aspect-[2/3] bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse"
                     ></div>
                 ))}
             </div>
@@ -46,8 +46,8 @@ const RecommendedMovies: React.FC<RecommendedMoviesProps> = ({ movieId }) => {
 
     return (
         <div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {recommendedMovies.map((movie) => (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                {recommendedMovies.slice(0, 8).map((movie) => (
                     <MovieCard
                         key={movie.id}
                         movie={movie}

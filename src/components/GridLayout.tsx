@@ -53,16 +53,16 @@ const GridLayout: React.FC<GridLayoutProps> = ({ movies, onToggleFavourite, isFa
                         >
                             View
                         </Link>
-                        <button
-                            onClick={() => onToggleFavourite(movie)}
-                            className={`${
-                                isFavourite(movie.id)
-                                    ? "text-red-600 hover:text-red-900"
-                                    : "text-blue-600 hover:text-blue-900"
-                            }`}
-                        >
-                            {isFavourite(movie.id) ? "Remove" : "Add"}
-                        </button>
+                        {/*<button*/}
+                        {/*    onClick={() => onToggleFavourite(movie)}*/}
+                        {/*    className={`${*/}
+                        {/*        isFavourite(movie.id)*/}
+                        {/*            ? "text-red-600 hover:text-red-900"*/}
+                        {/*            : "text-blue-600 hover:text-blue-900"*/}
+                        {/*    }`}*/}
+                        {/*>*/}
+                        {/*    {isFavourite(movie.id) ? "Remove" : "Add"}*/}
+                        {/*</button>*/}
                     </div>
                 </div>
             ))}
