@@ -47,25 +47,25 @@ const MovieDetailContent: React.FC<MovieDetailContentProps> = ({
     return (
         <div className="relative">
             <div
-                className="w-full h-[350px] sm:h-[450px] md:h-[625px] bg-cover bg-top relative"
+                className="w-full h-[225px] sm:h-[450px] md:h-[625px] bg-cover bg-top relative"
                 style={{ backgroundImage: `url(${backdropPath})` }}
             >
-                <div className="absolute inset-0 bg-black bg-opacity-85"></div>
+                <div className="absolute inset-0 bg-black bg-opacity-60 md:bg-opacity-85"></div>
             </div>
 
-            <div className="relative z-10 max-w-screen-xl mx-auto px-4 -mt-[350px] sm:-mt-[450px] md:-mt-[625px] pt-6 sm:pt-10 md:pt-12 pb-12">
+            <div className="relative z-10 max-w-screen-xl mx-auto px-4 -mt-[225px] sm:-mt-[450px] md:-mt-[625px] pt-6 sm:pt-10 md:pt-12 pb-12">
                 <div className="flex flex-col items-center md:flex-row gap-6 md:gap-8">
-                    <div className="w-[200px] sm:w-[250px] md:w-[350px] mx-auto md:mx-0">
-                        <div className="aspect-[2/3] w-full">
+                    <div className="w-full sm:w-[250px] md:w-[350px] flex justify-center md:justify-start">
+                        <div className="aspect-[2/3] w-28 sm:w-full">
                             {posterSrc ? (
                                 <ProgressiveImage
                                     lowQualitySrc={lowQualityPosterSrc ?? ""}
                                     highQualitySrc={posterSrc}
                                     alt={movie.title}
-                                    className="w-full h-full object-cover rounded-lg shadow-lg"
+                                    className="w-28 sm:w-full object-cover rounded-lg shadow-md"
                                 />
                             ) : (
-                                <div className="w-full h-full bg-gray-200 rounded-lg shadow-lg animate-pulse"></div>
+                                <div className="w-28 sm:w-full bg-gray-200 rounded-lg shadow-lg animate-pulse"></div>
                             )}
                         </div>
                     </div>
@@ -90,40 +90,48 @@ const MovieDetailContent: React.FC<MovieDetailContentProps> = ({
 
                         {isAuthenticated && (
                             <div className="mb-6 flex flex-col sm:flex-row gap-2">
+                                {trailerKey && (
+                                    <AppButton
+                                        onClick={openTrailerModal}
+                                        icon={<MdPlayArrow size={20} />}
+                                        title="Watch Trailer"
+                                        className="py-2 px-4 border text-white text-base rounded-full font-bold hover:bg-white hover:bg-opacity-20"
+                                    >
+                                        Trailer
+                                    </AppButton>
+                                )}
                                 <AppButton
                                     onClick={handleToggleFavourite}
                                     icon={
                                         <MdOutlineBookmark
-                                            size={20}
+                                            size={24}
                                             className={`${isFavourite ? "text-purple-500" : ""}`}
                                         />
                                     }
                                     title={isFavourite ? "Mark as Unfavorite" : "Mark as Favorites"}
                                     variant="ghostSecondary"
-                                    className="w-full sm:w-auto py-2 px-4"
+                                    className="w-full p-2 hover:bg-opacity-20 sm:w-auto ml-3"
                                 >
                                     <span
                                         className={`items-center ${isFavourite ? "text-purple-500" : ""}`}
                                     >
-                                        <span>{isFavourite ? "Favourite" : "Mark Favourite"}</span>
                                     </span>
                                 </AppButton>
                                 <AppButton
                                     onClick={handleToggleWatched}
                                     icon={
                                         <MdRemoveRedEye
-                                            size={20}
+                                            size={24}
                                             className={`${isWatched ? "text-green-500" : ""}`}
                                         />
                                     }
                                     title={isWatched ? "Mark as Unwatched" : "Mark as Watched"}
                                     variant="ghostSecondary"
-                                    className="w-full sm:w-auto py-2 px-4"
+                                    className="w-full p-2 hover:bg-opacity-20 sm:w-auto ml-3"
                                 >
                                     <span
                                         className={`items-center ${isWatched ? "text-green-500" : ""}`}
                                     >
-                                        <span>{isWatched ? "Watched" : "Mark Watched"}</span>
                                     </span>
                                 </AppButton>
                             </div>
@@ -162,16 +170,7 @@ const MovieDetailContent: React.FC<MovieDetailContentProps> = ({
                             <span className="bg-yellow-400 text-black font-bold rounded px-4 py-2 text-base">
                                 IMDb {movie.vote_average.toFixed(1)}
                             </span>
-                            {trailerKey && (
-                                <AppButton
-                                    onClick={openTrailerModal}
-                                    icon={<MdPlayArrow size={20} />}
-                                    title="Watch Trailer"
-                                    className="py-2 px-4 bg-red-600 hover:bg-red-700 text-white text-base font-bold rounded"
-                                >
-                                    Trailer
-                                </AppButton>
-                            )}
+
                         </div>
                     </div>
                 </div>

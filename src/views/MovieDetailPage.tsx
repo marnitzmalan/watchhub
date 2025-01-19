@@ -8,6 +8,7 @@ import RecommendedMovies from "@/components/RecommendedMovies";
 import MovieReviews from "@/components/MovieReviews";
 import TopCast from "@/views/MovieDetail/TopCast.tsx";
 import MovieDetailContent from "@/views/MovieDetail/MovieDetailContent";
+import AdditionalInfo from "@/views/MovieDetail/AdditionalInfo";
 
 const MovieDetailPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -78,14 +79,13 @@ const MovieDetailPage: React.FC = () => {
                 <div className="flex flex-col md:flex-row">
                     {/* Left Side */}
                     <div className="md:w-2/3 md:pr-8">
-                        <div className="mt-0">
-                            <h2 className="text-2xl font-bold mb-4">Top Cast</h2>
-                            <TopCast cast={topCast} />
-                        </div>
-
-                        <div className="mt-12">
+                        <div className="mt-8">
                             <h2 className="text-2xl font-bold mb-4">More Like This</h2>
                             <RecommendedMovies movieId={movie.id} />
+                        </div>
+
+                        <div className="mt-8">
+                            <TopCast cast={topCast} movieId={0} />
                         </div>
 
                         <div className="mt-8">
@@ -95,59 +95,8 @@ const MovieDetailPage: React.FC = () => {
                     </div>
 
                     {/* Right Side */}
-                    <div className="md:w-1/3 mt-8 md:mt-0">
-                        <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-md">
-                            <h2 className="text-2xl font-bold mb-4">Additional Info</h2>
-                            <div className="mb-2">
-                                <span className="font-semibold  dark:text-gray-300">
-                                    Release Date:
-                                </span>
-                                <span className="ml-2 text-gray-900 dark:text-gray-100">
-                                    {new Date(movie.release_date).toLocaleDateString("en-GB", {
-                                        day: "2-digit",
-                                        month: "short",
-                                        year: "numeric",
-                                    })}
-                                </span>
-                            </div>
-                            <div className="mb-2">
-                                <span className="font-semibold dark:text-gray-300">Runtime:</span>
-                                <span className="ml-2 text-gray-900 dark:text-gray-100">
-                                    {Math.floor(movie.runtime / 60)}h {movie.runtime % 60}m
-                                </span>
-                            </div>
-                            <div className="mb-2">
-                                <span className="font-semibold  dark:text-gray-300">Budget:</span>
-                                <span className="ml-2 text-gray-900 dark:text-gray-100">
-                                    ${movie.budget?.toLocaleString()}
-                                </span>
-                            </div>
-                            <div className="mb-2">
-                                <span className="font-semibold  dark:text-gray-300">Revenue:</span>
-                                <span className="ml-2 text-gray-900 dark:text-gray-100">
-                                    ${movie.revenue?.toLocaleString()}
-                                </span>
-                            </div>
-
-                            {/* Keywords */}
-                            {movie.keywords && movie.keywords.length > 0 && (
-                                <div className="mt-4">
-                                    <h3 className="text-xl font-semibold mb-2">Keywords</h3>
-                                    <div className="flex flex-wrap gap-2">
-                                        {movie.keywords.map(
-                                            (keyword: { id: number; name: string }) => (
-                                                <span
-                                                    key={keyword.id}
-                                                    className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-2 py-1 rounded-full text-sm"
-                                                >
-                                                    {keyword.name}
-                                                </span>
-                                            )
-                                        )}
-                                    </div>
-                                </div>
-                            )}
-                        </div>
+                    <div className="md:w-1/3 mt-8">
+                        <AdditionalInfo movie={movie} />
                     </div>
                 </div>
             </div>

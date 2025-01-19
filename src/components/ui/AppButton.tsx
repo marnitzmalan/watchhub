@@ -23,17 +23,18 @@ const AppButton: React.FC<AppButtonProps> = ({
     ...props
 }) => {
     const baseClasses =
-        "px-3 py-2 rounded-md transition duration-300 ease-in-out inline-flex items-center justify-center";
+        "transition duration-300 ease-in-out inline-flex items-center justify-center";
 
     const variantClasses: Record<ButtonVariant, string> = {
         primary: "bg-purple-600 hover:bg-purple-700 text-white",
         secondary:
             "bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200",
-        ghostSecondary:
-            "bg-gray-200 hover:bg-gray-300 text-gray-800\n" +
-            "dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200\n" +
-            "md:bg-transparent md:hover:bg-white md:hover:bg-opacity-20 md:text-white\n" +
-            "dark:md:bg-transparent dark:md:hover:bg-white dark:md:hover:bg-opacity-20 dark:md:text-white",
+        // ghostSecondary:
+        //     "bg-gray-200 hover:bg-gray-300 text-gray-800\n" +
+        //     "dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200\n" +
+        //     "md:bg-transparent md:hover:bg-white md:hover:bg-opacity-20 md:text-white\n" +
+        //     "dark:md:bg-transparent dark:md:hover:bg-white dark:md:hover:bg-opacity-20 dark:md:text-white",
+        ghostSecondary: "bg-transparent text-white hover:bg-gray-300 rounded-full",
         link: "bg-transparent text-blue-500 hover:underline dark:text-blue-400",
         text: "bg-transparent text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800",
         textDark:
@@ -50,7 +51,7 @@ const AppButton: React.FC<AppButtonProps> = ({
 
     return (
         <button className={combinedClasses} disabled={disabled} {...props}>
-            {icon && <span className="mr-2">{icon}</span>}
+            {icon && <span className="">{icon}</span>}
             {children}
         </button>
     );

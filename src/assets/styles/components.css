@@ -5,3 +5,27 @@
     }
 }
 
+.carouselContainer {
+    position: relative;
+}
+
+.carouselContainer::before,
+.carouselContainer::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.carouselContainer::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0));
+}
+
+.carouselContainer::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(255,255,255,1), rgba(255,255,255,0));
+}
