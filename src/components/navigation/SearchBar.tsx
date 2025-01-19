@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSearchMovies } from "@/api/movies.ts";
+import { useSearchMovies } from "@/hooks/useSearchMovies.ts";
 import { useDebounce } from "@/hooks/useDebounce.ts";
 import { IMovie } from "@/types/Movie.ts";
 import { MdSearch } from "react-icons/md";

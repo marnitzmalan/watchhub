@@ -1,4 +1,4 @@
-import { usePopularMovies } from "@/api/movies";
+import { usePopularMovies } from "@/hooks/usePopularMovies.ts";
 import { useAuth } from "@/hooks/useAuth";
 import HeroBanner from "@/views/Home/HeroBanner";
 import FeaturedToday from "@/views/Home/FeaturedToday";

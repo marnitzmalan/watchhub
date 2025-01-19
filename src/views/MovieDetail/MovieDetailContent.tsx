@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-import {
-    MdArrowBack,
-    MdOutlineBookmark,
-    MdRemoveRedEye,
-    MdOutlineStar,
-    MdPlayArrow,
-} from "react-icons/md";
+import { MdOutlineBookmark, MdRemoveRedEye, MdPlayArrow } from "react-icons/md";
 import ProgressiveImage from "@/components/ProgressiveImage";
-import { IGenre, IMovie } from "@/types/Movie";
+import { IMovie } from "@/types/Movie";
+import { IGenre } from "@/types/Genre";
 import AppButton from "@/components/ui/AppButton.tsx";
 import TrailerModal from "@/components/TrailerModal";
 
@@ -27,6 +22,7 @@ interface MovieDetailContentProps {
     isWatched: boolean;
     handleToggleWatched: () => void;
     handleToggleWatchlist: () => void;
+    trailerKey?: string;
 }
 
 const MovieDetailContent: React.FC<MovieDetailContentProps> = ({
@@ -34,7 +30,6 @@ const MovieDetailContent: React.FC<MovieDetailContentProps> = ({
     backdropPath,
     posterSrc,
     lowQualityPosterSrc,
-    displayRating,
     director,
     writers,
     isAuthenticated,
@@ -42,7 +37,6 @@ const MovieDetailContent: React.FC<MovieDetailContentProps> = ({
     handleToggleWatched,
     isFavourite,
     isWatched,
-    handleToggleWatchlist,
     trailerKey,
 }) => {
     const [isTrailerModalOpen, setIsTrailerModalOpen] = useState(false);
@@ -65,7 +59,7 @@ const MovieDetailContent: React.FC<MovieDetailContentProps> = ({
                         <div className="aspect-[2/3] w-full">
                             {posterSrc ? (
                                 <ProgressiveImage
-                                    lowQualitySrc={lowQualityPosterSrc}
+                                    lowQualitySrc={lowQualityPosterSrc ?? ""}
                                     highQualitySrc={posterSrc}
                                     alt={movie.title}
                                     className="w-full h-full object-cover rounded-lg shadow-lg"

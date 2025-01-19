@@ -1,12 +1,10 @@
-export interface IWatched {
+import { IMovie } from "@/types/Movie";
+
+export interface IWatched extends Pick<IMovie, "title" | "poster_path"> {
     id: number;
     movie_id: number;
     user_id: string;
-    title: string;
-    poster_path: string;
+    watched_at?: string;
     release_date?: string;
-    popularity?: number;
-    overview?: string;
     vote_average?: number;
-    genres?: { id: number; name: string }[];
 }

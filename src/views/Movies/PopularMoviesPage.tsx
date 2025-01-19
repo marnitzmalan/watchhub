@@ -2,7 +2,7 @@ import React from "react";
 import { useFavourite } from "@/hooks/useFavourite.ts";
 import { IMovie } from "@/types/Movie.ts";
 import MovieCard from "@/components/MovieCard.tsx";
-import { usePopularMovies } from "@/api/movies.ts";
+import { usePopularMovies } from "@/hooks/usePopularMovies.ts";
 import { useAuth } from "@/hooks/useAuth.ts";
 import SkeletonLoader from "@/components/SkeletonLoader.tsx";
 

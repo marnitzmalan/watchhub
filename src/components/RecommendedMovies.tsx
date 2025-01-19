@@ -1,9 +1,10 @@
 import React from "react";
-import { useRecommendedMovies } from "@/api/movies";
+import { useRecommendedMovies } from "@/hooks/useRecommendedMovies";
 import { useMovieDetails } from "@/hooks/useMovieDetails";
 import MovieCard from "@/components/MovieCard";
 import { useAuth } from "@/hooks/useAuth";
 import { useFavourite } from "@/hooks/useFavourite";
+import { IMovie } from "@/types/Movie";
 
 interface RecommendedMoviesProps {
     movieId: number;
@@ -21,7 +22,7 @@ const RecommendedMovies: React.FC<RecommendedMoviesProps> = ({ movieId }) => {
         error: detailsError,
     } = useMovieDetails(movieId);
     const { user } = useAuth();
-    const { isFavourite, toggleFavourite } = useFavourite();
+    const { toggleFavourite } = useFavourite();
 
     if (isLoadingRecommendations || isLoadingDetails) {
         return (
@@ -47,13 +48,12 @@ const RecommendedMovies: React.FC<RecommendedMoviesProps> = ({ movieId }) => {
     return (
         <div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                {recommendedMovies.slice(0, 8).map((movie) => (
+                {recommendedMovies.slice(0, 8).map((movie: IMovie) => (
                     <MovieCard
                         key={movie.id}
                         movie={movie}
-                        IsFavourite={user ? isFavourite(movie.id) : false}
-                        onToggleFavourite={() => toggleFavourite(movie)}
                         isAuthenticated={!!user}
+                        onToggleFavourite={() => toggleFavourite(movie)}
                     />
                 ))}
             </div>

@@ -1,13 +1,27 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/supabase/client";
-import { IFavourite } from "@/types/Favourite";
+import { IMovie } from "@/types/Movie";
 import { useState, useCallback, useEffect } from "react";
+
+interface IFavourite {
+    id: number;
+    movie_id: number;
+    user_id: string;
+    title: string;
+    poster_path: string;
+}
+
+interface ToggleFavouriteResult {
+    type: "add" | "remove";
+    movieId: number;
+    movie?: IFavourite;
+}
 
 export const useFavourite = () => {
     const queryClient = useQueryClient();
     const [localFavourite, setLocalFavourite] = useState<number[]>([]);
 
-    const fetchFavourite = async () => {
+    const fetchFavourite = async (): Promise<IFavourite[]> => {
         const {
             data: { user },
         } = await supabase.auth.getUser();
@@ -27,7 +41,7 @@ export const useFavourite = () => {
         }
     };
 
-    const { data: favourite, isLoading } = useQuery({
+    const { data: favourite, isLoading } = useQuery<IFavourite[]>({
         queryKey: ["favourite"],
         queryFn: fetchFavourite,
     });
@@ -38,7 +52,7 @@ export const useFavourite = () => {
         }
     }, [favourite]);
 
-    const toggleFavouriteMutation = useMutation({
+    const toggleFavouriteMutation = useMutation<ToggleFavouriteResult, Error, IMovie>({
         mutationFn: async (movie) => {
             const {
                 data: { user },
@@ -66,7 +80,7 @@ export const useFavourite = () => {
                         })
                         .select();
                     if (error) throw error;
-                    return { type: "add", movie: data[0] };
+                    return { type: "add", movieId: movie.id, movie: data[0] as IFavourite };
                 }
             } catch (error) {
                 console.error("Error toggling favourite:", error);
@@ -88,7 +102,7 @@ export const useFavourite = () => {
     });
 
     const toggleFavourite = useCallback(
-        (movie) => {
+        (movie: IMovie) => {
             toggleFavouriteMutation.mutate(movie);
         },
         [toggleFavouriteMutation]

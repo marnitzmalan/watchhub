@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { useAdvancedSearchMovies } from "@/api/movies";
+import { useAdvancedSearchMovies } from "@/hooks/useAdvancedSearchMovies.ts";
 import { useAuth } from "@/hooks/useAuth";
 import { useFavourite } from "@/hooks/useFavourite";
+import { useWatched } from "@/hooks/useWatched";
 import { ISearchCriteria } from "@/types/SearchCriteria";
 import AdvanceSearchResults from "@/components/AdvanceSearchResults.tsx";
 import AppButton from "@/components/ui/AppButton";
@@ -33,6 +34,7 @@ const AdvanceSearchPage: React.FC = () => {
     } = useAdvancedSearchMovies(searchCriteria, isSearchClicked);
     const { isAuthenticated } = useAuth();
     const { toggleFavourite, isFavourite } = useFavourite();
+    const { toggleWatched, isWatched } = useWatched();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -113,6 +115,8 @@ const AdvanceSearchPage: React.FC = () => {
                             isAuthenticated={isAuthenticated}
                             isFavourite={isFavourite}
                             onToggleFavourite={toggleFavourite}
+                            isWatched={isWatched}
+                            onToggleWatched={toggleWatched}
                         />
                     )}
                     {!isFilterVisible && !isSearchClicked && (

@@ -1,5 +1,5 @@
 import React from "react";
-import { usePopularMovies } from "@/api/movies.ts";
+import { usePopularMovies } from "@/hooks/usePopularMovies.ts";
 import MovieCard from "@/components/MovieCard.tsx";
 import SkeletonLoader from "@/components/SkeletonLoader.tsx";
 import { useAuth } from "@/hooks/useAuth.ts";

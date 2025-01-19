@@ -8,7 +8,7 @@ interface GridLayoutProps {
     isFavourite: (movieId: number) => boolean;
 }
 
-const GridLayout: React.FC<GridLayoutProps> = ({ movies, onToggleFavourite, isFavourite }) => {
+const GridLayout: React.FC<GridLayoutProps> = ({ movies }) => {
     if (!movies || movies.length === 0) {
         return <div>No movies available.</div>;
     }
@@ -53,16 +53,6 @@ const GridLayout: React.FC<GridLayoutProps> = ({ movies, onToggleFavourite, isFa
                         >
                             View
                         </Link>
-                        {/*<button*/}
-                        {/*    onClick={() => onToggleFavourite(movie)}*/}
-                        {/*    className={`${*/}
-                        {/*        isFavourite(movie.id)*/}
-                        {/*            ? "text-red-600 hover:text-red-900"*/}
-                        {/*            : "text-blue-600 hover:text-blue-900"*/}
-                        {/*    }`}*/}
-                        {/*>*/}
-                        {/*    {isFavourite(movie.id) ? "Remove" : "Add"}*/}
-                        {/*</button>*/}
                     </div>
                 </div>
             ))}

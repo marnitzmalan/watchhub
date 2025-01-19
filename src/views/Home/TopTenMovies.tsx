@@ -1,5 +1,5 @@
 import React from "react";
-import { useTrendingMovies } from "@/api/movies.ts";
+import { useTrendingMovies } from "@/hooks/useTrendingMovies.ts";
 import MovieCard from "@/components/MovieCard.tsx";
 import { useFavourite } from "@/hooks/useFavourite.ts";
 import { useAuth } from "@/hooks/useAuth.ts";

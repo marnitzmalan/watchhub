@@ -1,13 +1,27 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/supabase/client";
-import { IWatched } from "@/types/Watched";
+import { IMovie } from "@/types/Movie";
 import { useState, useCallback, useEffect } from "react";
+
+interface IWatched {
+    id: number;
+    movie_id: number;
+    user_id: string;
+    title: string;
+    poster_path: string;
+}
+
+interface ToggleWatchedResult {
+    type: "add" | "remove";
+    movieId: number;
+    movie?: IWatched;
+}
 
 export const useWatched = () => {
     const queryClient = useQueryClient();
     const [localWatched, setLocalWatched] = useState<number[]>([]);
 
-    const fetchWatched = async () => {
+    const fetchWatched = async (): Promise<IWatched[]> => {
         const {
             data: { user },
         } = await supabase.auth.getUser();
@@ -27,7 +41,7 @@ export const useWatched = () => {
         }
     };
 
-    const { data: watched, isLoading } = useQuery({
+    const { data: watched, isLoading } = useQuery<IWatched[]>({
         queryKey: ["watched"],
         queryFn: fetchWatched,
     });
@@ -38,7 +52,7 @@ export const useWatched = () => {
         }
     }, [watched]);
 
-    const toggleWatchedMutation = useMutation({
+    const toggleWatchedMutation = useMutation<ToggleWatchedResult, Error, IMovie>({
         mutationFn: async (movie) => {
             const {
                 data: { user },
@@ -46,7 +60,7 @@ export const useWatched = () => {
             if (!user) throw new Error("User not authenticated");
 
             try {
-                const existingWatched = watched?.find((fav) => fav.movie_id === movie.id);
+                const existingWatched = watched?.find((w) => w.movie_id === movie.id);
 
                 if (existingWatched) {
                     await supabase
@@ -66,7 +80,7 @@ export const useWatched = () => {
                         })
                         .select();
                     if (error) throw error;
-                    return { type: "add", movie: data[0] };
+                    return { type: "add", movieId: movie.id, movie: data[0] as IWatched };
                 }
             } catch (error) {
                 console.error("Error toggling watched:", error);
@@ -88,7 +102,7 @@ export const useWatched = () => {
     });
 
     const toggleWatched = useCallback(
-        (movie) => {
+        (movie: IMovie) => {
             toggleWatchedMutation.mutate(movie);
         },
         [toggleWatchedMutation]

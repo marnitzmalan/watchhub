@@ -69,6 +69,9 @@ const MovieDetailPage: React.FC = () => {
                 handleToggleFavourite={handleToggleFavourite}
                 handleToggleWatched={handleToggleWatched}
                 trailerKey={trailer?.key}
+                handleToggleWatchlist={function (): void {
+                    throw new Error("Function not implemented.");
+                }}
             />
 
             <div className="max-w-screen-xl mx-auto p-4">

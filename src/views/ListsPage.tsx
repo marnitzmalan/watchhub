@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
-import { useFavourite } from "@/hooks/useFavourite";
-import { useWatched } from "@/hooks/useWatched";
-import GridLayout from "@/components/GridLayout.tsx";
-import { IMovie } from "@/types/Movie";
+// import { useFavourite } from "@/hooks/useFavourite";
+// import { useWatched } from "@/hooks/useWatched";
+// import GridLayout from "@/components/GridLayout.tsx";
+// Mapping function for IFavourite to IMovie
 
 const ListPage: React.FC = () => {
     const { isAuthenticated } = useAuth();
-    const { favourite, toggleFavourite, isFavourite } = useFavourite();
-    const { watched } = useWatched();
+    // const { favourite, toggleFavourite, isFavourite } = useFavourite();
+    // const { watched, toggleWatched, isWatched } = useWatched();
     const [activeTab, setActiveTab] = useState<"favorites" | "watched">("favorites");
 
     if (!isAuthenticated) {
@@ -41,20 +41,20 @@ const ListPage: React.FC = () => {
                     Watched
                 </button>
             </div>
-            {activeTab === "favorites" && (
-                <GridLayout
-                    movies={favourite}
-                    onToggleFavourite={toggleFavourite}
-                    isFavourite={isFavourite}
-                />
-            )}
-            {activeTab === "watched" && (
-                <GridLayout
-                    movies={watched}
-                    onToggleFavourite={toggleFavourite}
-                    isFavourite={isFavourite}
-                />
-            )}
+            {/*{activeTab === "favorites" && (*/}
+            {/*    <GridLayout*/}
+            {/*        movies={(favourite ?? []).map(mapFavouriteToMovie)}*/}
+            {/*        onToggleFavourite={toggleFavourite}*/}
+            {/*        isFavourite={isFavourite}*/}
+            {/*    />*/}
+            {/*)}*/}
+            {/*{activeTab === "watched" && (*/}
+            {/*    <GridLayout*/}
+            {/*        movies={(watched ?? []).map(mapWatchedToMovie)}*/}
+            {/*        onToggleFavourite={toggleWatched}*/}
+            {/*        isFavourite={isWatched}*/}
+            {/*    />*/}
+            {/*)}*/}
         </div>
     );
 };
