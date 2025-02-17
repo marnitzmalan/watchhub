@@ -23,7 +23,7 @@ const AppButton: React.FC<AppButtonProps> = ({
     ...props
 }) => {
     const baseClasses =
-        "transition duration-300 ease-in-out inline-flex items-center justify-center";
+        "px-3 py-2 rounded-md transition duration-300 ease-in-out inline-flex items-center justify-center";
 
     const variantClasses: Record<ButtonVariant, string> = {
         primary: "bg-purple-600 hover:bg-purple-700 text-white",

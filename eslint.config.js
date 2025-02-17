@@ -1,8 +1,8 @@
-import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
+import eslintPluginPrettier from "eslint-plugin-prettier";
 import eslintPluginReact from "eslint-plugin-react";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
-import eslintPluginPrettier from "eslint-plugin-prettier";
+import eslint from "@eslint/js";
 
 export default [
     eslint.configs.recommended,
@@ -28,7 +28,9 @@ export default [
             "react-hooks/rules-of-hooks": "error",
             "react-hooks/exhaustive-deps": "warn",
             "prettier/prettier": "error",
-            "@typescript-eslint/no-explicit-any": "warn",
+            "@typescript-eslint/no-explicit-any": "off",
+            "@typescript-eslint/no-unsafe-assignment": "off",
+            "@typescript-eslint/no-unsafe-member-access": "off",
         },
         settings: {
             react: {

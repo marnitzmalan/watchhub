@@ -1,16 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
-
-const TMDB_BASE_URL = "https://api.themoviedb.org/3";
+import { fetchTMDBRecommendedMovies } from "@/api/tmdb";
+import { IMovie } from "@/types/Movie";
 
 export const useRecommendedMovies = (movieId: number) => {
-    return useQuery({
+    return useQuery<IMovie[]>({
         queryKey: ["recommendedMovies", movieId],
         queryFn: async () => {
-            const response = await fetch(
-                `${TMDB_BASE_URL}/movie/${movieId}/recommendations?api_key=${import.meta.env.VITE_TMDB_API_KEY}&language=en-US&page=1`
-            );
-            const data = await response.json();
-            return data.results.slice(0, 10); // Return only the first 8 recommendations
+            const data = await fetchTMDBRecommendedMovies(movieId);
+            return data.results.slice(0, 10); // Return only the first 10 recommendations
         },
+        staleTime: 5 * 60 * 1000, // 5 minutes
     });
 };

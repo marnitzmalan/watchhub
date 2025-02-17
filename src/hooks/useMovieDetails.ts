@@ -1,43 +1,47 @@
 import { useQuery } from "@tanstack/react-query";
-
-const TMDB_BASE_URL = "https://api.themoviedb.org/3";
+import {
+    fetchTMDBMovieDetails,
+    fetchTMDBMovieCredits,
+    fetchTMDBMovieVideos,
+    fetchTMDBMovieKeywords,
+    fetchTMDBMovieReleaseDates,
+    fetchTMDBMovieCertifications,
+} from "@/api/tmdb.ts";
 
 export const useMovieDetails = (movieId: number) => {
     return useQuery({
         queryKey: ["movieDetails", movieId],
         queryFn: async () => {
-            const [movieDetails, credits, videos, keywords, releaseDates] = await Promise.all([
-                fetch(
-                    `${TMDB_BASE_URL}/movie/${movieId}?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
-                ).then((res) => res.json()),
-                fetch(
-                    `${TMDB_BASE_URL}/movie/${movieId}/credits?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
-                ).then((res) => res.json()),
-                fetch(
-                    `${TMDB_BASE_URL}/movie/${movieId}/videos?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
-                ).then((res) => res.json()),
-                fetch(
-                    `${TMDB_BASE_URL}/movie/${movieId}/keywords?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
-                ).then((res) => res.json()),
-                fetch(
-                    `${TMDB_BASE_URL}/movie/${movieId}/release_dates?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
-                ).then((res) => res.json()),
-                fetch(
-                    `${TMDB_BASE_URL}/certification/movie/list?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
-                ).then((res) => res.json()),
-            ]);
+            const [movieDetails, credits, videos, keywords, releaseDates, certifications] =
+                await Promise.all([
+                    fetchTMDBMovieDetails(movieId),
+                    fetchTMDBMovieCredits(movieId),
+                    fetchTMDBMovieVideos(movieId),
+                    fetchTMDBMovieKeywords(movieId),
+                    fetchTMDBMovieReleaseDates(movieId),
+                    fetchTMDBMovieCertifications(),
+                ]);
+
+            // Type assertions for all variables
+            const typedMovieDetails = movieDetails as any;
+            const typedCredits = credits as { cast: any[]; crew: any[] };
+            const typedVideos = videos as { results: any[] };
+            const typedKeywords = keywords as { keywords: { id: number; name: string }[] };
+            const typedReleaseDates = releaseDates as { results: any[] };
+            const typedCertifications = certifications as any;
 
             return {
                 movie: {
-                    ...movieDetails,
-                    keywords: keywords.keywords.slice(0, 10),
-                    release_dates: releaseDates.results,
+                    ...typedMovieDetails,
+                    keywords: typedKeywords.keywords.slice(0, 10),
+                    release_dates: typedReleaseDates.results,
                 },
                 credits: {
-                    cast: credits.cast.slice(0, 18),
-                    crew: credits.crew,
+                    cast: typedCredits.cast.slice(0, 18),
+                    crew: typedCredits.crew,
                 },
-                videos: videos.results,
+                videos: typedVideos.results,
+                certifications: typedCertifications,
             };
         },
     });

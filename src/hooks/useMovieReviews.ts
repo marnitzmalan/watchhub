@@ -1,16 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
-
-const TMDB_BASE_URL = "https://api.themoviedb.org/3";
+import { fetchTMDBMovieReviews } from "@/api/tmdb";
+import { ApiError, ApiErrorType } from "@/api/apiErrors.ts";
 
 export const useMovieReviews = (movieId: number) => {
     return useQuery({
         queryKey: ["movieReviews", movieId],
         queryFn: async () => {
-            const response = await fetch(
-                `${TMDB_BASE_URL}/movie/${movieId}/reviews?api_key=${import.meta.env.VITE_TMDB_API_KEY}&language=en-US&page=1`
-            );
-            const data = await response.json();
-            return data.results.slice(0, 3); // Return only the first 3 reviews
+            const data = await fetchTMDBMovieReviews(movieId);
+            if (
+                typeof data === "object" &&
+                data !== null &&
+                "results" in data &&
+                Array.isArray(data.results)
+            ) {
+                return data.results.slice(0, 3); // Return only the first 3 reviews
+            }
+            throw new ApiError(500, "Unexpected data structure", ApiErrorType.SERVER_ERROR);
         },
     });
 };
