@@ -1,14 +1,27 @@
 import React, { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
-// import { useFavourite } from "@/hooks/useFavourite";
-// import { useWatched } from "@/hooks/useWatched";
-// import GridLayout from "@/components/GridLayout.tsx";
-// Mapping function for IFavourite to IMovie
+import { useFavourite } from "@/hooks/useFavourite";
+import { useWatched } from "@/hooks/useWatched";
+import GridLayout from "@/components/GridLayout.tsx";
+
+const mapFavouriteToMovie = (favourite: IFavourite): IMovie => ({
+    id: favourite.movie_id,
+    title: favourite.title,
+    poster_path: favourite.poster_path,
+    // Add other necessary fields from IMovie
+});
+
+const mapWatchedToMovie = (watched: IWatched): IMovie => ({
+    id: watched.movie_id,
+    title: watched.title,
+    poster_path: watched.poster_path,
+    // Add other necessary fields from IMovie
+});
 
 const ListPage: React.FC = () => {
     const { isAuthenticated } = useAuth();
-    // const { favourite, toggleFavourite, isFavourite } = useFavourite();
-    // const { watched, toggleWatched, isWatched } = useWatched();
+    const { favourite, toggleFavourite, isFavourite } = useFavourite();
+    const { watched, toggleWatched, isWatched } = useWatched();
     const [activeTab, setActiveTab] = useState<"favorites" | "watched">("favorites");
 
     if (!isAuthenticated) {
@@ -41,20 +54,22 @@ const ListPage: React.FC = () => {
                     Watched
                 </button>
             </div>
-            {/*{activeTab === "favorites" && (*/}
-            {/*    <GridLayout*/}
-            {/*        movies={(favourite ?? []).map(mapFavouriteToMovie)}*/}
-            {/*        onToggleFavourite={toggleFavourite}*/}
-            {/*        isFavourite={isFavourite}*/}
-            {/*    />*/}
-            {/*)}*/}
-            {/*{activeTab === "watched" && (*/}
-            {/*    <GridLayout*/}
-            {/*        movies={(watched ?? []).map(mapWatchedToMovie)}*/}
-            {/*        onToggleFavourite={toggleWatched}*/}
-            {/*        isFavourite={isWatched}*/}
-            {/*    />*/}
-            {/*)}*/}
+            {activeTab === "favorites" && (
+                <GridLayout
+                    movies={(favourite ?? []).map(mapFavouriteToMovie)}
+                    onToggleFavourite={toggleFavourite}
+                    isFavourite={isFavourite}
+                    listType="favorites"
+                />
+            )}
+            {activeTab === "watched" && (
+                <GridLayout
+                    movies={(watched ?? []).map(mapWatchedToMovie)}
+                    onToggleWatched={toggleWatched}
+                    isWatched={isWatched}
+                    listType="watched"
+                />
+            )}
         </div>
     );
 };
