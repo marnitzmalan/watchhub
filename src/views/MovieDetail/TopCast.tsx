@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdArrowForward } from "react-icons/md";
 
 interface Actor {
@@ -15,6 +15,12 @@ interface TopCastProps {
 }
 
 const TopCast: React.FC<TopCastProps> = ({ cast, movieId }) => {
+    const navigate = useNavigate();
+
+    const handleViewMoreClick = () => {
+        navigate(`/movie/${movieId}/credits`, { state: { movieId } });
+    };
+
     return (
         <div className="mt-8">
             <h2 className="text-2xl font-bold mb-4">Top Billed Cast</h2>
@@ -36,7 +42,9 @@ const TopCast: React.FC<TopCastProps> = ({ cast, movieId }) => {
                                         </div>
                                     )}
                                     <div className="p-2">
-                                        <p className="font-semibold text-sm truncate">{actor.name}</p>
+                                        <p className="font-semibold text-sm truncate">
+                                            {actor.name}
+                                        </p>
                                         <p className="text-xs text-gray-600 truncate">
                                             {actor.character}
                                         </p>
@@ -46,15 +54,15 @@ const TopCast: React.FC<TopCastProps> = ({ cast, movieId }) => {
                         </div>
                     ))}
                     <div className="flex-shrink-0 w-40 flex items-center pl-4">
-                        <Link
-                            to={`/movie/${movieId}/cast`}
+                        <button
+                            onClick={handleViewMoreClick}
                             className="text-blue-600 hover:text-blue-800 transition-colors duration-200 flex flex-col items-center"
                         >
                             <span className="text-3xl mb-2">
                                 <MdArrowForward />
                             </span>
                             <span className="text-sm font-semibold">View More</span>
-                        </Link>
+                        </button>
                     </div>
                 </div>
                 <div className="absolute top-0 right-0 bottom-0 w-24 pointer-events-none bg-gradient-to-l from-white to-transparent"></div>

@@ -37,7 +37,7 @@ const MovieDetailPage: React.FC = () => {
 
     const director = credits.crew.find((person) => person.job === "Director");
     const writers = credits.crew.filter((person) => ["Screenplay", "Writer"].includes(person.job));
-    const topCast = credits.cast.slice(0, 6);
+    const topCast = credits.cast.slice(0, 18);
     const trailer = videos.find((video) => video.type === "Trailer");
 
     const displayRating = movie.age_rating?.rating || "NR";
@@ -80,12 +80,12 @@ const MovieDetailPage: React.FC = () => {
                     {/* Left Side */}
                     <div className="md:w-2/3 md:pr-8">
                         <div className="mt-8">
-                            <h2 className="text-2xl font-bold mb-4">More Like This</h2>
-                            <RecommendedMovies movieId={movie.id} />
+                            <TopCast cast={topCast} movieId={movieId} />
                         </div>
 
                         <div className="mt-8">
-                            <TopCast cast={topCast} movieId={0} />
+                            <h2 className="text-2xl font-bold mb-4">More Like This</h2>
+                            <RecommendedMovies movieId={movie.id} />
                         </div>
 
                         <div className="mt-8">

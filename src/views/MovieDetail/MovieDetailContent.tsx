@@ -95,7 +95,17 @@ const MovieDetailContent: React.FC<MovieDetailContentProps> = ({
                                         onClick={openTrailerModal}
                                         icon={<MdPlayArrow size={20} />}
                                         title="Watch Trailer"
-                                        className="py-2 px-4 border text-white text-base rounded-full font-bold hover:bg-white hover:bg-opacity-20"
+                                        className="py-2 px-4 border text-base
+                                        rounded-full font-bold
+                                        transition-colors duration-200
+                                        border-gray-800 text-gray-800
+                                        hover:bg-gray-800 hover:text-white
+                                        dark:border-white dark:text-white
+                                        dark:hover:bg-white dark:hover:text-gray-800
+                                        md:border-gray-100 md:text-gray-100
+                                        md:hover:bg-gray-800 md:hover:text-white
+                                        md:dark:border-gray-800 md:dark:text-gray-800
+                                        md:dark:hover:bg-gray-800 md:dark:hover:text-white"
                                     >
                                         Trailer
                                     </AppButton>
@@ -114,8 +124,7 @@ const MovieDetailContent: React.FC<MovieDetailContentProps> = ({
                                 >
                                     <span
                                         className={`items-center ${isFavourite ? "text-purple-500" : ""}`}
-                                    >
-                                    </span>
+                                    ></span>
                                 </AppButton>
                                 <AppButton
                                     onClick={handleToggleWatched}
@@ -131,8 +140,7 @@ const MovieDetailContent: React.FC<MovieDetailContentProps> = ({
                                 >
                                     <span
                                         className={`items-center ${isWatched ? "text-green-500" : ""}`}
-                                    >
-                                    </span>
+                                    ></span>
                                 </AppButton>
                             </div>
                         )}
@@ -165,12 +173,10 @@ const MovieDetailContent: React.FC<MovieDetailContentProps> = ({
                                 </span>
                             </div>
                         </div>
-
                         <div className="flex items-center space-x-4">
                             <span className="bg-yellow-400 text-black font-bold rounded px-4 py-2 text-base">
                                 IMDb {movie.vote_average.toFixed(1)}
                             </span>
-
                         </div>
                     </div>
                 </div>
