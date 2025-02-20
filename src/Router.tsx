@@ -2,8 +2,10 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import HomePage from "./views/HomePage";
 import PopularMoviesPage from "@/views/Movies/PopularMoviesPage.tsx";
-import MovieDetailPage from "./views/MovieDetailPage";
+import MovieDetailPage from "./views/Movies/MovieDetailPage.tsx";
 import MovieCreditsPage from "./views/MovieCreditsPage";
+import PopularSeriesPage from "./views/Series/PopularSeriesPage";
+import SeriesDetailPage from "./views/Series/SeriesDetailPage.tsx";
 import PersonDetailPage from "./views/PersonDetailPage.tsx";
 import AdvanceSearchPage from "./views/AdvanceSearchPage.tsx";
 import ListsPage from "./views/ListsPage";
@@ -22,6 +24,8 @@ const router = createBrowserRouter([
             { path: "movies/popular", element: <PopularMoviesPage /> },
             { path: "movie/:id", element: <MovieDetailPage /> },
             { path: "movie/:id/credits", element: <MovieCreditsPage /> },
+            { path: "series/popular", element: <PopularSeriesPage /> },
+            { path: "series/:id", element: <SeriesDetailPage /> },
             { path: "person/:id", element: <PersonDetailPage /> },
             { path: "search", element: <AdvanceSearchPage /> },
             { path: "lists", element: <ListsPage /> },

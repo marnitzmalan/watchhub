@@ -1,15 +1,17 @@
+import { lazy, Suspense } from "react";
 import { usePopularMovies } from "@/hooks/usePopularMovies.ts";
 import { useAuth } from "@/hooks/useAuth";
 import HeroBanner from "@/views/Home/HeroBanner";
 import FeaturedToday from "@/views/Home/FeaturedToday";
-import TopTenMovies from "@/views/Home/TopTenMovies";
-import PopularCelebrities from "@/views/Home/PopularCelebrities";
 import AppHeader from "@/components/ui/AppHeader.tsx";
+
+// Use Vite's dynamic import syntax
+const LazyTopTenMovies = lazy(() => import("@/views/Home/TopTenMovies"));
+const LazyPopularCelebrities = lazy(() => import("@/views/Home/PopularCelebrities"));
 
 const HomePage = () => {
     const { isLoading, error } = usePopularMovies();
     const { user } = useAuth();
-
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {(error as Error).message}</div>;
 
@@ -25,12 +27,16 @@ const HomePage = () => {
 
                 <section className="mb-12">
                     <AppHeader title="Top 10 on IMDb This Week" />
-                    <TopTenMovies />
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <LazyTopTenMovies />
+                    </Suspense>
                 </section>
 
                 <section className="mb-12">
                     <AppHeader title="Most Popular Celebrities" />
-                    <PopularCelebrities />
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <LazyPopularCelebrities />
+                    </Suspense>
                 </section>
 
                 {/* From Your Favourite Section */}

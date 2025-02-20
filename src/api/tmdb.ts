@@ -4,6 +4,50 @@ import { IMovie } from "@/types/Movie.ts";
 
 const TMDB_API_BASE_URL = "https://api.themoviedb.org/3";
 const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+const CACHE_DURATION = 60 * 60 * 1000;
+
+const getFromCache = (key: string) => {
+    const cached = localStorage.getItem(key);
+    if (cached) {
+        const { data, timestamp } = JSON.parse(cached);
+        if (Date.now() - timestamp < CACHE_DURATION) {
+            return data;
+        }
+    }
+    return null;
+};
+
+const setToCache = (key: string, data: any) => {
+    localStorage.setItem(
+        key,
+        JSON.stringify({
+            data,
+            timestamp: Date.now(),
+        })
+    );
+};
+
+const transformImageUrls = (data: any) => {
+    if (typeof data !== "object" || data === null) return data;
+
+    if (Array.isArray(data)) {
+        return data.map(transformImageUrls);
+    }
+
+    const transformed = { ...data };
+    for (const [key, value] of Object.entries(transformed)) {
+        if (typeof value === "string" && (key.includes("path") || key.includes("url"))) {
+            if (value.startsWith("/")) {
+                transformed[key] = `https://image.tmdb.org/t/p/w500${value}`;
+                transformed[`${key}_original`] = `https://image.tmdb.org/t/p/original${value}`;
+                transformed[`${key}_low`] = `https://image.tmdb.org/t/p/w92${value}`;
+            }
+        } else if (typeof value === "object" && value !== null) {
+            transformed[key] = transformImageUrls(value);
+        }
+    }
+    return transformed;
+};
 
 /**
  * Fetches data from The Movie Database (TMDB) API.
@@ -27,11 +71,20 @@ export const fetchFromTMDB = async <T>(
         });
     }
 
+    const cacheKey = url.toString();
+    const cachedData = getFromCache(cacheKey);
+    if (cachedData) {
+        return cachedData as T;
+    }
+
     const response = await fetch(url.toString());
     if (!response.ok) {
         throw createApiError(response.status, `TMDB API error: ${response.statusText}`);
     }
-    return response.json();
+    const data = await response.json();
+    const transformedData = transformImageUrls(data);
+    setToCache(cacheKey, transformedData);
+    return transformedData;
 };
 
 /**
@@ -209,4 +262,36 @@ export const fetchTMDBAdvancedSearchMovies = async (
 
     const data = await fetchFromTMDB<{ results: IMovie[] }>("/discover/movie", params);
     return data.results;
+};
+
+/**
+ * Fetches popular TV series from TMDB.
+ *
+ * @param page - Page number (default: 1).
+ * @returns Promise resolving to popular TV series.
+ */
+export const fetchTMDBPopularSeries = async (page = 1) => {
+    return fetchFromTMDB("/tv/popular", { page });
+};
+
+/**
+ * Fetches TV series details from TMDB.
+ *
+ * @param seriesId - TMDB TV series ID.
+ * @returns Promise resolving to TV series details.
+ */
+export const fetchTMDBSeriesDetails = async (seriesId: number) => {
+    return fetchFromTMDB(`/tv/${seriesId}`);
+};
+
+export const fetchSeriesDetails = async (seriesId: number) => {
+    try {
+        const [series] = await Promise.all([fetchFromTMDB(`/tv/${seriesId}`)]);
+        return {
+            series,
+        };
+    } catch (error) {
+        console.error("Error fetching series details:", error);
+        throw new Error("Failed to fetch series details");
+    }
 };

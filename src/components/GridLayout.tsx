@@ -13,13 +13,13 @@ interface GridLayoutProps {
 }
 
 const GridLayout: React.FC<GridLayoutProps> = ({
-                                                   movies,
-                                                   onToggleFavourite,
-                                                   onToggleWatched,
-                                                   isFavourite,
-                                                   isWatched,
-                                                   listType
-                                               }) => {
+    movies,
+    onToggleFavourite,
+    onToggleWatched,
+    isFavourite,
+    isWatched,
+    listType,
+}) => {
     if (!movies || movies.length === 0) {
         return <div>No movies available.</div>;
     }
@@ -35,10 +35,7 @@ const GridLayout: React.FC<GridLayoutProps> = ({
     return (
         <div className="space-y-4">
             {movies.map((movie) => (
-                <div
-                    key={movie.id}
-                    className="flex bg-white rounded-lg shadow-md overflow-hidden"
-                >
+                <div key={movie.id} className="flex bg-white rounded-lg shadow-md overflow-hidden">
                     <img
                         className="w-16 h-24 object-cover"
                         src={
@@ -54,12 +51,8 @@ const GridLayout: React.FC<GridLayoutProps> = ({
                     />
                     <div className="flex-grow p-4 flex justify-between items-center">
                         <div>
-                            <h3 className="text-sm font-medium text-gray-900">
-                                {movie.title}
-                            </h3>
-                            <p className="text-xs text-gray-500 mt-1">
-                                {movie.release_date}
-                            </p>
+                            <h3 className="text-sm font-medium text-gray-900">{movie.title}</h3>
+                            <p className="text-xs text-gray-500 mt-1">{movie.release_date}</p>
                         </div>
                         <div className="flex space-x-2">
                             <Link

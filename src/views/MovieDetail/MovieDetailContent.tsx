@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import { MdOutlineBookmark, MdRemoveRedEye, MdPlayArrow } from "react-icons/md";
-import ProgressiveImage from "@/components/ProgressiveImage";
+import LazyImage from "@/components/LazyImage";
 import { IMovie } from "@/types/Movie";
 import { IGenre } from "@/types/Genre";
-import AppButton from "@/components/ui/AppButton.tsx";
+import AppButton from "@/components/ui/AppButton";
 import TrailerModal from "@/components/TrailerModal";
 
 interface MovieDetailContentProps {
     movie: IMovie;
     backdropPath: string | null;
+    lowQualityBackdropPath: string | null;
     posterSrc: string | null;
     lowQualityPosterSrc: string | null;
-    displayRating: string;
-    countryCode: string;
-    ratingDescription: string;
     director: { name: string } | undefined;
     writers: { name: string }[];
     isAuthenticated: boolean;
@@ -21,13 +19,13 @@ interface MovieDetailContentProps {
     handleToggleFavourite: () => void;
     isWatched: boolean;
     handleToggleWatched: () => void;
-    handleToggleWatchlist: () => void;
     trailerKey?: string;
 }
 
 const MovieDetailContent: React.FC<MovieDetailContentProps> = ({
     movie,
     backdropPath,
+    lowQualityBackdropPath,
     posterSrc,
     lowQualityPosterSrc,
     director,
@@ -46,10 +44,13 @@ const MovieDetailContent: React.FC<MovieDetailContentProps> = ({
 
     return (
         <div className="relative">
-            <div
-                className="w-full h-[225px] sm:h-[450px] md:h-[625px] bg-cover bg-top relative"
-                style={{ backgroundImage: `url(${backdropPath})` }}
-            >
+            <div className="w-full h-[225px] sm:h-[450px] md:h-[625px] bg-cover bg-top relative">
+                <LazyImage
+                    src={backdropPath ?? ""}
+                    placeholderSrc={lowQualityBackdropPath ?? ""}
+                    alt={movie.title}
+                    className="w-full h-full object-cover"
+                />
                 <div className="absolute inset-0 bg-black bg-opacity-60 md:bg-opacity-85"></div>
             </div>
 
@@ -57,16 +58,12 @@ const MovieDetailContent: React.FC<MovieDetailContentProps> = ({
                 <div className="flex flex-col items-center md:flex-row gap-6 md:gap-8">
                     <div className="w-full sm:w-[250px] md:w-[350px] flex justify-center md:justify-start">
                         <div className="aspect-[2/3] w-28 sm:w-full">
-                            {posterSrc ? (
-                                <ProgressiveImage
-                                    lowQualitySrc={lowQualityPosterSrc ?? ""}
-                                    highQualitySrc={posterSrc}
-                                    alt={movie.title}
-                                    className="w-28 sm:w-full object-cover rounded-lg shadow-md"
-                                />
-                            ) : (
-                                <div className="w-28 sm:w-full bg-gray-200 rounded-lg shadow-lg animate-pulse"></div>
-                            )}
+                            <LazyImage
+                                src={posterSrc ?? ""}
+                                placeholderSrc={lowQualityPosterSrc ?? ""}
+                                alt={movie.title}
+                                className="w-28 sm:w-full object-cover rounded-lg shadow-md"
+                            />
                         </div>
                     </div>
 
@@ -88,14 +85,13 @@ const MovieDetailContent: React.FC<MovieDetailContentProps> = ({
                             <span>{movie.runtime} min</span>
                         </div>
 
-                        {isAuthenticated && (
-                            <div className="mb-6 flex flex-col sm:flex-row gap-2">
-                                {trailerKey && (
-                                    <AppButton
-                                        onClick={openTrailerModal}
-                                        icon={<MdPlayArrow size={20} />}
-                                        title="Watch Trailer"
-                                        className="py-2 px-4 border text-base
+                        <div className="mb-4">
+                            {trailerKey && (
+                                <AppButton
+                                    onClick={openTrailerModal}
+                                    icon={<MdPlayArrow size={20} />}
+                                    title="Watch Trailer"
+                                    className="py-2 px-4 border text-base
                                         rounded-full font-bold
                                         transition-colors duration-200
                                         border-gray-800 text-gray-800
@@ -106,10 +102,14 @@ const MovieDetailContent: React.FC<MovieDetailContentProps> = ({
                                         md:hover:bg-gray-800 md:hover:text-white
                                         md:dark:border-gray-800 md:dark:text-gray-800
                                         md:dark:hover:bg-gray-800 md:dark:hover:text-white"
-                                    >
-                                        Trailer
-                                    </AppButton>
-                                )}
+                                >
+                                    Trailer
+                                </AppButton>
+                            )}
+                        </div>
+
+                        {isAuthenticated && (
+                            <div className="mb-6 flex flex-col sm:flex-row gap-2">
                                 <AppButton
                                     onClick={handleToggleFavourite}
                                     icon={
